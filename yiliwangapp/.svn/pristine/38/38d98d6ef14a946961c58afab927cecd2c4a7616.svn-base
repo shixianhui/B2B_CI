@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的消息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">我的消息</h1>
+		</header>
+		<div id="refreshContainer" class="mui-content no-bg mui-scroll-wrapper">
+			<ul id="content" class="mui-table-view mui-table-view-striped mui-table-view-condensed m-notice mui-scroll">
+
+			</ul>
+		</div>
+		<script id="tpl_content" type="text/html">
+			<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+				<li id="item_id_<%=data[i].id%>" class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a item_id="<%=data[i].id%>" class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-table mui-slider-handle">
+						<div class="mui-table-cell mui-col-xs-10">
+							<h4 class="mui-ellipsis"><font color="#fbaa53"><i class="round" style="background:#fbaa53"></i><%=data[i].message_type%>
+		                            </font><%=data[i].title%></h4>
+							<h5><%=data[i].add_time%></h5>
+							<p class="mui-h6 ">
+								<%=data[i].content%>
+							</p>
+						</div>
+					</div>
+				</li>
+			<%}%>
+		</script>
+		<input type="hidden" id="max_id" value="0" />
+		<input type="hidden" id="since_id" value="0" />
+		<input type="hidden" id="per_page" value="20" />
+		<input type="hidden" id="page" value="1" />
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/a_link.js" type="text/javascript" charset="UTF-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.lazyload.min.js"></script>
+<script src="js/mui.lazyload.img.min.js"></script>
+<script type="text/javascript">
+
+	window.addEventListener('page_init', function(e) {
+        init();
+    });
+
+	// mui.init({
+	// 	pullRefresh: {
+	// 		container: "#refreshContainer",
+	// 		down: {
+	// 			callback: pulldownRefresh
+	// 		},
+	// 		up: {
+	// 			contentrefresh: "正在加载...",
+	// 			callback: pullupRefresh
+	// 		}
+	// 	}
+	// });
+
+	// function pulldownRefresh() {
+	// 	var since_id = $('#since_id').val();
+	// 	get_score_list('down', 0, since_id, 1000, 1);
+	// }
+
+	// function pullupRefresh() {
+	// 	var max_id = $('#max_id').val();
+	// 	var per_page = $('#per_page').val();
+	// 	var page = $('#page').val();
+	// 	get_score_list('up', max_id, 0, per_page, page);
+	// }
+
+	// window.addEventListener('go_to_parameter', function(e) {
+	// 	var per_page = $('#per_page').val();
+	// 	get_message_list('0', '0', '0', per_page, 1);
+	// });
+
+	// 获取消息
+	function get_message_list(type, max_id, since_id, per_page, page) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_message_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data:{},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					// var html = template('tpl_content', res);
+					// //下拉刷新－down
+					// if(type == 'down') {
+					// 	$('#since_id').val(res.data.max_id);
+					// 	$("#content li[id]:first").before(html);
+					// 	mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+					// }
+					// //上拉加载-up
+					// else if(type == 'up') {
+					// 	$("#content li[id]:last").after(html);
+					// 	if(res.data.is_next_page) {
+					// 		$('#page').val(parseInt(parseInt(page) + 1));
+					// 		mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+					// 	} else {
+					// 		$('#page').val(page);
+					// 		mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+					// 	}
+					// }
+					// //第一次
+					// else {
+					// 	$('#page').val(parseInt(parseInt(page) + 1));
+					// 	$('#max_id').val(res.data.max_id);
+					// 	$('#since_id').val(res.data.max_id);
+					// 	$('#content').html(html);
+
+					// 	if(res.data.is_next_page == 0) {
+					// 		mui('#refreshContainer').pullRefresh().enablePullupToRefresh(true);
+					// 	} else {
+					// 		mui('#refreshContainer').pullRefresh().enablePullupToRefresh(false);
+					// 	}
+					// 	if(!res.data.item_list.length) {
+					// 		var no_data_html = '<div class="parent_no_data">';
+					// 		no_data_html += '<div id="no_data">暂无数据，下拉刷新</div>';
+					// 		no_data_html += '</div>';
+					// 		$('#refreshContainer').html(no_data_html);
+					// 		document.getElementById('no_data').addEventListener('tap', function() {
+					// 			get_message_list('0', '0', '0', per_page, 1);
+					// 		});
+					// 	}
+					// }
+
+					// mui(document).imageLazyload({
+					// 	placeholder: 'images/ad.png'
+					// });
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 删除消息
+	function delete_message(id) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_message/' + id + '?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("删除成功");
+					get_message_list();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

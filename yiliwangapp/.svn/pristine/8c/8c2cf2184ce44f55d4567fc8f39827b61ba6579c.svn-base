@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<style type="text/css">
+			body{background:#fff;}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">蚁立网</h1>
+		</header>
+		<div class="mui-content" style="background:#fff;">
+			<div style="height:calc(100vh - 104px);overflow:hidden;">
+				<img src="img/dpsq_img.png" style="width:100%;"/>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>

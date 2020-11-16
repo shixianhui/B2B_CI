@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			.sub span{color:#c81624;}
+			.sub2{background:#f3f3f3;padding:2px 3px;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">评论和@</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper groups_view">
+			<div id="scroll" class="mui-scroll">
+				<div class="discuss_list">
+					<ul id="comment_list" class="comment_box">
+					</ul>
+					<script id="tpl_comment_list" type="text/html">
+						<%for(var i=0;i<data.item_list.length;i++){%>
+							<li item_id="<%=data.item_list[i].id%>" class="mui-clearfix">
+								<img src="<%=data.item_list[i].user_path%>"/>
+								<div class="reply">
+									<div class="user_info">
+										<p class="name">
+											<%=data.item_list[i].user_nickname%>
+											<!--<span><i class="iconfont-supplement icon-huiyuandengji"></i>LV.8</span>-->
+										</p>
+										<p class="times"><%=data.item_list[i].add_time_format%></p>
+									</div>
+									<div class="sub mui-col-xs-12">
+										回复 <span>@<%=data.item_list[i].to_user_nickname%>：</span>
+										<%if(data.item_list[i].content!=''){%>
+											<%=data.item_list[i].content%>
+										<%}else{%>
+											该信息已删除
+										<%}%>
+									</div>
+									<div class="sub2">
+										<%if(data.item_list[i].type==1){%>
+										<p style="display:inline-block;" types="<%=data.item_list[i].item_type%>" item_id="<%=data.item_list[i].item_id%>">
+											
+												<%if(data.item_list[i].item_type==0){%>
+													回复我的拼团:
+												<%}else{%>
+													回复我的心得:
+												<%}%>
+										</p>
+										<%}else{%>
+										<p style="display:inline-block;" types="<%=data.item_list[i].item_type%>" item_id="<%=data.item_list[i].item_id%>">
+												<%if(data.item_list[i].reply_type==0){%>
+													回复我的评论:
+												<%}else{%>
+													回复我的评论:回复 @<%=data.item_list[i].prev_to_user_nickname%>
+												<%}%>
+										</p>
+										<%}%>
+										<%if(data.item_list[i].item_content!=''){%>
+											<%=data.item_list[i].item_content%>
+										<%}else{%>
+											该信息已删除
+										<%}%>
+									</div>
+								</div>
+							</li>
+						<%}%>
+					</script>
+					
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	window.onload = function() {
+		data_init();
+	};
+	document.addEventListener('page_init',function() {
+		data_init();
+	});
+	function data_init() {
+		page=1;
+		get_my_comment_list('0');
+	}
+	
+	mui('#content_list').on('tap', 'li', function() {
+		var product_id = this.getAttribute("item_id");
+		var href = this.getAttribute("href");
+		go_to_view(href, {
+			item_id : product_id
+		});
+	});
+	
+	/*拼团*/
+	var page=1;
+	
+	 
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var self = mui('.mui-scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		get_my_comment_list('up');
+	}
+	
+	// 消息
+	function get_my_comment_list(type) {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_my_comment_list/20/'+page+'?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_comment_list', res);
+					console.log(JSON.stringify(res))
+					if (type == 'up') {
+						var size = $("#comment_list li[item_id]").size();
+						if ((size) > 0) {
+							$("#comment_list li[item_id]:last").after(html);
+							
+						} else {
+							$('#comment_list').html(html);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#comment_list').html(no_data_html);
+                        }else{
+                        	
+							$('#comment_list').html(html);
+                        }
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+</script>

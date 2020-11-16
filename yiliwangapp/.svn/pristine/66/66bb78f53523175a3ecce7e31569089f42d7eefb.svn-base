@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+	</head>
+		<style>
+			.mui-popover {
+				min-height: 270px;
+				width:125px;
+			}
+			.mui-table-view-cell:after{
+				left:0;
+			}
+			.mui-table-view-cell{
+				text-align: center;
+			}
+		</style>
+	<body>
+		<header id="menu_bar" class="mui-bar mui-bar-nav top_bar type">
+			<a class="mui-action-back mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></a>
+			<h1 class="mui-title topbar">
+		    	<a href="search.html">
+		    		<div class="mui-input-row search_box">
+		    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>
+		    			搜索本地商品
+		    		</div>
+		    	</a>
+	    	</h1>
+			<a class="mui-pull-right" href="#topPopover"><span class="mui-icon mui-icon-more"></span><i class="circle"></i></a>
+		</header>
+		<nav class="mui-bar mui-bar-tab bottom_menu">
+			<ul>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a href="market-view.html">
+						商场详情
+					</a>
+				</li>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a href="#middlePopover">
+						<i class="mui-icon mui-icon-bars"></i> 品牌分类
+					</a>
+				</li>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a href="">
+						<i class="iconfont icon-kefuxitong"></i> 联系
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="mui-content">
+			<div class="shop_bg">
+				<div class="shop_info mui-clearfix">
+					<h1 class="mui-pull-left">
+						<a href=""><img src="img/shop_logo.jpg" /></a>
+					</h1>
+					<span class="mui-pull-left">国际家居大卖场</span>
+					<a href="" class="focus mui-pull-right"><i class="iconfont icon-guanzhu"></i>关注</a>
+				</div>
+			</div>
+			<div class="shop_type">
+				<ul>
+					<li class="current">
+						<a href="javascript:;">
+							<i class="iconfont icon-dianpu"></i> 商场首页
+						</a>
+					</li>
+					<li>
+						<a href="javascript:;">
+							<i class="iconfont">123</i> 全部商品
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="tab_show" style="display:block;">
+				<div class="ticket_box">
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height:100%;">
+						<div class="mui-scroll" style="height:100%;">
+							<div class="mui-control-item" style="padding:0;">
+								<div class="ticket_bg">
+									<p>优惠券</p>
+									<p>￥满3000减100</p>
+								</div>
+							</div>
+							<div class="mui-control-item" style="padding:0;">
+								<div class="ticket_bg">
+									<p>优惠券</p>
+									<p>￥满3000减100</p>
+								</div>
+							</div>
+							<div class="mui-control-item" style="padding:0;">
+								<div class="ticket_bg">
+									<p>优惠券</p>
+									<p>￥满3000减100</p>
+								</div>
+							</div>
+							<div class="mui-control-item" style="padding:0;">
+								<div class="ticket_bg">
+									<p>优惠券</p>
+									<p>￥满3000减100</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="slide_show">
+					<div id="slider" class="mui-slider">
+						<div class="mui-slider-group mui-slider-loop">
+							<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+							<!-- 第一张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+							<!-- 第二张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+							<!-- 第三张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+							<!-- 第四张 -->
+							<div class="mui-slider-item">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+							<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+							<div class="mui-slider-item mui-slider-item-duplicate">
+								<a href="#">
+									<img src="img/ticket_slide.jpg">
+								</a>
+							</div>
+						</div>
+						<div class="mui-slider-indicator">
+							<div class="mui-indicator mui-active"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+							<div class="mui-indicator"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="show_map">
+					<div class="map_title">
+						<h4>商场平面图</h4>
+					</div>
+					<div class="map">
+						<img src="img/show1.jpg"/>
+					</div>
+					<div class="map">
+						<img src="img/show1.jpg"/>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tab_show">
+				<div class="nav">
+					<ul class="nav_list mui-clearfix">
+						<li class="item">
+							<a href="#">综合<i class="triangle_d"></i></a>
+						</li>
+						<li class="item">
+							<a href="#">销量</a>
+						</li>
+						<li class="item">
+							<a href="#">价格<i class="triangle_d"></i><i class="triangle_u"></i></a>
+						</li>
+						<li class="item">
+							<a href="#">筛选<i class="mui-icon iconfont icon-shaixuan"></i></a>
+						</li>
+					</ul>
+				</div>
+				<div class="product_box">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="img/product1.jpg">
+								<div class="mui-media-body">
+									<h4 class="mui-ellipsis">kaimeng 皮床 时顶顶顶顶顶顶顶顶顶大大大尚榻榻米 储物软床皮床双人床 简约皮床婚床 312 </h4>
+									<span>销量 0件</span><span>林氏木业官方旗舰店</span>
+									<p>￥1650.00</p>
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="img/product1.jpg">
+								<div class="mui-media-body">
+									<h4 class="mui-ellipsis">kaimeng 皮床 时顶顶顶顶顶顶顶顶顶大大大尚榻榻米 储物软床皮床双人床 简约皮床婚床 312 </h4>
+									<span>销量 0件</span><span>林氏木业官方旗舰店</span>
+									<p>￥1650.00</p>
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="img/product1.jpg">
+								<div class="mui-media-body">
+									<h4 class="mui-ellipsis">kaimeng 皮床 时顶顶顶顶顶顶顶顶顶大大大尚榻榻米 储物软床皮床双人床 简约皮床婚床 312 </h4>
+									<span>销量 0件</span><span>林氏木业官方旗舰店</span>
+									<p>￥1650.00</p>
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<a href="javascript:;">
+								<img class="mui-media-object mui-pull-left" src="img/product1.jpg">
+								<div class="mui-media-body">
+									<h4 class="mui-ellipsis">kaimeng 皮床 时顶顶顶顶顶顶顶顶顶大大大尚榻榻米 储物软床皮床双人床 简约皮床婚床 312 </h4>
+									<span>销量 0件</span><span>林氏木业官方旗舰店</span>
+									<p>￥1650.00</p>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="middlePopover" class="mui-popover">
+					<div class="mui-popover-arrow"></div>
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>
+								<li class="mui-table-view-cell">
+									<a href="#">红星美凯龙</a>
+								</li>								
+							</ul>
+						</div>
+					</div>
+				</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init();
+		var shopType = document.querySelector('.shop_type');
+		var aLi = shopType.getElementsByTagName('li');
+		var tabShow = document.querySelectorAll('.tab_show');
+		for(var i = 0; i < aLi.length; i++) {
+			aLi[i].index = i;
+			aLi[i].addEventListener('tap', function() {
+				for(var i = 0; i < aLi.length; i++) {
+					aLi[i].className = '';
+					tabShow[i].style.display = 'none';
+				}
+				this.className = 'current';
+				tabShow[this.index].style.display = 'block';
+			})
+		}
+	</script>
+
+</html>

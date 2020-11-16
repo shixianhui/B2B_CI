@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="css/base.min.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css">
+    <link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+    <style type="text/css">
+    		.mui-content{top:0 !important;}
+            .m-order-tab a{position: relative;}
+            .m-order-tab a.mui-control-item i{color: #F0F0F0;position:absolute;top:2px;font-size:12px;background:#F02D8C;display:block;border-radius:100%;line-height:1em;padding:2px 4px;right:0px;}
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav my-order-head header">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的团预购</h1>
+        <!--<a id="message" href="javascript:;" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>-->
+    </header>
+	<div class="mui-content after-delivery-content mui-scroll-wrapper">
+		<div id="pullrefresh" class="mui-scroll">
+			<ul id="content" class="mui-table-view">
+				
+			</ul>
+		</div>
+	</div>
+	<script id="tpl_content" type="text/html">
+		<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+        <li id="list_item_<%=data[i].id%>" class="mui-table-view-cell">
+            <div class="box1">
+            	<h4 store_id="<%=data[i].store_id%>" class="mui-pull-left">
+            		<%=data[i].product_info.brand_name%>　拼团人数<span class="text-color">（<%=data[i].pintuan_people%>）</span>
+            	</h4>
+            	<h5 class="text-color mui-pull-right">
+            		<%=data[i].status_str%>
+            	</h5>
+            </div>
+            <div order_id="<%=data[i].id%>" class="box2">
+                <img src="<%=data[i].product_info.path_thumb%>" />
+                <div class="product_text">
+                    <h5>
+                		<p class="mui-ellipsis-2 tit"><%=data[i].product_info.title%></p>
+                		<span class="mui-pull-right">¥<%=data[i].product_info.pintuan_price%></span>
+                    </h5>
+                    <h6>
+                        <span>
+                        	原价：<s><%=data[i].product_info.market_price%></s>
+							定金：<%=data[i].deposit%>
+                        </span>
+                    	<em>x<%=data[i].product_info.buy_number%></em>
+                    </h6>
+                </div>
+            </div>
+            <div  class="box3">共<%=data[i].buy_number%>件商品　需付款：<p class="text-color">¥<%=(data[i].pintuan_price*1-data[i].deposit*1)%></p></div>
+           	<div  class="box4">
+    			<div class="mui-pull-left">
+        			<p>参团时间：<%=data[i].add_time_format%></p>
+        			<p>结束时间：<%=data[i].end_time_format%></p>
+    			</div>
+    			<%if (data[i].status == 1) {%>
+    				<button item_id="<%=data[i].id%>" class="mui-btn mui-btn-red mui-btn-outlined">进行中</button>
+            	<%} else if (data[i].status == 2) {%>
+            		<button item_id="<%=data[i].id%>" total="<%=data[i].total%>" prv_id="m-order-list.html" order_num="<%=data[i].order_num%>" btn_type="pay" type="button" class="mui-btn mui-btn-red mui-btn-outlined">去支付尾款</button>
+            	<%} else if (data[i].status == 3) {%>
+            		<button item_id="<%=data[i].id%>" total="<%=data[i].total%>" prv_id="m-order-list.html" order_num="<%=data[i].order_num%>" btn_type="pay" type="button" class="mui-btn mui-btn-red mui-btn-outlined">去支付</button>
+            	<%} else if (data[i].status == 4) {%>
+            		<button item_id="<%=data[i].id%>" btn_type="remindGoods" type="button"< class="mui-btn mui-btn-red mui-btn-outlined">参团成功/button>
+                <%} else if (data[i].status == 5) {%>
+            		<button item_id="<%=data[i].id%>" btn_type="confirmGoods" type="button" class="mui-btn mui-btn-red mui-btn-outlined">活动已结束</button>
+                <%} else if (data[i].status == 6) {%>
+                	<button item_id="<%=data[i].id%>" btn_type="remindGoods" type="button"< class="mui-btn mui-btn-red mui-btn-outlined">活动未成功/button>
+                <%}%>
+           	</div>
+        </li>
+        <%}%>
+    </script>
+	<input type="hidden" id="max_id" value="0" />
+	<input type="hidden" id="since_id" value="0" />
+	<input type="hidden" id="per_page" value="10" />
+	<input type="hidden" id="page" value="1" />
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var respone = new Object();
+	
+    window.addEventListener('page_init', function(e) {
+    	init();
+    });
+	window.onload=function(e) {
+    	init();
+    };
+	window.addEventListener('back', function(msg) {
+		init();
+	});
+	window.addEventListener('refresh_data', function() {
+		init();
+	});
+	window.addEventListener('pay_success_refrsh_list', function(e) {
+		init();
+	});
+	
+	function init() {
+	    	$('#max_id').val('0');
+	    	$('#since_id').val('0');
+	    	$('#page').val('1');
+	    	var per_page = $('#per_page').val();
+	    	get_my_ptkj_record_list(0, 0, 0, per_page, 1);
+    }
+	
+	// 点击事件
+    mui('#content').on('tap', 'button[item_id]', function() {
+    		var order_id = this.getAttribute("item_id");
+        var btn_type = this.getAttribute("btn_type");
+        if (btn_type == 'pay') { // 支付
+    		var total = this.getAttribute("total");
+    		var prv_id = this.getAttribute("prv_id");
+    		var order_num = this.getAttribute("order_num");
+        	go_to_view("cart-pay.html", {
+    			item_id: order_id,total:total,prv_id:prv_id,order_num:order_num
+    		});
+        } else{
+        	
+        }
+    });
+    
+	var self = mui('#pullrefresh').pullToRefresh({
+        down: {
+            callback: function() {
+                pulldownRefresh(this);
+            }
+        },
+        up: {
+            callback: function() {
+                pullupRefresh(this);
+            }
+        }
+  });
+
+    function pulldownRefresh(obj) {
+	    	get_my_ptkj_record_list('down', 0, 0, 20, 1);
+    }
+
+    function pullupRefresh(obj) {
+	    	var max_id = $('#max_id').val();
+	    	var per_page = $('#per_page').val();
+	    	var page = $('#page').val();
+	    	get_my_ptkj_record_list('up', max_id, 0, per_page, page);
+    }
+
+	function get_my_ptkj_record_list(type, max_id, since_id, per_page, page) {
+        if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_my_ptkj_record_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + ' ?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log(JSON.stringify(res.data))
+                    var html = template('tpl_content', res);
+                    if (type == 'down') {
+                    	respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+                        if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="mo_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content').html(no_data_html);
+                        }
+						self.endPullDownToRefresh();
+                    } else if (type == 'up') {
+                    		var size = $("#content li[id]").size();
+						if (size > 0) {
+							$("#content li[id]:last").after(html);
+						} else {
+							$('#content').html(html);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+						if(res.data.item_list.length > 0) {
+							respone = respone.concat(res.data.item_list);
+						}
+                    } else {
+                        respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+                        if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="mo_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content').html(no_data_html);
+                        }
+                    }
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			},
+			error: error
+ 		});
+	}
+
+//  // 订单详情
+//  mui('#content').on('tap', 'div[order_id]', function() {
+//      var order_id = this.getAttribute("order_id");
+//      var data_info = this.getAttribute("data_info");
+//      if (order_id) {
+//          go_to_view("m-order-view.html", {item_id : order_id});
+//      }
+//  });
+</script>

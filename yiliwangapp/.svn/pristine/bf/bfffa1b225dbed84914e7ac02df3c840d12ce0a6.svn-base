@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<style type="text/css">
+			.code{ position:absolute; right:15px; top:50%; transform:translateY(-50%); -webkit-transform:translateY(-50%); border-left:#e1e1e1 1px solid; padding-left:10px;}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">手机快速注册</h1>
+		</header>
+		<div class="mui-content no-bg mt30 speedyreg-content">
+			<div class="reg active">
+				<div class="mui-input-row phone-number">
+			        <label>手机号</label>
+			        <input id="phoneNum" type="text" placeholder="请输入手机号码">
+			    </div>
+			    <div class="mui-input-row verification-code">
+			        <input id="imageNum" type="text" placeholder="请输入图片验证码">
+			        <img id="yan" onclick="change()" src="" height="27" style="width:30%;margin-top: 10px;" />
+			        <!-- <label>adfe</label> -->
+			    </div>
+			    <div class="mui-checkbox mui-left">
+			      <label><span>同意</span>蚁立网用户注册协议</label>
+			      <input id="agree" name="checkbox1" type="checkbox" checked >
+			    </div>
+			    <div class="pdlr20"><button id="nextBtn" type="button" class="mui-btn mui-btn-red bg-color wrap-btn mui-btn-block">下一步</button></div>
+			    <div class="pdlr20 mt20">
+			    	<!--<a href="javascript:mui.toast('建设中...');" class="contact">联系客服</a>-->
+			    	<a href="javascript:void(0);" class="login mui-pull-right mui-action-back">已有账号？ <span style="color:#f01; border:1px solid #f01; border-radius:3px;padding:5px 10px;">登录</span></a></div>
+			</div>
+		    <div class="reg">
+		    	<div class="shouji-validate">
+			    	<h5 id="inputText"></h5>
+			    	<div class="mui-input-row">
+			    	    <input id="smscode" type="text" placeholder="请输入验证码">
+			    	    <input style="width: 35%;height: 100%;line-height:1em;text-align:right;" id="code" type="button" value="获取验证" />
+			    	</div>
+			    </div>
+			    <div class="pdlr20 pdt50"><button id="nextBtn2" type="button" class="mui-btn mui-btn-red bg-color wrap-btn mui-btn-block">下一步</button></div>
+		    </div>
+		    <div class="reg">
+		    	<div class="mui-input-row pwdtext mui-password">
+			        <label>设置密码</label>
+			        <input id="password" type="password" placeholder="由6-20位字母、数字结合" class="mui-input-password">
+			    </div>
+			    <div class="mui-input-row pwdtext mui-password">
+			        <label>确认密码</label>
+			        <input id="againPwd" type="password" placeholder="" class="mui-input-password">
+			    </div>
+			    <div class="pdlr20 pdt15"><button id="nextBtn3" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color wrap-btn">确认注册</button></div>
+		    </div>
+		</div>
+	</body>
+
+</html>
+
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+		beforeback:function () {
+			var self = plus.webview.getWebviewById('member.html');
+			mui.fire(self,'init_data',{id:'0'});
+			// var indexWebView = plus.webview.getLaunchWebview();
+			// mui.fire(indexWebView,'flush_cart_count');
+		}
+	});
+	
+	var push_cid = '';
+	mui.plusReady(function() {
+		var info = plus.push.getClientInfo();
+		if (info) {
+			push_cid = info.clientid;
+		}
+	});
+
+	var btn = document.getElementById('code');
+	var smscode = document.getElementById('smscode');
+	var phoneNum = document.getElementById('phoneNum');
+	// 定时器
+	var timer = null;
+	var wait = 60;
+
+	// 获取图片验证
+	function change() {
+		var url = base_url + 'verifycode/index/' + Math.floor(Math.random() * 1000 + 1);
+		document.getElementById("yan").src = url;
+	}
+
+	window.onload = function() {
+		change();
+		document.getElementsByClassName('reg')[0].classList.add('active');
+		document.getElementsByClassName('reg')[1].classList.remove('active');
+		document.getElementsByClassName('reg')[2].classList.remove('active');
+		clearTimeout(timer);
+	}	
+	window.addEventListener('page_init',function() {
+		change();
+		document.getElementsByClassName('reg')[0].classList.add('active');
+		document.getElementsByClassName('reg')[1].classList.remove('active');
+		document.getElementsByClassName('reg')[2].classList.remove('active');
+		clearTimeout(timer);
+	});
+
+	// 注册第一步
+	document.getElementById("nextBtn").addEventListener('tap', function() {
+		var imageNum = document.getElementById('imageNum').value;
+		var agree = document.getElementById('agree').checked;
+		if (!phoneNum.value) {
+			mui.toast('请输入您的手机号');
+			return;
+		}
+		var reg = /^((\(\d{2,3}\))|(\d{3}\-))?(13|14|15|16|17|18|19)\d{9}$/;
+		if (!reg.test(phoneNum.value)) {
+			mui.toast("请输入正确的手机号");
+			return;
+		}
+		if (!imageNum) {
+			mui.toast("请输入图片验证码");
+			return;
+		}
+		console.log(agree);
+		if (agree == false) {
+			mui.toast("请同意我们的协议");
+			return;
+		}
+
+		var url = base_url + 'napi/check_mobile';
+		mui.ajax(url, {
+			data: {
+				username: phoneNum.value,
+				code: imageNum,
+				remember: 1
+			},
+
+			dataType: "json",
+			type: "post",
+			timeout: 10000, //超时时间设置为10秒；
+			success: function(res) {
+				var r = JSON.stringify(res);
+				console.log(r);
+				if (res.success) {
+					document.getElementById('inputText').innerHTML = "短信已发送至" + phoneNum.value;
+					// mui.alert(r);
+					// mui.alert(document.getElementById('inputText').value);
+//					document.getElementsByClassName('reg')[0].getElementsByClassName('wrap-btn')[0].onclick=function() {
+						document.getElementsByClassName('reg')[0].classList.remove('active');
+						document.getElementsByClassName('reg')[1].classList.add('active');
+//					}
+					sendMsg();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	});
+
+	// 短信验证倒计时
+	function time(btn) {
+		if (wait == 0) {
+			btn.removeAttribute("disabled");
+			btn.value = "获取验证";
+			wait = 60;
+		} else {
+			btn.setAttribute("disabled", true);
+			btn.value = "(" + wait + ")重新获取";
+			wait--;
+			timer = setTimeout(function() {
+				time(btn);
+			}, 1000)
+		}
+	}
+
+	btn.onclick = function() {
+		sendMsg();
+	}
+
+	// 注册第二步
+	document.getElementById('nextBtn2').addEventListener('tap', function() {
+		var url = base_url + 'napi/check_sms_code';
+		mui.ajax(url, {
+			data: {
+				username : phoneNum.value,
+				smscode : smscode.value
+			}, 
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				//mui.alert(JSON.stringify(res));
+				if (res.success) {
+//					document.getElementsByClassName('reg')[1].getElementsByClassName('wrap-btn')[0].onclick=function() {
+						document.getElementsByClassName('reg')[1].classList.remove('active');
+						document.getElementsByClassName('reg')[2].classList.add('active');
+						clearTimeout(timer);
+//					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	});
+
+	// 发送短信验证码
+	function sendMsg() {
+		var imageNum = document.getElementById('imageNum').value;
+		var url = base_url + 'napi/get_reg_sms_code';
+		mui.ajax(url, {
+			data: {
+				username : phoneNum.value,
+				code : imageNum,
+				type : 'reg'
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					time(btn);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 注册第三步
+	document.getElementById('nextBtn3').addEventListener('tap', function() {
+		var password = document.getElementById('password').value;
+		var againPwd = document.getElementById('againPwd').value;
+		if (password !== againPwd) {
+			mui.toast("两次密码不一致");
+			return;
+		}
+
+		var url = base_url + 'napi/reg';
+		mui.ajax(url, {
+			data: {
+				username : phoneNum.value,
+				password : password,
+				ref_password : againPwd,
+				smscode : smscode.value,
+				push_cid : push_cid
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				var r = JSON.stringify(res);
+				console.log(r);
+				if (res.success) {
+					localStorage.setItem("global_id", res.data.id);
+					localStorage.setItem("global_username", res.data.username);
+					localStorage.setItem("global_nickname", res.data.nickname);
+					localStorage.setItem("global_real_name", res.data.real_name);
+					localStorage.setItem("global_path", res.data.path);
+					localStorage.setItem("global_path_thumb", res.data.path_thumb);
+					localStorage.setItem("global_sex", res.data.sex);
+					localStorage.setItem("global_total", res.data.total);
+					localStorage.setItem("global_score", res.data.score);
+					localStorage.setItem("global_sid", res.data.session_id);
+
+					// 跳过登陆界面
+					var webViewLogin = plus.webview.getWebviewById('login.html');
+					if(webViewLogin != null) {
+						webViewLogin.close();
+					}
+					mui.back();
+					mui.toast("注册成功");
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	});
+</script>
+	
+
+
+
+

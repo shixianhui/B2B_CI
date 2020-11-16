@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">支付界面</h1>
+		</header>
+		<div class="mui-content no-bg confirm-order-content mui-scroll-wrapper">
+			<div id="content" class="mui-scroll">
+				
+			</div>
+			<script id="tpl_content" type="text/html">
+				<%for (var i = 0, data_list = data.item_list; i < data_list.length; i++) {%>
+					<div class="child">
+					    <div class="pay-list1">
+					      	<div class="pay-list1-top">
+					        		<img src="img/pay-icon.png"/>
+					        		<span><%=data_list[i].store_name%></span>
+					        		<span class="price">￥<%=data_list[i].total%></span>
+					      	</div>
+					     	<div class="pay-list1-top">
+					        		<span><%=data_list[i].order_number%></span>
+					        		<span order_num="<%=data_list[i].order_number%>" item_id="<%=data_list[i].id%>" total="<%=data_list[i].total%>" class="pay_btn">去支付</span>
+					      	</div>
+					    </div>
+					</div>
+				<%}%>
+			</script>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		var res = '{"data":{"item_list":' + JSON.stringify(e.detail.respone) + '}}';
+		var html = template('tpl_content', JSON.parse(res));
+		$('#content').html(html);
+	});
+	
+	mui('#content').on('tap', 'span[item_id]', function() {
+		var item_id = this.getAttribute('item_id');
+		var total = this.getAttribute('total');
+		var order_num = this.getAttribute('order_num');
+		go_to_view('cart-pay.html', {item_id:id, total:res.message.total,prv_id:'cart_after_pay.html',
+		order_num:order_num});
+	});
+</script> 

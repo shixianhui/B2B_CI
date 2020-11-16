@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<style type="text/css">
+			.info_list{float:left;}
+			.info_list li{float:left;width:100%;}
+			.info_list li em{float:left;}
+			.info_list li span{display:block;width:65%;float:right;}
+			.info_list li:first-of-type span{line-height:1.8em !important;}
+			
+			#add_collect.active span,#add_collect.active i{color:#C81624;}
+			.join.grey{background:#706b6b !important;color:#fff !important;line-height:50px;}
+			.join.grey a{background:#706b6b !important;color:#fff !important;}
+			
+			#payment_list li img{width:40px;margin-right:10px;}
+			#payment_list li{ text-align:left;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商品详情</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab buy_btn_box">
+			<ul class="bottom_bar">
+				<li class="mui-pull-left width20">
+					<a id="to_index" href="javascript:void(0);"><i class="iconfont-supplement icon-shouye"></i><span>首页</span></a>
+				</li>
+				<li class="mui-pull-left width20">
+					<a id="add_collect" action="fnFavorite" href="javascript:void(0);"><i class="iconfont-supplement icon-tuanduicankaoxian"></i><span>收藏</span></a>
+				</li>
+				<li class="mui-pull-left width30 join">
+					<a a_type="add_car" href="javascript:void(0);"><p><em>¥</em>1288</p><span>单独购买</span></a>
+				</li>
+				<li status="1" class="mui-pull-left width30 join red">
+					<a a_type="buy_now" href="javascript:void(0);"><p><em>¥</em>200</p><span>定金拼团</span></a>
+				</li>
+				<li status="2" class="mui-pull-left width30 join red" style="line-height:50px; display: none;">
+					<a href="javascript:void(0);"><span>等待成团</span></a>
+				</li>
+				<li status="3" class="mui-pull-left width30 join red" style=" display: none;">
+					<a a_type="buy_off" href="javascript:void(0);"><p><em>¥</em>200</p><span>支付尾款</span></a>
+				</li>
+				<li status="4" class="mui-pull-left width30 join grey" style=" display: none;">
+					<a href="javascript:void(0);">活动已结束</a>
+				</li>
+				<li status="5" class="mui-pull-left width30 join grey" style=" display: none;">
+					<a href="javascript:void(0);">活动未成功</a>
+				</li>
+				<li status="6" class="mui-pull-left width30 join red" style="line-height:50px; display: none;">
+					<a href="javascript:void(0);"><span>已成功参团</span></a>
+				</li>
+				
+				<li status="0" class="mui-pull-left width30 join grey" style=" display: none;">
+					<a href="javascript:void(0);">活动未开始</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="mui-content mui-scroll-wrapper product_groups_detail">
+			<div class="mui-scroll">
+				<div id="slider" class="mui-slider" >
+				  
+				  
+				</div>
+				<script id="tpl_slider" type="text/html">
+					<div class="mui-slider-group mui-slider-loop">
+						
+					<%if(item_info.attachment_list.length>1 || item_info.attachment_list.length==1 ){%>
+					    <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					    <div class="mui-slider-item mui-slider-item-duplicate">
+					      <a href="javascript:void(0)">
+					        <img src="<%=item_info.attachment_list[item_info.attachment_list.length-1].path_thumb%>">
+					      </a>
+					    </div>
+					    <%for(var i=0;i<item_info.attachment_list.length;i++){%>
+						    <div class="mui-slider-item">
+						      	<a href="javascript:void(0);">
+						        	<img src="<%=item_info.attachment_list[i].path_thumb%>">
+						      	</a>
+						    </div>
+					    <%}%>
+					    <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					    <div class="mui-slider-item mui-slider-item-duplicate">
+					      	<a href="javascript:void(0)">
+					        	<img src="<%=item_info.attachment_list[0].path_thumb%>">
+					      	</a>
+					    </div>
+					<%}%>
+				
+				  	</div>
+				  	<div class="mui-slider-indicator">
+				  		<%for(var i=0;i<item_info.attachment_list.length;i++){%>
+					    	<%if (i == 0) {%>
+								<div class="mui-indicator mui-active"></div>
+							<%} else {%>
+								<div class="mui-indicator"></div>
+							<%}%>
+					    <%}%>
+				  	</div>
+				</script>
+				<div id="content_info">
+				
+				</div>
+				<script id="tpl_content_info" type="text/html">
+					<div class="price_box mui-clearfix">
+						<div>
+							<div>拼团价 ¥</div>
+							<p><%=data.pintuan_info.cur_price%></p>
+							<span><%=data.pintuan_info.max_number%>人团</span>
+						</div>
+						<div>
+							<p id="time1">距结束还有<br/> 30 天 23 时 17 分 04 秒</p>
+						</div>
+					</div>
+					<div class="product_title">
+						<div class="title">
+							<span>拼团包邮</span><%=data.item_info.title%>
+						</div>
+						<!--<div class="sub">
+							皮床 真皮床1.8米双人床 1.8*2.0米kaimeng 皮床 真皮床1.8米双人床1.8*2.0米kaimeng皮床真皮床1.8米双人床1.8*2.0米kaimeng 皮床 真皮床1.8米双人床 1.8*2.0米
+						</div>-->
+						<div class="source">
+							<p>品牌来自 <span><%=data.item_info.brand_name%></span></p>
+						</div>
+					</div>
+					<div class="merchant_service">
+						<p>商家服务</p> <p><i></i>拼团包邮</p><p><i></i>7天退换</p><p><i></i>48小时发货</p>
+					</div>
+					<div class="standard">
+						<h3>已选规格 <p id="color_size">蓝色，1800mm*2000mm，2件</p></h3>
+						<div class="change_box">
+							<h4><%=data.item_info.product_color_name%></h4>
+							<%if(data.item_info.color_list){%>
+							<ul id="color_list" class="mui-clearfix">
+								<%for(var i=0;i<data.item_info.color_list.length;i++){%>
+									<%if(i==0){%>
+									<li class="active" color_id="<%=data.item_info.color_list[i].color_id%>" color_title="<%=data.item_info.color_list[i].color_name%>"><%=data.item_info.color_list[i].color_name%></li>
+									<%}else{%>
+									<li class="" color_id="<%=data.item_info.color_list[i].color_id%>" color_title="<%=data.item_info.color_list[i].color_name%>"><%=data.item_info.color_list[i].color_name%></li>
+									<%}%>
+								<%}%>
+							</ul>
+							<%}%>
+						</div>
+						<div class="change_box">
+							<h4><%=data.item_info.product_size_name%></h4>
+							<%if(data.item_info.size_list){%>
+							<ul id="size_list" class="mui-clearfix">
+								<%for(var i=0;i<data.item_info.size_list.length;i++){%>
+									<%if(i==0){%>
+									<li class="active" size_id="<%=data.item_info.size_list[i].size_id%>" size_title="<%=data.item_info.size_list[i].size_name%>"><%=data.item_info.size_list[i].size_name%></li>
+									<%}else{%>
+									<li class="" size_id="<%=data.item_info.size_list[i].size_id%>" size_title="<%=data.item_info.size_list[i].size_name%>"><%=data.item_info.color_list[i].size_name%></li>
+									<%}%>
+								<%}%>
+							</ul>
+							<%}%>
+						</div>
+						<div class="number_box mui-clearfix">
+							<h4>购买数量<span id="stock">(库存:)</span></h4>
+							<div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' data-numbox-max='99'>
+							    <button id="add" class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							    <input id="buy_number" class="mui-input-numbox" type="number"value="1" maxlength="2" />
+							    <button id="sub" class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+							</div>
+						</div>
+					</div>
+					
+					<div id="comment_list" class="feel">
+						<h4><span class="mui-pull-left">商品评价(<%=data.item_info.comment_count%>)</span><em class="mui-pull-right"><i class="mui-icon mui-icon-arrowright"></i></em></h4>
+						<ul>
+							<%if(data.item_info.comment_count>0){%>
+							<li class="feel_item">
+								<div class="feel_content">
+									<h5 class="feel_title">
+										<a href="javascript:void(0);" class="mui-pull-left" style="background: <%=data.item_info.comment_list[0].path_thumb%> no-repeat"></a>
+										<%=data.item_info.comment_list[0].username%>
+										<em class="mui-pull-right"><%=data.item_info.comment_list[0].add_time%></em>
+									</h5>
+									<p><%=data.item_info.comment_list[0].content%></p>
+									<div class="feel_img"></div>
+								</div>
+							</li>
+							<%}else{%>
+							<li class="feel_item">
+								<div class="feel_content">	
+									<p></p><p>还没有人评论，快来说说你的感受吧！！！</p>			
+								</div>
+							</li>
+							<%}%>
+						</ul>
+						<a href="javascript:void(0);" class="all_btn">
+							查看全部评价　>
+						</a>
+					</div>
+					
+					
+				</script>
+				
+				<div id="store_info" class="business_info">
+					
+				</div>
+				<script id="tpl_store_info" type="text/html">
+					<div class="business_logo mui-clearfix">
+						<a href="javascript:;" class="logo mui-pull-left" style="background:url(<%=data.path_thumb%>) no-repeat;"></a>
+						<span class="mui-pull-left"><%=data.store_name%></span>
+					</div>
+					<ul class="type_info">
+						<li li_type="all_product" class="info_no">
+							<span><%=data.product_count%></span>
+							<p>全部宝贝</p>
+						</li>
+						<li class="info_no">
+							<span><%=data.favorite_count%></span>
+							<p>关注人数</p>
+						</li>
+						<li class="mark">
+							<ul>
+								<li>描述评分 <span><%=data.des_grade%></span></li>
+								<li>服务评分 <span><%=data.serve_grade%></span></li>
+								<li>快递评分 <span><%=data.express_grade%></span></li>
+							</ul>
+						</li>
+					</ul>
+					<div class="mask_btn">
+						<a href="javascript:;">进店逛逛</a>
+					</div>
+				</script>
+				<div id="content_info2">
+					
+				</div>
+				<script id="tpl_content_info2" type="text/html">
+					
+					<div id="up_content" class="tab">
+						<ul class="tab_hd" style="position: relative !important;">
+							<li class="current">图文详情</li>
+							<li>规格参数</li>
+						</ul>
+						<div class="tab_body" style="display:block;">
+							<div class="scene">
+								<ul class="pic_list">
+									<%=#data.item_info.app_content%>
+								</ul>
+							</div>
+						</div>
+						<div class="tab_body">
+							<ul class="info_list">
+								<li><em>商品名称</em><span><%=data.item_info.title%></span></li>
+								<li><em>商品编号</em><span><%=data.item_info.product_num%></span></li>
+								<li><em>库存</em><span><%=data.item_info.stock%></span></li>
+								<li><em>风格</em><span><%=data.item_info.style_name%></span></li>
+								<li><em>品牌</em><span><%=data.item_info.brand_name%></span></li>
+								<li><em>材质</em><span><%=data.item_info.material_name%></span></li>
+								<li><em>重量</em><span><%=data.item_info.weight%></span></li>
+							</ul>
+						</div>
+					</div>
+				</script>
+			
+			</div>
+		</div>
+	</body>
+	<div id="payment_list" class="mui-popover mui-popover-bottom mui-popover-action ">
+	    <!-- 可选择菜单 -->
+	    <ul class="mui-table-view">
+            <li pay_type="alipay" class="mui-table-view-cell">
+                <a>
+                    <img src="img/zfblogo.png" class="mui-pull-left"/>
+                    <div>支付宝支付<p>支付宝安全支付</p></div>
+                </a>
+            </li>
+            <li pay_type="wxpay" class="mui-table-view-cell">
+                <a>
+                    <img src="img/wxzflogo.png" class="mui-pull-left"/>
+                    <div>微信支付<p>微信安全支付</p></div>
+                </a>
+            </li>
+       </ul>
+	    <!-- 取消菜单 -->
+	    <ul class="mui-table-view">
+	      <li class="mui-table-view-cell" style="text-align: center; !important">
+	        <a href="#sheet1"><b>取消</b></a>
+	      </li>
+	    </ul>
+	</div>
+	
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	mui('.mui-scroll-wrapper').scroll()
+	
+	
+	var item_id="";
+	
+	document.addEventListener('go_to_parameter',function(e){
+		clearTimeout(settime1);
+		size_id = '';
+		color_id = '';
+		size_title = '';
+		color_title = '';
+		
+		mui('.mui-scroll-wrapper').scroll().scrollTo(0,0,100);
+		item_id=e.detail.item_id;
+		console.log(item_id)
+		get_groupon_detail(item_id)
+	});
+//	window.onload=function(){
+//		item_id=35
+//		get_groupon_detail(35)
+//		clearTimeout(settime1);
+//	}
+	var store_id='';
+	var time1='';
+	var settime1='';
+	var respon='';
+	
+	var stock='';
+	var price='';
+	
+	var size_id = '';
+	var color_id = '';
+	var size_title = '';
+	var color_title = '';
+		
+	function afterload(){
+		var tabHd = document.querySelector('.tab_hd');
+		var tabLi = tabHd.getElementsByTagName('li');
+		var tabBody = document.querySelectorAll('.tab_body');
+		for(var j = 0; j < tabLi.length; j++) {
+			tabLi[j].index = j;
+			tabLi[j].addEventListener('tap', function() {
+				for(var j = 0; j < tabLi.length; j++) {
+					tabLi[j].className = '';
+					tabBody[j].style.display = 'none';
+				}
+				this.className = 'current';
+				tabBody[this.index].style.display = 'block';
+			})
+		};
+		
+		mui('.mui-slider').slider({
+			interval:3000
+		});
+		
+		TimeDown('time1', time1)
+		
+		
+		// 选择颜色/尺码
+		mui('.standard').on('tap', 'li', function() {
+			var product_type = this.getAttribute('select');
+			if (product_type == 'color') {
+				color_title = this.getAttribute('color_title');
+				color_id = this.getAttribute('color_id');
+				$('#color_list li').removeClass('active');
+				$(this).addClass('active');
+			} else if (product_type == 'size') {
+				size_title = this.getAttribute('size_title');
+				size_id = this.getAttribute('size_id');
+				$('#choose_size a').removeClass('selected');
+				$(this).addClass('selected');
+			}
+	
+			if (!size_id && !color_id) {
+				$('#color_size').html('颜色/尺码');
+			} else if (size_id) {
+				$('#color_size').html(size_title);
+			} else if (color_id) {
+				$('#color_size').html(color_title);
+			} else {
+				$('#color_size').html(color_title + ',' + size_title);
+			}
+		});
+		
+		// 减少商品的数量
+		document.getElementById('add').addEventListener('tap', function() {
+			var sum = $('#buy_number').val();
+			if (sum <= 1) {
+				mui.toast("购买商品不能少于一件");
+			} else {
+				$('#buy_number').val(--sum);
+			}
+		});
+	
+		// 增加商品的数量
+		document.getElementById('sub').addEventListener('tap', function() {
+			var sum = $('#buy_number').val();
+			if (sum >= 99) {
+				mui.toast("一次性购买不能多余99件");
+			} else {
+				$('#buy_number').val(++sum);
+			}
+		});
+		
+	}
+	
+	function TimeDown(id, endDateStr) {
+	    //结束时间
+	    var endDate =endDateStr*1000;
+	    //当前时间
+	    var nowDate =  Number(new Date());
+	    //相差的总秒数
+	    var totalSeconds = parseInt((endDate - nowDate) / 1000);
+	    //天数
+	    var days = Math.floor(totalSeconds / (60 * 60 * 24));
+	    //取模（余数）
+	    var modulo = totalSeconds % (60 * 60 * 24);
+	    //小时数
+	    var hours = Math.floor(modulo / (60 * 60));
+	    modulo = modulo % (60 * 60);
+	    //分钟
+	    var minutes = Math.floor(modulo / 60);
+	    //秒
+	    var seconds = modulo % 60;
+	    
+	    if(days < 10){
+			days = "0" + days;
+		}
+	    if(hours < 10){
+			hours = "0" + hours;
+		}
+		if(minutes < 10){
+			minutes = "0" + minutes;
+		}
+		if(seconds < 10){
+			seconds = "0" + seconds;
+		}
+	    //输出到页面	
+//	    $('#'+id).html('距结束还有<br/>'+days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒");
+	    
+	   	if (endDate>nowDate) {
+	    	$('#'+id).html('距结束还有<br/>'+days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒");
+//	    	$('.join.red').css('display','block');
+//	    	$('.join.grey').css('display','none');
+	    } else{
+	    	$('#'+id).html('活动结束');
+//	    	$('.join.red').css('display','none');
+//	    	$('.join.grey').css('display','block');
+	    	return
+	    }
+	    //延迟一秒执行自己
+	    settime1=setTimeout(function () {
+	        TimeDown(id, endDateStr);
+	    }, 1000)
+	}
+	
+	
+	// 拼团详情
+	function get_groupon_detail(id) {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_groupon_detail/' + id +'?sid='+ localStorage.getItem('global_sid');
+		console.log(url)
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					var slider_html = template('tpl_slider', res.data);
+					$('#slider').html(slider_html);
+					var html1 = template('tpl_content_info', res);
+					$('#content_info').html(html1);
+					var html2 = template('tpl_content_info2', res);
+					$('#content_info2').html(html2);
+					time1=res.data.pintuan_info.end_time
+					respon=res;
+					store_id=res.data.item_info.store_id
+					get_store_home(store_id)
+					
+					// 没有开启规格时候的价格/库存
+		            price= res.data.item_info.sell_price;
+		            stock= res.data.item_info.stock;
+		            
+		            $('a[a_type="add_car"] p').html('<em>¥</em>'+price);
+					console.log(res.data.pintuan_info.cur_price - res.data.pintuan_info.deposit)
+					$('a[a_type="buy_now"] p').html('<em>¥</em>'+res.data.pintuan_info.deposit);
+					$('a[a_type="buy_off"] p').html('<em>¥</em>'+(res.data.pintuan_info.cur_price - res.data.pintuan_info.deposit).toFixed(2));
+					
+
+					$('li[status='+res.data.pintuan_info.status+']').css('display','block')
+					$('li[status='+res.data.pintuan_info.status+']').siblings('li[status]').css('display','none')
+				} else {
+					mui.toast(res.message);
+				}
+				afterload();
+			},
+			error: error
+		});
+	}
+	
+	// 店铺详情
+	document.getElementById('store_info').addEventListener('tap', function() {
+		go_to_view('store-view.html', {item_id : store_id});
+	});
+	// 店铺详情
+	function get_store_home(store_id) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_store_home/' + store_id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_store_info', res);
+					$('#store_info').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+//	fnPayTail:function(){
+//	    var that = this;
+//	    var ptkj_id = that.data.pintuan_info.id,
+//	        color_id = that.data.color_id,
+//	        size_id = that.data.size_id;
+//	    wx.navigateTo({
+//	      url: '../../../cart/pay_tail/pay_tail?ptkj_id=' + ptkj_id + '&color_id=' + color_id + "&size_id=" + size_id,
+//	    });
+//	},
+	var ptkj_id='';
+	// 选择规格获取库存、价格
+	function get_stock(id) {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_stock';
+		console.log(url)
+		mui.ajax(url, {
+			data: {
+				product_id:product_id,
+				color_id:color_id,
+				size_id:size_id,
+				ptkj_id:ptkj_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					var slider_html = template('tpl_slider', res.data);
+					$('#slider').html(slider_html);
+					var html1 = template('tpl_content_info', res);
+					$('#content_info').html(html1);
+					var html2 = template('tpl_content_info2', res);
+					$('#content_info2').html(html2);
+					time1=res.data.pintuan_info.end_time
+					store_id=res.data.item_info.store_id
+					get_store_home(store_id)
+					
+					
+					
+				} else {
+					mui.toast(res.message);
+				}
+				afterload();
+			},
+			error: error
+		});
+	}
+	mui('#content_info').on('tap','#comment_list',function(){
+		go_to_view('product_comment_list.html',{ptkj_id:respon.data.pintuan_info.id,color_id:color_id,size_id:size_id});
+	});
+	
+	mui('.buy_btn_box').on('tap','#to_index',function(){
+		go_to_active_unani('index.html');
+	});
+	
+	mui('.buy_btn_box').on('tap','a[action]',function(){
+		action=this.getAttribute('action');
+		console.log(action)
+		if(action=='fnFavorite'){
+			fnFavorite()
+		}
+	})
+	//收藏-取消收藏 
+    function fnFavorite() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/save_favorite/?sid='+ localStorage.getItem('global_sid');
+      	mui.ajax(url, {
+	        data: {
+	          	type: 'group_purchase',
+	          	item_id: item_id
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		var action = res.data.action;
+	          		if(action == 'add'){
+				       $('a[action="fnFavorite"]').addClass('active');
+				    }else if(action == 'delete'){
+				       $('a[action="fnFavorite"]').removeClass('active');
+				    }
+				    
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+    
+    
+    
+    var record_id=''
+    //
+    function add_groupon() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/add_groupon/'+item_id+'?sid='+ localStorage.getItem('global_sid');
+      	mui.ajax(url, {
+	        data: {},
+	        type: "get",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		record_id=res.data;
+				    mui('#payment_list').popover('show')
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+    
+    
+    mui('.bottom_bar').on('tap','a[a_type]',function(){
+    	if ($(this).attr('a_type')=='add_car') {
+    		add_cart()
+    	} else if($(this).attr('a_type')=='buy_now'){
+    		add_groupon()
+    	}else if($(this).attr('a_type')=='buy_off'){
+    		go_to_view('groups_order_confirm.html', {item_id:res.data.cart_ids});
+    	}
+    });
+    mui('#payment_list').on('tap', 'li', function() {
+		var pay_type = this.getAttribute('pay_type');
+		if(!pay_type) {
+			mui.toast('请选择支付方式');
+		}
+		console.log('pay_type:' + pay_type);
+
+		if(pay_type == 'alipay') {
+                pay('alipay');
+		} else if(pay_type == 'wxpay') {
+                pay('wxpay');
+		} 
+	});
+
+    
+    
+    // 添加购物车
+	function add_cart() {
+		console.log(respon.data.item_info.id)
+		var buy_number = $('#buy_number').val();
+		if (!buy_number) {
+			mui.toast('请选择购买数量');
+			return;
+		}
+
+		if (!is_network(false)) {return;}
+		
+		mb = plus.nativeUI.showWaiting();
+		var url = base_url + 'napi/add_cart?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				product_id : respon.data.item_info.id,
+				color_id : color_id,
+				size_id : size_id,
+				buy_number : buy_number
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				mb&&mb.close();mb=null;
+				if (res.success) {
+					var self = plus.webview.getWebviewById('cart.html');
+					mui.fire(self, 'page_init', {is_init: '1'});
+					go_to_view('cart_order_confirm.html', {item_id:res.data.cart_ids});
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_view('login.html', {flag:0});
+							});
+						} else {
+							go_to_view('login.html', {flag:0});
+						}
+					}
+					
+				}
+			}, 
+			error: error
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	var pays = {};
+	function plusReady() {
+		// 获取支付通道
+		plus.payment.getChannels(function(channels) {
+			console.log(JSON.stringify(channels));
+			for(var i in channels) {
+				var channel = channels[i];
+				if(channel.id == 'alipay' || channel.id == 'wxpay') {
+					pays[channel.id] = channel;
+				    checkServices(channel);
+				}
+			}
+		}, function(e) {
+			console.log('获取支付通道失败：' + e.message);
+		});
+	}
+	document.addEventListener('plusready', plusReady, false);
+	// 检测是否安装支付服务
+	function checkServices(pc) {
+		if(!pc.serviceReady) {
+			var txt = null;
+			switch(pc.id) {
+				case 'alipay':
+					txt = '检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？';
+					break;
+				case 'wxpay':
+					txt = '检测到系统未安装“微信快捷支付服务”，无法完成支付操作，是否立即安装？';
+					break;
+				default:
+					txt = '系统未安装“' + pc.description + '”服务，无法完成支付，是否立即安装？';
+					break;
+			}
+			plus.nativeUI.confirm(txt, function(e) {
+				if(e.index == 0) {
+					pc.installService();
+				}
+			}, pc.description);
+		}
+	}
+	// 支付
+	function pay(pay_type) {
+		var url = base_url + 'napi/deposit_app_pay/'+record_id+'/'+pay_type+'?sid='+ localStorage.getItem('global_sid');
+		console.log('url:'+url);
+		var w = plus.nativeUI.showWaiting();
+		// 请求支付订单
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			switch(xhr.readyState) {
+				case 4:
+					w.close();
+					w = null;
+					if(xhr.status == 200) {
+//						console.log('请求订单成功');
+						console.log("111:"+xhr.responseText);
+						var order = xhr.responseText;
+						plus.payment.request(pays[pay_type], order, function(result) {
+							var channel = '';
+							if (mui.os.android) {
+								channel = result.channel.id;
+							} else {
+								channel = result.channel;
+							}
+							console.log('channel:'+channel);
+							if (channel == 'alipay') {
+								mui.toast('定金支付成功!')
+								get_groupon_detail(item_id)
+//								if(){
+//									go_to_view('groups_order_confirm.html', {item_id:res.data.cart_ids});
+//								}
+							} else if (channel == 'wxpay') {
+								mui.toast('定金支付成功!')
+								get_groupon_detail(item_id)
+//								if(){
+//									go_to_view('groups_order_confirm.html', {item_id:res.data.cart_ids});
+//								}
+							}
+							 mui('#payment_list').popover('hide')
+						}, function(e) {
+							console.log('支付失败：[' + e.code + ']：' + e.message);
+						});
+					} else {
+						console.log('获取订单信息失败！');
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		xhr.open('GET', url);
+		xhr.send();
+	}
+</script>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/pop.css" />
+		<style>
+			.mui-bar~.mui-content .mui-fullscreen {top: 44px; height: auto;}
+			.mui-pull-top-tips {position: absolute; top: 84px; left: 50%; margin-left: -25px; width: 40px; height: 40px; border-radius: 100%; z-index: 9;}
+			.mui-bar~.mui-pull-top-tips {top: 24px;}
+			.mui-pull-top-wrapper {width: 42px;height: 42px;display: block;text-align: center;background-color: #efeff4;border: 1px solid #ddd;border-radius: 25px;background-clip: padding-box;box-shadow: 0 4px 10px #bbb;overflow: hidden;}
+			.mui-pull-top-tips.mui-transitioning {-webkit-transition-duration: 200ms;transition-duration: 200ms;}
+			.mui-pull-top-tips .mui-pull-loading {margin: 0;}
+			.mui-pull-top-wrapper .mui-icon, .mui-pull-top-wrapper .mui-spinner {margin-top: 7px;}
+			.mui-pull-bottom-tips {text-align: center; background-color: #efeff4; font-size: 15px; line-height: 40px; color: #777;}
+			.mui-pull-top-canvas { overflow: hidden; background-color: #fafafa; border-radius: 40px; box-shadow: 0 4px 10px #bbb; width: 40px; height: 40px; margin: 0 auto;}
+			.mui-pull-top-canvas canvas {width: 40px;}
+			
+			.nav_list img{width:14px;margin-right:5px;position:relative;top:-1px;}
+			.mui-table-view-cell:active,.mui-table-view-cell.mui-active,.mui-table-view-cell a:active,.mui-table-view-cell a.mui-active{background:#fff !important;}
+			.menu-backdrop {position: fixed;top: 100px;bottom: 0;height: 100%;width: calc(100vh - 100px);display: none;z-index: 998;background:rgba(0,0,0,0.5);}
+			.menu-backdrop.mui-active{display:block;}
+			.tab_box{min-height:150px;max-height:250px;overflow:auto;}
+			.tab_box ul{display:none;}
+			.tab_box ul.active{display: block;}
+			.nav>a{height:44px;display:block;padding:6px 15px;width:100%;border-bottom:1px solid #e6e6e6;}
+			.nav .search_box{height:32px;display:block;padding:0px;background:#e6e6e6;}
+		</style>
+	</head>
+	<body style="background:#fff;">
+		<header id="header" class="mui-bar mui-bar-nav top_bar" style="z-index:9999;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+		<div id="menu_backdrop" class="menu-backdrop"></div>
+		<div class="nav">
+			<a href="search.html">
+	    		<div class="mui-input-row search_box">
+	    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span><span class="text">店铺搜索</span>
+	    		</div>
+	    	</a>
+			<ul class="nav_list nav_list2 mui-clearfix">
+				<li type="city"><img src="img/address_app.png"/><span id="city_check">区域</span><i class="mui-icon mui-icon-arrowdown"></i></li>
+				<li type="style"><span>风格</span><i class="mui-icon mui-icon-arrowdown"></i></li>
+				<li type="market"><span>商场</span><i class="mui-icon mui-icon-arrowdown"></i></li>
+			</ul>
+			<div class="tab_box">
+				<ul id="address_list" class="city">
+				</ul>
+				
+					<script id="tpl_address_list" type="text/html">
+						<li id="0">全部<i class="mui-icon"></i></li>
+					<%for (var i=0,data_list=data.item_list;i<data_list.length;i++){%>						
+						<li id="<%=data_list[i].id%>"><%=data_list[i].name%><i class="mui-icon"></i></li>
+					<%}%>
+					</script>
+				<ul id="style_list" class="style">
+				</ul>
+				<script id="tpl_style_list" type="text/html">
+						<li style_id="0">全部<i class="mui-icon"></i></li>
+					<%for(var i =0, style_list=data.style_list;i<style_list.length;i++){%>
+						<li style_id="<%=style_list[i].id%>"><%=style_list[i].style_name%><i class="mui-icon"></i></li>
+					<%}%>
+				</script>
+				<ul id="market_list" class="market">
+				<script id="tpl_market_list" type="text/html">
+						<li style_id="0">全部<i class="mui-icon"></i></li>
+					<%for(var i =0, market_list=data.market_list;i<market_list.length;i++){%>
+						<li style_id="<%=market_list[i].id%>"><span class="mui-col-xs-10 mui-ellipsis mui-pull-left"><%=market_list[i].title%></span><i class="mui-icon"></i></li>
+					<%}%>
+				</script>
+				</ul>
+			</div>
+		</div>
+		<div class="mui-content mui-scroll-wrapper">
+			<div id="shop_list" class="shop_list mui-scroll">
+				<ul id="content_list" class="mui-table-view">
+				</ul>	
+				<script id="tpl_content_list" type="text/html">
+					<%for(var i=0,data_list=data.item_list;i<data_list.length;i++){%>
+					    <li id="item_<%=data_list[i].id%>" class="mui-table-view-cell mui-media">
+					        <a href="javascript:void(0);">
+					        	<div class="mui-media-object mui-pull-left">
+					        		<img src="img/portrait.png" data-lazyload="<%=data_list[i].path_thumb%>?v=<%=data_list[i].id%>">
+					            </div>
+					            <div class="mui-media-body item_body">
+					                <em><%=data_list[i].store_name%></em>
+					                <p class="mui-ellipsis">经营范围：<%=data_list[i].business_scope%></p>
+					                <p class="mui-ellipsis"><span class="iconfont icon-dizhi"></span><%=data_list[i].txt_address%></p>
+					   				<div class="btn_groups">
+					   					<button style="display: none;" item_id="<%=data_list[i].id%>" onclick="javascript:window.location.href='l-zb.html';" class="btn">预约直播</button>
+					   					<button item_id="<%=data_list[i].id%>" href="store-view.html" class="btn">进入店铺</button>
+					   				</div>
+					            </div>
+					        </a>
+					    </li>
+				    <%}%>
+				</script>
+			</div>
+			
+		</div>
+	</body>
+	
+<input type="hidden" id="max_id" value="0" />
+<input type="hidden" id="since_id" value="0" />
+<input type="hidden" id="per_page" value="20" />
+<input type="hidden" id="page" value="1" />
+
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script src="js/mui.lazyload.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.lazyload.img.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var style_css='<style>.nav{top:'+(44+immersed)+'px;}.mui-content{padding-top:'+(88+immersed)+'px !important;}.mui-pull-top-tips{top:'+(64+immersed)+'px !important;}</style>';
+	document.write(style_css);
+	
+	var lazyLoadApi = mui(document).imageLazyload({
+		autoDestroy: false,
+		force:true,
+		placeholder: 'img/portrait.png'
+	});
+	
+	var auth_type,longitude,latitude,city;
+	var style_id=0,store_category_id=0,market_id=0,search_word="";
+	var style_flag=true;
+	mui.init();
+	mui('.nav_list').on('tap','li',function(){
+		if (!$(this).hasClass('current')) {
+			var type=this.getAttribute('type');
+			$(this).addClass('current').siblings().removeClass('current');
+			$('.tab_box').addClass('active');
+			if(type=='city'){
+				$('.city').addClass('active').siblings().removeClass('active');
+			}else if(type=='style'){
+				$('.style').addClass('active').siblings().removeClass('active');
+			}else{
+				$('.market').addClass('active').siblings().removeClass('active');
+			}
+			$('#menu_backdrop').addClass('mui-active');
+		} else{
+			$(this).removeClass('current');
+			$('.tab_box').removeClass('active');
+			$('#menu_backdrop').removeClass('mui-active');
+		}
+	});
+	mui('.tab_box ul').on('tap','li',function(){
+		if (!$(this).hasClass('active')) {
+			$(this).addClass('active').siblings().removeClass('active');
+			$(this).children('i').addClass('mui-icon-checkmarkempty');
+			$(this).siblings().children('i').removeClass('mui-icon-checkmarkempty');
+			$('.nav_list li').removeClass('current');
+			$('.tab_box').removeClass('active');
+			$('#menu_backdrop').removeClass('mui-active');
+			if ($(this).parent().hasClass('city')) {
+				$('#city_check').html($(this).text());
+				if($(this).attr('id')==0){
+					city='';
+				}else{
+					city=$(this).text();
+				}
+			} else{
+				style_id=this.getAttribute('style_id');
+			}
+			longitude='';
+			latitude='';
+			console.log('111'+city);
+			$('#max_id').val('0');
+			$('#since_id').val('0');
+			var per_page = $('#per_page').val();
+			$('#page').val('1');
+			get_store_list(0, 0, 0, per_page, 1);
+		}
+	});
+	function get_site_list() {
+		var url = base_url + 'napi/get_site_list'
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log(JSON.stringify(res))
+					var html = template('tpl_address_list', res);
+					$('#address_list').html(html);
+			 	} 
+			 	else {
+		 			mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+	document.getElementById('menu_backdrop').addEventListener('tap',function(){
+		$('.nav_list li').removeClass('current');
+		$('.tab_box').removeClass('active');
+		$('#menu_backdrop').removeClass('mui-active');
+	});
+	window.addEventListener('go_to_parameter',function(e){
+		get_site_list();
+		$('.nav_list li').removeClass('current');
+		$('.tab_box').removeClass('active');
+		$('#menu_backdrop').removeClass('mui-active');
+		style_flag=true;
+		search_word="";
+		$('.text').text('店铺搜索');
+		longitude=e.detail.longitude;
+		latitude=e.detail.latitude;
+		city='';
+		if (e.detail.auth_type) {
+	      	auth_type = e.detail.auth_type;
+	    	if (auth_type=='1') {
+	    		$('.nav_list').removeClass('nav_list3').addClass('nav_list2');
+	    		$('.nav_list li[type=market]').css('display','block');
+	    	} else{
+	    		$('.nav_list').removeClass('nav_list2').addClass('nav_list3');
+	    		$('.nav_list li[type=market]').css('display','none');
+	    	}
+	    } else {
+	      	auth_type = 0;
+	    }
+	    if (e.detail.title) {
+	    	$('.mui-title').html(e.detail.title)
+		}else{
+			$('.mui-title').html('本地实体')
+		}
+	   	$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		get_store_list(0, 0, 0, per_page, 1);
+	});
+	// 刷新列表
+	var self = mui('#shop_list').pullToRefresh({
+		down: {
+			callback: function() {
+				pulldownRefresh(this);
+			}
+		},
+		up: {
+			callback: function() {
+				pullupRefresh(this);
+			}
+		}
+	});
+
+	function pulldownRefresh(obj) {
+		var since_id = $('#since_id').val();
+		get_store_list('down', 0, since_id, 100, 1);
+	}
+
+	function pullupRefresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var page = $('#page').val();
+		get_store_list('up' , 0, 0, per_page, page);
+	}
+
+	function get_store_list(type , max_id, since_id, per_page, page) {
+		if (!is_network(false)) {return;}
+		if (auth_type==2) {
+			var url = base_url + 'napi/get_store_list/' + auth_type + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+		} else{
+			var url = base_url + 'napi/get_store_list/' + auth_type + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page
+		}
+		mui.ajax(url, {
+			data: {
+		    	style_id: style_id,
+		     	store_category_id: store_category_id,
+		      	market_id: market_id,
+		      	search_word: search_word,
+		      	lat:latitude,
+		      	lng:longitude,
+		      	city:city
+			},
+			dataType: 'json',
+			type: 'post',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_content_list', res);
+			 		if (type == 'down') {
+			 			if (res.data.item_list.length > 0) {
+							mui.toast('更新了' + res.data.item_list.length + '条数据');
+							$('#since_id').val(res.data.max_id);
+							var size = $("#content_list li[id]").size();
+							if (size > 0) {
+								$('#content_list li[id]:first').before(html);
+							} else {
+								$('#content_list').html(html);
+							}
+						} else {
+							mui.toast('没有新的商品');
+						}
+						self.endPullDownToRefresh();
+			 		} else if (type == 'up') {
+						var size = $("#content_list li[id]").size();
+						if (size > 0) {
+							$("#content_list li[id]:last").after(html);
+						} else {
+							$('#content_list').html(html);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+			 			
+						if (style_flag==true) {
+							$('#city_check').html(res.data.city);
+							var style_list = template('tpl_style_list', res);
+							$('#style_list').html(style_list);
+							var market_list = template('tpl_market_list', res);
+							$('#market_list').html(market_list);
+							style_flag=false;
+							$('.tab_box ul').children('li').removeClass('active');
+							$('.tab_box ul').children('li').children('i').removeClass('mui-icon-checkmarkempty');
+							$('.tab_box .city').children('li').each(function(index){
+								if ($('.tab_box .city').children('li').eq(index).text()==res.data.city) {
+									$('.tab_box .city').children('li').eq(index).addClass('active');
+									$('.tab_box .city').children('li').eq(index).children('i').addClass('mui-icon-checkmarkempty');
+								}
+							})
+							$('.tab_box .style').children('li').eq(0).addClass('active');
+							$('.tab_box .style').children('li').eq(0).children('i').addClass('mui-icon-checkmarkempty');
+							
+							$('.tab_box .market').children('li').eq(0).addClass('active');
+							$('.tab_box .market').children('li').eq(0).children('i').addClass('mui-icon-checkmarkempty');
+						}
+					
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content_list').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content_list').html(no_data_html);
+                       }
+			 		}
+			 		
+					lazyLoadApi.refresh(true);
+			 	} 
+			 	else {
+		 			mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+	mui('#shop_list').on('tap','button',function(){
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=="store-view.html") {
+				var item_id=this.getAttribute('item_id');
+				go_to_view(id,{item_id:item_id})
+			} else{
+				go_to_active(id)
+			}
+		}
+	});
+	mui('.nav').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		go_to_view(id,{flag:'store'});
+	});
+	
+	window.addEventListener('search_result',function(e){
+		if (e.detail.search_word) {
+			search_word=e.detail.search_word;
+			$('.text').text(search_word);
+		} else {
+			search_word = '';
+			$('.text').text('店铺搜索');
+		}
+	   	$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		get_store_list(0, 0, 0, per_page, 1);
+	});
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />		
+	</head>
+	<style type="text/css">
+		.mui-table-view-cell:after{left:0;}
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav top_bar" style="background-color:rgba(204,0,17,1);">
+			<a class="mui-action-back mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></a>
+			<h1 class="mui-title">店铺详情</h1>
+			<!--<a class="mui-pull-right"><span class="mui-icon mui-icon-more"></span><i class="circle"></i></a>-->
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div id="content" class="mui-scroll">
+
+			</div>
+			<script id="tpl_content" type="text/html">
+				<div class="shop">
+					<div class="shop_name mui-clearfix">
+						<h1 class="mui-pull-left"><img src="<%=data.path_thumb%>" /></h1>
+						<span class="mui-pull-left"><%=data.store_name%></span>
+					</div>
+					<ul class="score">
+						<li><em>商品评价</em><span><%=data.des_grade%>分</span></li>
+						<li><em>商品评价</em><span><%=data.serve_grade%>分</span></li>
+						<li><em>商品评价</em><span><%=data.express_grade%>分</span></li>
+					</ul>		
+				</div>
+				<div class="contact">
+					<p class="link">联系卖家<a href="javascript:;" class="iconfont icon-kefuxitong mui-pull-right"></a></p>
+					<p class="link">商家电话<span><%=data.mobile%></span><a id="call" href="javascript:;" class="iconfont icon-dianhua1 mui-pull-right"></a></p>
+					<div class="work mui-clearfix">
+						<div class="time mui-pull-left">工作时间</div>
+						<div class="Time_slot mui-pull-left"><p><%=data.work_time%></p></div>
+					</div>
+					<p class="address">所在地址<span><%=data.txt_address%> <%=data.address%></span></p>
+				</div>
+			 </script>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		var res = '{"data":' + JSON.stringify(e.detail.respone) + '}';
+		res = JSON.parse(res);
+		var html = template('tpl_content', res);
+		$('#content').html(html);
+		
+		document.getElementById('call').addEventListener('tap', function() {
+			plus.device.dial(res.data.mobile, false);
+		});
+	});
+</script>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			.product_list{margin-top:0px;}	
+			.product_list .list li .title div img{width:13px !important;height:13px !important;min-height:0 !important;display: inline-block;}
+		
+		</style>
+	</head>
+	<body>
+		<div class="mui-off-canvas-backdrop"></div>
+	    <header id="header" class="mui-bar mui-bar-nav header">
+	      	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	      	<h1 class="mui-title">
+		      	心得收藏
+	      	</h1>
+	    </header>
+		<div class="mui-content nearby yike mui-scroll-wrapper">
+				<div class="product_list mui-scroll">
+					<div class="list yike_list">
+						<ul id="biji_list1" class="list_box">
+						</ul>
+						
+						<ul id="biji_list2" class="list_box">
+						</ul>
+						<script id="tpl_biji_list1" type="text/html">
+							<%for(var i =0;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].item_id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+							
+							
+						</script>
+						<script id="tpl_biji_list2" type="text/html">
+							<%for(var i =1;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].item_id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+					
+				</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var latitude,longitude;
+	mui.init({
+		gestureConfig:{
+		   longtap: true
+		}
+	})	
+	document.addEventListener('page_init',function(e){
+		data_init();
+	});
+	window.onload=function(e){
+		data_init();
+	};
+	function data_init() {
+		page=1;
+		get_notes_favorite_list('0');
+	}
+	
+	
+	
+	var page=1;
+	
+	var self = mui('.mui-scroll').pullToRefresh({
+		down : {
+			callback : function() {
+				down_refresh(this);
+			}
+		},
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	function up_refresh(obj) {
+		get_notes_favorite_list('up');
+	}
+	function down_refresh(obj) {
+		page=1
+		get_notes_favorite_list('down');
+	}
+	// 蚁客
+	function get_notes_favorite_list(type) {
+		if (!is_network(false)) {return;}
+		console.log(page)
+		var url = base_url + 'napi/get_notes_favorite_list/0/0/20/'+page+'?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			beforeSend: function(xhr, setting) {
+				if (type == 0) {
+					var	html = '<div class="parent_no_data">';
+						html += '<div class="no_data">数据加载中...</div>';
+						html += '</div>';
+					$('#favorite_list').html(html);
+				}
+			},
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html1 = template('tpl_biji_list1', res);
+					var html2 = template('tpl_biji_list2', res);
+					if(type == 'down'){
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#biji_list1').html(no_data_html);
+                            $('#biji_list2').html('');
+                       	}else{
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+                        }
+						self.endPullDownToRefresh();
+					}else if (type == 'up') {
+						var size1 = $("#biji_list1 li[item_id]").size();
+						var size2= $("#biji_list2 li[item_id]").size();
+						if ((size2+size1) > 0) {
+							if(size2>size1){
+								$("#biji_list1 li[item_id]:last").after(html1);
+								$("#biji_list2 li[item_id]:last").after(html2);
+							}else{
+								$("#biji_list1 li[item_id]:last").after(html2);
+								$("#biji_list2 li[item_id]:last").after(html1);
+							}
+						} else {
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#biji_list1').html(no_data_html);
+                            $('#biji_list2').html('');
+                       	}else{
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+                        }
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	mui('.yike').on('tap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		go_to_view("note_detail.html", {
+			item_id : item_id
+		});
+	});
+	
+	mui('.yike').on('longtap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认取消收藏这篇心得？', '提示', btnArray, function(e) {
+			if (e.index == 0) {
+				if (!is_network(false)) {return;}
+				var url = base_url + 'napi/save_favorite?sid=' + localStorage.getItem('global_sid');
+				mui.ajax(url, {
+					data: {
+						type:'notes',
+						item_id:item_id
+					},
+					dataType: "json",
+					type: "post",
+					timeout: 10000,
+					success: function(res) {
+							console.log('delete/'+JSON.stringify(res))
+						if (res.success) {
+							if ($('.yike li').length>15) {
+								$('li[item_id='+item_id+']').remove();
+							}else{
+								page=1
+								get_notes_favorite_list(0);
+							}
+							mui.toast(res.message)
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: error
+				});
+			}
+		})
+	});
+	
+
+	
+	/*底部菜单*/
+	mui('#nav_tab').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		go_to_active_unani(id);
+		setTimeout(function(){
+			$('.mui-tab-item[href="nearby.html"]').addClass('mui-active').siblings().removeClass('mui-active');
+		},200)
+	});
+</script>

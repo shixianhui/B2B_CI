@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<style>
+			.mui-tab-item{touch-action: none;}
+		</style>
+	</head>
+	<body>
+		<nav id="nav_tab" class="mui-bar mui-bar-tab bottom_menu1">
+			<a href="index-sub.html" class="mui-tab-item mui-active">
+				<span class="mui-icon iconfont icon-shouye1"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a href="product-category.html" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-fenlei"></span>
+				<span class="mui-tab-label">分类</span>
+			</a>
+			<a href="l-zb.html" class="mui-tab-item">
+				<div class="live">
+					<span class="mui-icon iconfont icon-lives"></span>
+					<span class="mui-tab-label">直播</span>
+				</div>
+			</a>
+			<a href="cart.html" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-gouwuche"></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a href="member.html" class="mui-tab-item">
+				<span class="mui-icon iconfont icon-wode1"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/update.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	//mui初始化
+	mui.init();
+	var subpage_style;
+	var subpages = ['index-sub.html', 'product-category.html', 'l-zb.html','cart.html', 'member.html'];
+	var style_css='<style>.mui-bar.mui-bar-tab.bottom_menu1{padding-bottom:'+(immersed-20)+'px !important;height:'+(30+immersed)+'px !important;}</style>'
+	if (mui.os.plus) {
+		document.write(style_css);
+	}
+	
+	var height = 31 + immersed;
+	subpage_style = { 
+		top: '0px',
+		bottom: height + 'px',
+	};
+
+	var aniShow = {};
+	mui.plusReady(function() {
+		plus.navigator.closeSplashscreen();
+		plus.navigator.setFullscreen(false);
+		if (!localStorage.getItem('global_sid') || localStorage.getItem('global_sid') == 'undefined' || localStorage.getItem('global_sid') == '') {
+			go_to_active('login.html')
+		}
+		var self = plus.webview.currentWebview();
+        for(var i = 0; i < 5; i++) {
+			var temp = {};
+			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+			if(i > 0) {
+			   sub.hide();
+			} else {
+			   temp[subpages[i]] = "true";
+			  mui.extend(aniShow, temp);
+			}
+			self.append(sub);
+        }
+	});
+
+	//当前激活选项
+	var activeTab = subpages[0];
+	mui('#nav_tab').on('tap', 'a', function() {
+		var targetTab = this.getAttribute('href');
+		if(targetTab == activeTab) {
+			return;
+		}
+		if(mui.os.ios || aniShow[targetTab]) {
+			plus.webview.show(targetTab);
+		} else {
+			var temp = {};
+			temp[targetTab] = "true";
+			mui.extend(aniShow, temp);
+			plus.webview.show(targetTab, "fade-in", 300);
+		}
+		var self = plus.webview.getWebviewById(targetTab);
+		mui.fire(self, 'page_init', {is_init: '1'});
+		plus.webview.hide(activeTab);
+		activeTab = targetTab;
+	});	
+	window.addEventListener('change',function(){
+		plus.webview.hide(activeTab);
+		activeTab = 'cart.html';
+		$('#nav_tab a[href="cart.html"]').addClass('mui-active').siblings().removeClass('mui-active');
+	});
+</script>

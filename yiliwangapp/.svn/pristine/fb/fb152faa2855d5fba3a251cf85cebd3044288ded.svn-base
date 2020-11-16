@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />
+		<style type="text/css">
+			.data_hd{position:relative;width:100%;margin:0;border:none;border-radius:0;}
+			.data_hd a{border-radius: 50%;border: 3px solid #b8b8b8;width:76px; height:76px;margin: 0 auto 15px;}
+			.data_hd img{border-radius:100%;}
+			.data_hd .goto-zhaq{color:#fff;font-size:12px; position:absolute;right:0;top:25px;width:80px;height:auto;text-align:right;padding-right:12px;border:none;border-radius:0;}
+			.data_hd .goto-zhaq span.mui-icon{font-size:16px;}
+			.none{display:none;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="type mui-bar mui-bar-nav" style="background:rgba(209,8,25,1)">
+			<a pushHTML="m-sz" href="javascript:void(0);" class="mui-pull-left mui-icon iconfont icon-shezhi" style="color:#fff;"></a>
+			<a pushHTML="m-wdxx" href="javascript:void(0);" class="mui-pull-right iconfont icon-xiaoxi"><span></span></a>
+		</header>
+		<div id="list_content" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="user_login" class="data">
+					<div class="data_hd">
+						<a pushHTML="m-grxx" href="javascript:void(0);"><img id="user_image_path" src="" /></a>
+						<a pushHTML="m-zhgl" href="javascript:void(0);" class="goto-zhaq">账户管理<span class="mui-icon mui-icon-arrowright"></span></a>
+					</div>
+					<p id="user_nickname" class="data_name"></p>
+				</div>
+				<div id="user_not_login" class="data">
+					<div class="data_hd">
+						<a pushHTML="login" href="javascript:void(0);"><img src="img/control_hd.png"/></a>
+					</div>
+					<p class="data_name"><a pushHTML="login" href="javascript:void(0);">登录</a>
+						<!--/<a pushHTML="reg" href="javascript:void(0);">注册</a>--></p>
+				</div>
+				<div class="data_wait">
+					<ul>
+						<li>
+							<a status="a" pushHTML="m-order-list" href="javascript:void(0);">
+								<em id="dfk" style="display: none;"></em>
+								<img src="img/wait1.jpg" style="margin-top:6px;"/>
+								<p>待付款</p>
+							</a>
+						</li>
+						<li>
+							<a status="b" pushHTML="m-order-list" href="javascript:void(0);">
+								<em id="dfh" style="display: none;"></em>
+								<img src="img/wait2.jpg" style="margin-top:2px;"/>
+								<p>待发货</p>
+							</a>
+						</li>
+						<li>
+							<a status="c" pushHTML="m-order-list" href="javascript:void(0);">
+								<em id="dsh" style="display: none;"></em>
+								<img src="img/wait3.jpg"/>
+								<p>待收货</p>
+							</a>
+						</li>
+						<li>
+							<a status="d" pushHTML="m-order-list" href="javascript:void(0);">
+								<em id="dpj" style="display: none;"></em>
+								<img src="img/wait4.jpg" style="margin-top:1px;"/>
+								<p>待评价</p>
+							</a>
+						</li>
+						<li>
+							<a status="all" pushHTML="m-order-list" href="javascript:void(0);">
+								<img src="img/wait5.jpg" style="margin-top:-1px;"/>
+								<p>我的订单<span class="mui-icon mui-icon-arrowright" style="font-size:12px;"></span></p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="score1">
+					<ul id="person_info">
+						<li>
+							<a pushHTML="m-wdjf" href="javascript:void(0);">
+								<em id="member_score">0</em>
+								<p>积分</p>
+							</a>
+						</li>
+						<li>
+							<a pushHTML="m-wdyhj" href="javascript:void(0);">
+								<em id="member_favorable">3</em>
+								<p>优惠券</p>
+							</a>
+						</li>
+						<li>
+							<a pushHTML="m-wdye" href="javascript:void(0);">
+								<em id="member_balance">0</em>
+								<p>余额</p>
+							</a>
+						</li>
+						<li>
+							<a pushHTML="m-wdyhk" href="javascript:void(0);">
+								<em id="member_bankcard">0</em>
+								<p>银行卡</p>
+							</a>
+						</li>
+						<li>
+							<a pushHTML="m-wdqb" href="javascript:void(0);">
+								<em><img src="img/wait6.jpg" style="width:20px;" /></em>
+								<p>我的钱包<span class="mui-icon mui-icon-arrowright" style="font-size:12px;"></span></p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="menu">
+					<ul class="mui-clearfix">
+						<li>
+							<a status="0" pushHTML="m-favorite-list" href="javascript:void(0);">
+								<img src="img/wait1.png" style="margin-bottom:10px;"/>
+								<p>收藏商品</p>
+							</a>
+						</li>
+						<li>
+							<a status="1" pushHTML="m-favorite-list" href="javascript:void(0);">
+								<img src="img/wait2.png" style="margin-bottom:8px;"/>
+								<p>收藏店铺</p>
+							</a>
+						</li>
+						<li>
+							<a status="2" pushHTML="m-favorite-list" href="javascript:void(0);">
+								<img src="img/wait3.png" style="margin-bottom:4px;"/>
+								<p>浏览记录</p>
+							</a>
+						</li>
+						<li>
+							<a pushHTML="m-kffw" href="javascript:void(0);">
+								<img src="img/wait4.png" style="margin-bottom:8px;"/>
+								<p>客户服务</p>
+							</a>
+						</li>
+						<li class="none">
+							<a pushHTML="business" href="javascript:void(0);">
+								<img src="img/wait5.png" style="margin-bottom:8px;"/>
+								<p>我是商家</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="like">
+					<h4 class="like_title">
+						<span>为您推荐</span>
+					</h4>
+					<div class="like_box">
+						<ul id="member_product_list">
+							
+						</ul>
+					</div>
+				</div>
+				<script id="tpl_member_product_list" type="text/html">
+					<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+						<li class="like_item">
+							<a pushHTML="product-view" href="javascript:void(0);" item_id="<%=data[i].id%>">
+								<img src="<%=data[i].path_thumb%>" class="img_bg" />
+								<p class="mui-ellipsis-2" style="height:3em"><%=data[i].title%></p>
+								<em><span>￥</span><%=data[i].sell_price%></em>
+							</a>
+						</li>
+					<%}%>
+				</script>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content .mui-pull-top-pocket{top: '+(immersed)+'px !important;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+
+	var store_id = '';
+	var store_display='';
+	mui('.mui-scroll-wrapper').scroll();
+
+	window.addEventListener('init_data', function(e) {
+		init_data();
+	});
+
+	window.addEventListener('changeHeadImage', function(mes) {
+		init_data();
+	});
+
+	window.onload = function() {
+		init_data();
+	}
+
+	window.addEventListener('page_init', function(e) {
+		init_data();
+	});
+
+	function init_data() {
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+			$('#user_login').show();
+			$('#user_not_login').hide();
+			get_user_info();
+		} else {
+			$('#user_not_login').show();
+			$('#user_login').hide();
+		}
+
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_member_product_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_member_product_list', res);
+					$('#member_product_list').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	window.addEventListener('page_init', function(e) {
+		onload();
+	})
+
+	function get_user_info() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_user_info?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					store_id = res.data.store_id;
+					store_display=res.data.store_display;
+			 		localStorage.setItem("global_id", res.data.id);
+					localStorage.setItem("global_username", res.data.username);
+					localStorage.setItem("global_nickname", res.data.nickname);
+					localStorage.setItem("global_real_name", res.data.real_name);
+					localStorage.setItem("global_path", res.data.path);
+					localStorage.setItem("global_path_thumb", res.data.path_thumb);
+					localStorage.setItem("global_sex", res.data.sex);
+					localStorage.setItem("global_total", res.data.total);
+					localStorage.setItem("global_score", res.data.score);
+					localStorage.setItem("global_mobile", res.data.mobile);
+					localStorage.setItem("global_is_id_card_auth", res.data.is_id_card_auth);
+					$('#user_nickname').html(localStorage.getItem('global_nickname'));
+			        if (localStorage.getItem("global_path_thumb") && localStorage.getItem("global_path_thumb") != 'undefined') {
+			             $('#user_image_path').attr('src', localStorage.getItem('global_path_thumb'));
+			        }else{
+			    	     $('#user_image_path').attr('src', " img/control_hd.png");
+			        }
+
+			        $('#member_score').html(localStorage.getItem('global_score'));
+			        $('#member_balance').html(localStorage.getItem('global_total'));
+
+			        // 订单数量统计
+			        if (res.data.order_count != '0') {
+						$('#order').css('display', 'block');
+						$('#order').html(res.data.order_count);
+					} else {
+						$('#order').css('display', 'none');
+					}
+					if (res.data.order_count_0 != '0') {
+						$('#dfk').css('display', 'block');
+						$('#dfk').html(res.data.order_count_0);
+					} else {
+						$('#dfk').css('display', 'none');
+					}
+					if (res.data.order_count_1 != '0') {
+						$('#dfh').css('display', 'block');
+						$('#dfh').html(res.data.order_count_1);
+					} else {
+						$('#dfh').css('display', 'none');
+					}
+					if (res.data.order_count_2 != '0') {
+						$('#dsh').css('display', 'block');
+						$('#dsh').html(res.data.order_count_2);
+					} else {
+						$('#dsh').css('display', 'none');
+					}
+					if (res.data.order_count_3 != '0') {
+						$('#dpj').css('display', 'block');
+						$('#dpj').html(res.data.order_count_3);
+					} else {
+						$('#dpj').css('display', 'none');
+					}
+					if (res.data.store_id != 0 && res.data.store_display==1) {
+						$('.none').css('display', 'block');
+					} else if(res.data.store_id == 0 || res.data.store_display==2){
+						$('.none').css('display', 'block');
+					}else if(res.data.store_id != 0 && res.data.store_display==0){
+						$('.none').css('display', 'block');
+					} else {
+						$('.none').css('display', 'none');
+					}
+			 	} else {
+			 		localStorage.removeItem("global_id");
+					localStorage.removeItem("global_username");
+					localStorage.removeItem("global_nickname");
+					localStorage.removeItem("global_real_name");
+					localStorage.removeItem("global_path");
+					localStorage.removeItem("global_path_thumb");
+					localStorage.removeItem("global_sex");
+					localStorage.removeItem("global_total");
+					localStorage.removeItem("global_score");
+					localStorage.removeItem("global_mobile");
+					mui.toast("请登录");
+					go_to_active('login.html');
+			 	}
+			 }, error: error
+		});
+	}
+
+	mui('.data_wait').on('tap', 'a', function() {
+		var pushHTML = this.getAttribute('pushHTML');
+		pushHTML += '.html';
+		var status = this.getAttribute('status');
+		go_to_view(pushHTML, {status: status});
+	});
+	
+	mui('#list_content').on('tap', 'a', function() {
+		var pushHTML = this.getAttribute('pushHTML');
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+			pushHTML += '.html';
+			if (pushHTML == 'product-view.html') {
+				var product_id = this.getAttribute('item_id');
+				go_to_view(pushHTML, {
+					item_id: product_id
+				});
+			} else if (pushHTML == 'business.html') {
+				if (store_id != 0 && store_display==1) {
+					go_to_active(pushHTML);
+				} else if(store_id == 0 || store_display==2){
+					go_to_active("b-wykd.html");
+				}else if(store_id != 0 && store_display==0){
+					go_to_active("wait_open_store.html");
+				}
+			}else if(pushHTML == 'm-favorite-list.html'){
+				var status = this.getAttribute('status');
+				go_to_view(pushHTML, {status: status});
+			}else if(pushHTML == 'm-wdyhk.html' || pushHTML == 'm-wdyhj.html' ){
+				mui.toast('建设中...')
+			}else {
+				go_to_active(pushHTML);
+			}
+		} else {
+			if (pushHTML == 'm-grxx' || pushHTML == 'login') {
+				go_to_active('login.html');
+			} else if (pushHTML == 'reg') {
+				go_to_active('reg.html');
+			} else if (pushHTML == 'product-view') {
+				pushHTML += '.html';
+				var product_id = this.getAttribute('item_id');
+				go_to_view(pushHTML, {
+					item_id: product_id
+				});
+			} else {
+				mui.toast('请先登录');
+				go_to_active('login.html');
+			}
+		}
+	});
+
+	mui('#header').on('tap', 'a', function() {
+		var pushHTML = this.getAttribute('pushHTML');
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+			pushHTML += '.html';
+			go_to_active(pushHTML);
+		} else {
+			mui.toast('请先登录');
+			go_to_active('login.html');	
+		}
+	});
+</script>

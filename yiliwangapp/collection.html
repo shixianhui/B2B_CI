@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">我的收藏</h1>
+	        
+	    </header>
+	    <div class="mui-content asset">
+	    	<ul class="mui-table-view ">
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="c_pintuan_list.html">
+    	                <span class="iconfont-supplement icon-gengduopintuan"></span>
+    	                                         拼团收藏
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="c_note_list.html">
+    	                <span class="iconfont-supplement icon-icon-test2"></span>
+    	            	心得收藏
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="c_product_list.html">
+    	                <span class="iconfont-supplement icon-shangpin"></span>
+    	            	商品收藏
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="c_shop_list.html">
+    	                <span class="iconfont-supplement icon-dianpu"></span>
+    	            	店铺收藏
+    	            </a>
+    	        </li>
+    	    </ul>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.asset').on('tap','a',function(){
+		id=this.getAttribute('href');
+		if (id== 'm-favorite-list.html') {
+			var status = 0;
+			go_to_view(id, {status: 0});
+		} else{
+			go_to_active(id)
+		}
+	})
+</script>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">申请售后</h1>
+        <a class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+	<div class="mui-content customer-service-content">
+	    <div class="mui-input-row checkbox">
+	        <label>服务类型<span class="text-color">*</span></label>
+	        <select name="" class="mui-btn mui-btn-block">
+				<option value="item-1">我要退款</option>
+				<option value="item-2">我要退款</option>
+				<option value="item-3">我要退款</option>
+				<option value="item-4">我要退款</option>
+				<option value="item-5">我要退款</option>
+			</select>
+	        <i class="mui-icon mui-icon-arrowdown"></i>
+	    </div>
+	    <div class="mui-input-row">
+	        <label>退款金额<span class="text-color">*</span></label>
+	        <input type="text" placeholder="最多222.00">
+	    </div>
+	    <div class="mui-input-row">
+	        <label>详细描述<span class="text-color">*</span></label>
+	        <textarea name="" rows="" cols=""placeholder="请您在此描述详细问题"></textarea>
+	        <b>0/200</b>
+	    </div>
+	    <div class="mui-input-row">
+	        <label>上传照片<span class="text-color">*</span></label>
+	        <div class="picture">
+	        	<a href="#photograph" class="iconfont-supplement icon-xiangji"></a>
+	        	<a href=""><img src="img/pictrue1.png"/><i class="iconfont-supplement icon-633"></i></a>
+	        	<a href=""><img src="img/pictrue1.png"/><i class="iconfont-supplement icon-633"></i></a>
+	        </div>
+	        <p>最多可上传5张照片，每张不超过5M，支持JPG、BMP、PNG</p>
+	    </div>
+	    <button type="button" class="mui-btn mui-btn-red mui-btn-block">提交申请</button>
+	</div>
+	<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	    <!-- 可选择菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<p>还可以上传4张照片</p>
+			</li>
+			<li class="mui-table-view-cell text-color">
+				<a href="#">拍照</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="#">照片</a>
+			</li>
+	    </ul>
+	    <!-- 取消菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="">取消</a>
+			</li>
+	    </ul>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>

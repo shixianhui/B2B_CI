@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.css" />		
+	</head>
+	<style>
+		.mui-table-view-cell:after{left:0;}
+	</style>
+	<body>
+		<header id="menu_bar" class="mui-bar mui-bar-nav top_bar" style="background-color:rgba(204,0,17,1);">
+			<a class="mui-action-back mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></a>
+			<h1 class="mui-title">商场详情</h1>
+			<a class="mui-pull-right"><span class="mui-icon mui-icon-more"></span><i class="circle"></i></a>
+		</header>
+		
+		<div class="mui-content">
+			<div class="shop">
+				<div class="shop_name mui-clearfix">
+					<h1 class="mui-pull-left">
+						<a href=""><img src="img/shop_logo.jpg" /></a>
+					</h1>
+					<span class="mui-pull-left">国际家具旗舰店</span>
+					<a href="" class="focus mui-pull-right"><i class="iconfont icon-guanzhu"></i>关注</a>	
+				</div>	
+			</div>
+			
+			<div class="contact">
+				<p class="link">联系商场<a href="" class="iconfont icon-kefuxitong mui-pull-right"></a></p>
+				<p class="link">商家电话<span>0571-88888888 / 15067161666</span><a href="" class="iconfont icon-dianhua1 mui-pull-right"></a></p>
+				<div class="work mui-clearfix">
+					<div class="time mui-pull-left">
+						工作时间
+					</div>
+					<div class="Time_slot mui-pull-left">
+						<p>周一至周五   9:00-24:00</p>
+						<p>周六至周日   9:00-23:00</p>
+					</div>
+				</div>
+				<p class="address">所在地址<span>浙江省 杭州市 江干区 下沙街道 文创大厦12楼</span></p>
+			</div>
+		</div>
+		
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init();
+	</script>
+
+</html>

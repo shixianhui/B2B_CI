@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar text-head">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 id="sort_manage" class="mui-title">分类管理</h1>
+		    <a id="sort_edit" class="mui-pull-right" href="b-flgl-edit.html">编辑</a>
+		</header>
+		<div class="mui-content classified-management-content no-bg mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul id="sort_product" class="mui-table-view">
+
+				</ul>
+				<script id="tpl_sort_product" type="text/html">
+					<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+						<li class="mui-table-view-cell mui-collapse mui-active"><a class="mui-navigate-right stair-list" href="#"><%=data[i].product_category_name%></a>
+							<ul class="mui-table-view">
+								<%for (var j = 0, sort_data = data[i].subMenuList; j < sort_data.length; j++) { %>
+									<li sort_id="<%=data[j].id%>" class="mui-table-view-cell"><a class="" href="#"><%=sort_data[j].product_category_name%></a></li>
+								<%}%>
+							</ul>
+						</li>
+					<%}%>
+				</script>
+				<ul id="sort_product2" class="mui-table-view">
+
+				</ul>
+				<script id="tpl_sort_product2" type="text/html">
+					<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+						<li sort_id="<%=data[i].id%>" class="mui-table-view-cell"><a class="mui-navigate-right stair-list" href="#"><%=data[i].product_category_name%></a>
+						</li>
+					<%}%>
+				</script>
+			</div>	
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false
+	});
+
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	window.addEventListener('go_to_parameter', function(e) {
+		if (e.detail.item_id == 'product') {
+			$('#sort_product2').show();
+			$('#sort_product').hide();
+			$('#sort_manage').html('商品分类');
+			$('#sort_edit').hide();
+			get_product_category_list();
+		} else if (e.detail.item_id == 'store') {
+			$('#sort_product').show();
+			$('#sort_product2').hide();
+			$('#sort_manage').html('本店分类');
+			$('#sort_edit').hide();
+			get_seller_category_list(1);
+		} else {
+			$('#sort_product').show();
+			$('#sort_product2').hide();
+			$('#sort_manage').html('分类管理');
+			$('#sort_edit').show();
+			get_seller_category_list(0);
+		}
+	});
+
+	function get_product_category_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_product_category_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html = template("tpl_sort_product2", res);
+					$("#sort_product2").html(html);
+
+					mui('#sort_product2').on('tap', 'li', function() {
+						var sort_id = this.getAttribute("sort_id");
+						if (sort_id) {
+							var list = plus.webview.getWebviewById('b-spgl-add.html');
+                    		mui.fire(list, 'choose_product_sort', {
+                    			item_id : sort_id
+                    		});
+                    		mui.back();
+						}
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	function get_seller_category_list(flag) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_seller_category_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html = template("tpl_sort_product", res);
+					$("#sort_product").html(html);
+
+					if (flag == 1) {
+						mui('#sort_product').on('tap', 'li', function() {
+							var sort_id = this.getAttribute("sort_id");
+							if (sort_id) {
+								var list = plus.webview.getWebviewById('b-spgl-add.html');
+	                    		mui.fire(list, 'choose_store_sort', {
+                    			item_id : sort_id
+                    		});
+	                    		mui.back();
+							}
+						});
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		})
+	}
+</script>

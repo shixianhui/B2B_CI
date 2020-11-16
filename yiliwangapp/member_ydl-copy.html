@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />
+	</head>
+	<body>
+		<header class="type mui-bar mui-bar-nav mui-bar-transparent" style="background:rgba(209,8,25,0)">
+			<a class="mui-pull-left mui-icon iconfont icon-shezhi" style="color:#fff;"></a>
+			<a class="mui-pull-right iconfont icon-xiaoxi"><span></span></a>
+		</header>
+		<div class="mui-content" style="padding-top:0;">
+			<div class="data">
+				<div class="data_hd">
+					<a href="m-grxx.html"><img src="img/control_hd.png"/></a>
+				</div>
+				<p class="data_name">yl_00001yl</p>
+			</div>
+			<div class="data_wait">
+				<ul>
+					<li>
+						<a href="">
+							<img src="img/wait1.jpg" style="margin-top:6px;"/>
+							<p>待付款</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait2.jpg" style="margin-top:2px;"/>
+							<p>待发货</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<em>2</em>
+							<img src="img/wait3.jpg"/>
+							<p>待收货</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait4.jpg" style="margin-top:1px;"/>
+							<p>待评价</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait5.jpg" style="margin-top:-1px;"/>
+							<p>我的订单</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="score1">
+				<ul>
+					<li>
+						<a href="">
+							<em>30</em>
+							<p>积分</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<em>3</em>
+							<p>优惠券</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<em>0.00</em>
+							<p>余额</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<em>0</em>
+							<p>银行卡</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<em><img src="img/wait6.jpg" style="width:20px;" /></em>
+							<p>我的钱包</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="menu">
+				<ul class="mui-clearfix">
+					<li>
+						<a href="">
+							<img src="img/wait1.png" style="margin-bottom:10px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait2.png" style="margin-bottom:8px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait3.png" style="margin-bottom:4px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait4.png" style="margin-bottom:8px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait5.png" style="margin-bottom:8px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<img src="img/wait6.png" style="margin-bottom:4px;"/>
+							<p>收藏商品</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="like">
+				<h4 class="like_title">
+					<span>为您推荐</span>
+				</h4>
+				<div class="like_box">
+					<ul id="member_product_list">
+						
+					</ul>
+				</div>
+			</div>
+			<script id="tpl_member_product_list" type="text/html">
+				<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+					<li class="like_item">
+						<a href="#" item_id="<%=data[i].id">
+							<img src="<%=data[i].path%>" class="img_bg" />
+							<p>kaimeng 皮床 真皮床1.8米米米米米米米米米</p>
+							<p><%=data[i].title%></p>
+							<em><span>￥</span><%=data[i].sell_price%></em>
+						</a>
+					</li>
+				<% } %>
+			</script>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	mui.plusReady(function() {
+		
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_member_product_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				var r = JSON.stringify(res);
+				if (res.success) {
+					var html = template('tpl_member_product_list', res);
+					$('#member_product_list').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	});
+
+</script>

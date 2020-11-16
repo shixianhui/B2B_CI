@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a id="back" class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">修改性别</h1>
+		</header>
+		<div class="mui-content sex-changes-content">
+		    <ul class="mui-table-view-radio" style="margin-top:0;">
+				<li sexType="man" class="mui-table-view-cell">
+					<a id="" class="mui-navigate-right">男</a>
+				</li>
+				<li sexType="woman" class="mui-table-view-cell ">
+					<a class="mui-navigate-right">
+						女
+					</a>
+				</li>
+				<li sexType="secrecy" class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						保密
+					</a>
+				</li>
+			</ul>
+		</div>	
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.plusReady(function() {
+		var gender = localStorage.getItem("global_sex");
+		gender = --gender < 0 ? 2 : gender;
+		$("ul").children("li").eq(gender).addClass("mui-selected");
+	});
+
+	var list = document.querySelector('.mui-table-view-radio');
+	list.addEventListener('selected', function(e) {
+		var gender = e.detail.el.getAttribute('sexType');
+		var sex = 1;
+		if (gender === 'man') {
+			sex = 1;
+		} else if (gender === 'woman') {
+			sex = 2;
+		} else {
+			sex = 0;
+		}
+		var url = base_url + 'napi/change_user_gender?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {
+				sex : sex
+			},
+			 dataType: "json",
+			 type: "post",
+			 timeout: 10000,
+			 success: function(res) {	
+			 	// mui.alert(JSON.stringify(res));
+			 	if (res.success) {
+			 		mui.toast('修改成功');
+			 		localStorage.setItem("global_sex", sex);
+			 		var list = plus.webview.getWebviewById('m-grxx.html');
+			 		mui.fire(list, 'change_name_gender');
+			 		mui.back();
+			 	} else {
+			 		mui.toast(res.message);
+			 		if(res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+			 	}
+			 },
+			 error: error
+		});
+	});
+
+	
+</script>	

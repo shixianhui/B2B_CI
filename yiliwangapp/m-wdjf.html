@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>我的积分</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+    
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的积分</h1>
+        <a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+    <div class="mui-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="mui-content my-points-content no-bg">
+                <div id="score_details">
+
+                </div>
+                <script id="tpl_score_details" type="text/html">
+                    <p>可用积分(个)</p>
+                    <h1 class="text-color"><%=data.score_balance%></h1>
+                </script>
+                <ul id="score_list" class="mui-table-view">
+
+                </ul>
+                <script id="tpl_score_list" type="text/html">
+                    <%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+                        <li id="list_item_<%=data[i].id%>" class="mui-table-view-cell">
+                            <h4><%=data[i].cause%></h4>
+                            <p><%=data[i].add_time%></p>
+                            <span class="text-color">
+                                <%if (data[i].type == 'recharge_in') {%>
+                                    +<%=data[i].score%>
+                                <%} else {%>
+                                    -<%=data[i].score%>
+                                <%}%>
+                            </span>
+                        </li>
+                    <%}%>
+                </script>
+            </div>
+        </div>
+    </div> 
+    <input type="hidden" id="max_id" value="0" />
+    <input type="hidden" id="since_id" value="0" />
+    <input type="hidden" id="per_page" value="10" />
+    <input type="hidden" id="page" value="1" />
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    mui('#header').on('tap', 'a', function() {
+        var id = this.getAttribute('href');
+        if (id == 'm-wdxx.html') {
+            go_to_view(id, {
+                item_id : "ok"
+            });
+        }
+    });
+
+    mui.init({
+        pullRefresh : {
+            container:".mui-scroll-wrapper",
+            down : {
+              // height:20,
+              contentdown : "下拉可以刷新",
+              contentover : "释放立即刷新",
+              contentrefresh : "正在刷新...",
+              callback :down_refresh
+            },
+            up : {
+                // height : 50,
+                contentrefresh : "正在加载...",
+                contentnomore : '没有更多数据了',
+                callback : up_refresh
+            }
+         }
+    });
+
+    var respone = new Object();
+
+//  mui('.mui-scroll-wrapper').scroll({
+//      deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+//  });
+
+    mui.plusReady(function() {
+        init();
+    });
+    window.addEventListener('page_init',function(){
+        init();
+	})
+
+    // 初始化
+    function init() {
+        $('#max_id').val('0');
+        $('#since_id').val('0');
+        $('#page').val('1');
+        var per_page = $('#per_page').val();
+        get_score_list(0, 0, 0, per_page, 1);
+    }
+
+    function down_refresh() {
+        var per_page = $('#per_page').val();
+        var since_id = $('#since_id').val();
+        get_score_list('down', 0, since_id, per_page, 1);
+        
+    }
+
+    function up_refresh() {
+        var max_id = $('#max_id').val();
+        var per_page = $('#per_page').val();
+        var papesssss = $('#page').val();
+        get_score_list('up', max_id, 0, per_page, papesssss);
+    }
+
+    function get_score_list(type, max_id, since_id, per_page, page) {
+		if (!is_network(false)) {return;}
+
+        url = base_url + 'napi/get_score_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {},
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            success: function(res) {
+                // mui.alert(JSON.stringify(res));
+                if (res.success) {
+                    var details_html = template('tpl_score_details', res);
+                    $('#score_details').html(details_html);
+
+                    if (page == '1') {
+                        var html = '<li class="mui-table-view-cell">积分记录</li>';
+                        html += template('tpl_score_list', res);
+                    } else {
+                        var html = template('tpl_score_list', res);
+                    }
+                    
+                    if (type == 'down') { // 下拉刷新 - down
+                        $('#since_id').val(res.data.max_id);
+                        $('#score_list li[id]:first').before(html);
+                        mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+                        if (res.data.item_list.length > 0) {
+                            respone = respone.concat(res.data.item_list);
+                        }
+                    } else if (type == 'up') { // 上拉加载 - up
+                        $("#score_list li[id]:last").after(html);
+                        if (res.data.is_next_page) {
+                            $('#page').val((parseInt(page) + 1).toString());
+                            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(false);
+                        } else {
+                            $('#page').val(page.toString());
+                            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(true);
+                        }
+                        if (res.data.item_list.length > 0) {
+                            respone = respone.concat(res.data.item_list);
+                        }
+                    } else { // 第一次加载
+                        respone = res.data.item_list;
+                        $('#page').val((parseInt(page) + 1).toString());
+                        $('#max_id').val(res.data.max_id);
+                        $('#since_id').val(res.data.max_id);
+                        $('#score_list').html(html);
+                        if(res.data.is_next_page == 0) {
+                            mui('.mui-scroll-wrapper').pullRefresh().endPullupToRefresh(true);
+                        } else {
+                            mui('.mui-scroll-wrapper').pullRefresh().enablePullupToRefresh(false);
+                        }
+
+                        if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data"></div>';
+                            no_data_html += '</div>';
+                            $('#score_list').html(no_data_html);
+                        }
+                    }
+                } else {
+                    mui.toast(res.message);
+                    if (res.field == 'login') {
+                        mui.plusReady(function() {
+                            go_to_active('login.html');
+                        });
+                    }
+                }
+            },
+            error: function() {
+                mui.toast("加载失败，请重新加载");
+                mui('.mui-scroll-wrapper').pullRefresh().endPulldownToRefresh();
+                mui('.mui-scroll-wrapper').pullRefresh().enablePullupToRefresh(false);
+            }
+        });
+    }
+
+</script>

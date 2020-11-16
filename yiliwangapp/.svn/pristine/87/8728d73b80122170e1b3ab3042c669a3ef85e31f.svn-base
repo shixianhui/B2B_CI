@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+		</style>
+	</head>
+	<body style="background:#fff;">
+		<header class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">入驻中心</h1>
+		</header>
+		<div class="mui-content no-bg enter-center-content">
+		    <div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+				入驻流程
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				资质要求
+			</a>
+				</div>
+				<div class="">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">						
+						<p>1、进入我们公司的网站。</p>
+						<p>2、在右上角处点注册。</p>
+						<p>3、填写注册信息进行注册。</p>
+						<p>4、 注册好后登录。</p>
+						<p>5、输入用户名及密码进行登录。</p>
+						<p>6、绑定身份信息。</p>
+						<p>7、输入真实姓名及身份证号进行绑定。一定要绑定真实的姓名及身份。</p>
+						<p>8、个人资料。</p>
+						<p>9、人个资料里邮箱及手机号码QQ等信息可以修改。用户名还有姓名和身份证号是不能修改的</p>
+						<p>10、我是商家下面点击我要入驻，进入该界面。</p>
+						<p>11、立即开店。我们刚开店都选用初级商户，初级对商品数量及空间有限制，这个到时看加盟商上传的东西来看，可以进行一个升级，需要升级的商铺通知客服进行免费升级处理，中级跟高级都是需要收费的，前期我们还是免费，后期收费标准及条件等通知。</p>
+						<p>12、 填写相关信息及上传相关资料进行开店。上传的法人身份证及营业执照还有税务登记证必需是同一人，与之前绑定的同一人。</p>
+						<p>13、等待审核。</p>
+						<p>14、审核通过，会有短信息发到您的会员中心。然后就可以发布商品了。</p>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<p>1、进入我们公司的网站。</p>
+						<p>2、在右上角处点注册。</p>
+						<p>3、填写注册信息进行注册。</p>
+						<p>4、 注册好后登录。</p>
+						<p>5、输入用户名及密码进行登录。</p>
+						<p>6、绑定身份信息。</p>
+						<p>7、输入真实姓名及身份证号进行绑定。一定要绑定真实的姓名及身份。</p>
+						<p>8、个人资料。</p>
+						<p>9、人个资料里邮箱及手机号码QQ等信息可以修改。用户名还有姓名和身份证号是不能修改的</p>
+						<p>10、我是商家下面点击我要入驻，进入该界面。</p>
+						<p>11、立即开店。我们刚开店都选用初级商户，初级对商品数量及空间有限制，这个到时看加盟商上传的东西来看，可以进行一个升级，需要升级的商铺通知客服进行免费升级处理，中级跟高级都是需要收费的，前期我们还是免费，后期收费标准及条件等通知。</p>
+						<p>12、 填写相关信息及上传相关资料进行开店。上传的法人身份证及营业执照还有税务登记证必需是同一人，与之前绑定的同一人。</p>
+						<p>13、等待审核。</p>
+						<p>14、审核通过，会有短信息发到您的会员中心。然后就可以发布商品了。</p>
+
+					</div>
+					
+				</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>

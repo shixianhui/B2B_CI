@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>订单支付成功</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<style type="text/css">
+			.mui-content div{background:#fff;text-align:center;margin-top:0px;}
+			.mui-icon.mui-icon-checkmarkempty{font-size:60px;font-weight:700;border-radius:100%;border:3px solid #cc0011;color:#cc0011;margin:20px auto 5px;}
+			h3{color:#cc0011;font-size:20px;font-weight:600;margin-top:5px;}
+			p{font-size:14px;margin-top:5px;}
+			.mui-content a{color:#cc0011;border:1px solid #cc0011;padding:5px 12px;display:inline-block;margin:10px auto 20px;border-radius:6px;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="type mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+			<h1 class="mui-title" style="color: #fff;">订单支付成功</h1>
+	    </h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-clearfix">
+				<span class="mui-icon mui-icon-checkmarkempty"></span>
+				<h3>订单支付成功</h3>
+				<p id="order_num">订单编号:1636669542380698</p>
+				<a id="go_to_list" href="javascript:void(0);">查看订单</a>
+				<a id="go_to_add" href="javascript:void(0);" style="margin-left: 30px;">继续购物</a>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init({
+		beforeback: function() {
+			return false;
+		}
+	});
+	
+	window.addEventListener('go_to_parameter',function (e) {
+	    $('#order_num').html('订单编号：'+e.detail.order_num);    
+	});
+	
+	document.getElementById('go_to_list').addEventListener('tap',function () {
+	     go_to_view('m-order-list.html',{status:'b'});
+	});
+	
+	document.getElementById('go_to_add').addEventListener('tap',function () {
+	    go_to_active('product-list.html');   
+	});
+</script>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/icons-extra.css"/>
+	<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我要开店</h1>
+        <!--<a class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>-->
+    </header>
+	<div class="mui-segmented-control want-openshop-content">
+	    <a store_type="1" class="mui-control-item mui-active" href="javascript:void(0);">入驻实体商家</a>
+	    <a store_type="2" class="mui-control-item" href="javascript:void(0);">入驻实体厂家</a>
+	    <a store_type="3" class="mui-control-item" href="javascript:void(0);">入驻实力电商</a>
+	</div>
+    <div class="mui-content no-bg want-openshop-content mui-scroll-wrapper">
+        <div class="mui-scroll">
+        <!--<div class="picture">
+        	<a href="#photograph">
+        	<img src="img/user.png"/>
+        	<i class="iconfont-supplement icon-xiangji"></i>
+        	</a>
+        	<p>上传店铺LOGO</p>
+        </div>-->
+        <div class="mui-input-row">
+    	    <input id="store_name" type="text" placeholder="你的店铺名称（必填项）">
+    	    <input id="localarea" readonly="readonly" type="text" placeholder="所在地区（必填项）">
+    	    <input id="address" type="text" placeholder="详细地址">
+    	    <input id="owner_name" type="text" placeholder="店主姓名（必填项）">
+    	    <input id="owner_card" type="text" placeholder="身份证号（必填项）">
+    	    <input id="mobile" type="text" placeholder="手机号（必填项）">
+    	    <input id="im_qq" type="text" placeholder="联系QQ">
+    	    <input id="im_weixin" type="text" placeholder="微信号">
+    	    <input id="im_ww" type="text" placeholder="旺旺号">
+        </div>
+        <div class="license_box">
+	        <div id="store_type_1" class="license mt15 active">
+	        	<h4>个体户营业执照登记:</h4>
+	        	<div class="mui-input-row">
+	        	    <input id="reg_num" type="text" placeholder="注册号（必填项）">
+	        	    <input id="license_store_name_1" type="text" placeholder="名称（必填项）">
+	        	    <input id="license_username" type="text" placeholder="经营者姓名（必填项）">
+	        	    <input id="license_form" type="text" placeholder="组成形式">
+	        	    <input id="license_place" type="text" placeholder="经营场所">
+	        	    <input id="license_business_scope_1" type="text" placeholder="经营范围">
+	        	</div>
+	        </div>
+	        <div id="store_type_2" class="license mt15">
+	        	<h4>营业执照登记:</h4>
+	        	<div class="mui-input-row">
+	        	    <input id="license_credit_code_2" type="text" placeholder="统一社会信用代码（必填项）">
+	        	    <input id="license_store_name_2" type="text" placeholder="名称（必填项）">
+	        	    <input id="license_store_type_2" type="text" placeholder="类型">
+	        	    <input id="license_residence_2" type="text" placeholder="住所">
+	        	    <input id="license_representative_2" type="text" placeholder="法定代表人">
+	        	    <input id="license_capital_2" type="text" placeholder="注册资本">
+	        	    <input id="license_made_time_2" type="text" placeholder="成立日期">
+	        	    <input id="license_time_limit_2" type="text" placeholder="营业期限">
+	        	    <input id="license_business_scope_2" type="text" placeholder="经营范围">
+	        	</div>
+	        </div>
+	        <div id="store_type_3" class="license mt15">
+	        	<h4>营业执照登记:</h4>
+	        	<div class="mui-input-row">
+	        	    <input id="license_credit_code_3" type="text" placeholder="统一社会信用代码">
+	        	    <input id="license_store_name_3" type="text" placeholder="名称">
+	        	    <input id="license_store_type_3" type="text" placeholder="类型">
+	        	    <input id="license_residence_3" type="text" placeholder="住所">
+	        	    <input id="license_representative_3" type="text" placeholder="法定代表人">
+	        	    <input id="license_capital_3" type="text" placeholder="注册资本">
+	        	    <input id="license_made_time_3" type="text" placeholder="成立日期">
+	        	    <input id="license_time_limit_3" type="text" placeholder="营业期限">
+	        	    <input id="license_business_scope_3" type="text" placeholder="经营范围">
+	        	</div>
+	        </div>
+        </div>
+        
+        <div class="button">
+        	<button id="submit_btn" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">提交店铺申请</button>
+        </div>
+        </div>
+        <!--<div class="entry-mode">
+        	<a href="">实体商家入驻<i class="mui-icon-extra mui-icon-extra-arrowrightcricle"></i></a>
+        	<a href="">实力电商入驻<i class="mui-icon-extra mui-icon-extra-arrowrightcricle"></i></a>
+        </div>-->
+    </div>
+    <!--<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell text-color">
+            <a href="#">拍照</a>
+          </li>
+          <li class="mui-table-view-cell">
+            <a href="#">我的相册</a>
+          </li>
+        </ul>
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell">
+            <a href="#sheet1">取消</a>
+          </li>
+        </ul>
+    </div>
+    -->
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css='<style>.want-openshop-content.mui-segmented-control{top:'+(44+immersed)+'px;}</style>'
+	document.write(style_css);
+	mui('.mui-scroll-wrapper').scroll();
+	var store_type=1;
+	var province_id = '';
+	var city_id = '';
+	var area_id = '';
+	
+	mui.ready(function() {
+		//普通示例
+		var cityPicker3 = new mui.PopPicker({
+		layer: 3
+	});
+	cityPicker3.setData(cityData3);
+	var cityResult3 = document.getElementById('cityResult3');
+	document.getElementById('localarea').addEventListener('tap', function(event) {
+		cityPicker3.show(function(items) {
+			document.querySelector('#localarea').value=(items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+			province_id = (items[0] || {}).value;
+			city_id = (items[1] || {}).value;
+			area_id = (items[2] || {}).value;
+			//返回 false 可以阻止选择框的关闭
+			//return false;
+			});
+		}, false);
+	}); 
+	window.addEventListener('page_init',function(){
+		document.querySelector('#store_name').value="";
+		document.querySelector('#localarea').value="";
+		document.querySelector('#mobile').value="";
+		document.querySelector('#owner_name').value="";
+		document.querySelector('#owner_card').value="";
+		document.querySelector('#address').value="";
+		document.querySelector('#im_qq').value="";
+		document.querySelector('#im_weixin').value="";
+		document.querySelector('#im_ww').value="";
+		document.querySelector('#reg_num').value="";
+		document.querySelector('#license_username').value="";
+		document.querySelector('#license_form').value="";
+		document.querySelector('#license_place').value="";
+		
+		document.querySelector('#license_store_name_1').value="";
+		document.querySelector('#license_store_name_2').value="";
+		document.querySelector('#license_store_name_3').value="";
+		document.querySelector('#license_business_scope_2').value="";
+		document.querySelector('#license_business_scope_3').value="";
+		document.querySelector('#license_credit_code_2').value="";
+		document.querySelector('#license_credit_code_3').value="";
+		document.querySelector('#license_store_type_2').value="";
+		document.querySelector('license_store_type_3').value="";
+		document.querySelector('#license_residence_2').value="";
+		document.querySelector('#license_residence_3').value="";
+		document.querySelector('#license_representative_2').value="";
+		document.querySelector('#license_representative_3').value="";
+		document.querySelector('#license_capital_2').value="";
+		document.querySelector('#license_capital_3').value="";
+		document.querySelector('#license_made_time_2').value="";
+		document.querySelector('#license_made_time_3').value="";
+		document.querySelector('#license_time_limit_2').value="";
+		document.querySelector('#license_time_limit_3').value="";
+		document.querySelector('#license_business_scope_1').value="";
+		document.querySelector('#license_business_scope_2').value="";
+		document.querySelector('#license_business_scope_3').value="";
+		
+	});
+	
+	mui('.want-openshop-content.mui-segmented-control').on('tap','a',function(){
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		store_type=this.getAttribute('store_type');
+		if (store_type==1) {
+			$('#store_type_1').addClass('active').siblings().removeClass('active');	
+		} else if (store_type==2) {
+			$('#store_type_2').addClass('active').siblings().removeClass('active');	
+		} else {
+			$('#store_type_3').addClass('active').siblings().removeClass('active');	
+		}
+	});
+	
+	document.getElementById('submit_btn').addEventListener('tap',function(){
+		var store_name=document.querySelector('#store_name').value;
+		var localarea=document.querySelector('#localarea').value;
+		var mobile=document.querySelector('#mobile').value;
+		var owner_name=document.querySelector('#owner_name').value;
+		var owner_card=document.querySelector('#owner_card').value;
+		var address=document.querySelector('#address').value;
+		var im_qq=document.querySelector('#im_qq').value;
+		var im_weixin=document.querySelector('#im_weixin').value;
+		var im_ww=document.querySelector('#im_ww').value;
+		var license_store_name="";
+		var license_business_scope="";
+		var reg_num="";
+		var license_username="";
+		var license_form="";
+		var license_place="";
+		var license_credit_code="";
+		var license_store_type="";
+		var license_residence="";
+		var license_representative="";
+		var license_capital="";
+		var license_made_time="";
+		var license_time_limit="";
+		
+		if (!is_network(false)) {return;}
+		
+		if (!store_name) {
+			mui.toast("请输入你的店铺名称");
+			return;
+		}
+		if (!localarea) {
+			mui.toast("请选择店铺地址");
+			return;
+		}
+		if (!mobile) {
+			mui.toast("请输入手机号");
+			return;
+		}
+		var reg = /^((\(\d{2,3}\))|(\d{3}\-))?(13|14|15|16|17|18|19)\d{9}$/;
+		if (!reg.test(mobile)) {
+			mui.toast('请输入正确手机号');
+			return;
+		}
+		if (!owner_name) {
+			mui.toast("请输入店主姓名");
+			return;
+		}
+		if (!owner_card) {
+			mui.toast("请输入身份证号");
+			return;
+		}
+		var isIDCard = /(^\d{15}$)|(^\d{17}[0-9Xx]$)/;
+		if (!isIDCard.test(owner_card)) {
+			mui.toast("请输入正确身份证号");
+			return;
+		}
+		if (store_type==1) {
+			license_store_name = document.querySelector('#license_store_name_1').value;
+			
+			reg_num=document.querySelector('#reg_num').value;
+			license_username=document.querySelector('#license_username').value;
+			license_form=document.querySelector('#license_form').value;
+			license_place=document.querySelector('#license_place').value;
+			license_business_scope = document.querySelector('#license_business_scope_1').value;
+			
+			license_credit_code = '';
+		    license_store_type = '';
+		    license_residence = '';
+		    license_representative = '';
+		    license_capital = '';
+		    license_made_time = '';
+		    license_time_limit = '';
+			if (!reg_num) {
+				mui.toast("请输入注册号");
+				return;
+			}
+			if (!license_store_name) {
+				mui.toast("请输入入驻店铺名称");
+				return;
+			}
+			if (!license_username) {
+				mui.toast("请输入经营者姓名");
+				return;
+			}
+		} else if (store_type==2) {
+			license_store_name = document.querySelector('#license_store_name_2').value;
+			license_business_scope = document.querySelector('#license_business_scope_2').value;
+			license_credit_code = document.querySelector('#license_credit_code_2').value;
+			license_store_type = document.querySelector('#license_store_type_2').value;
+			license_residence = document.querySelector('#license_residence_2').value;
+			license_representative = document.querySelector('#license_representative_2').value;
+			license_capital = document.querySelector('#license_capital_2').value;
+			license_made_time = document.querySelector('#license_made_time_2').value;
+			license_time_limit = document.querySelector('#license_time_limit_2').value;
+			reg_num = '';
+	      	license_username = '';
+	      	license_form = '';
+	      	license_place = '';
+			if (!license_store_name) {
+				mui.toast("请输入入驻店铺名称");
+				return;
+			}
+			if (!license_credit_code) {
+				mui.toast("请输入统一社会信用代码");
+				return;
+			}
+		} else {
+			license_store_name = document.querySelector('#license_store_name_3').value;
+			license_business_scope = document.querySelector('#license_business_scope_3').value;
+			license_credit_code = document.querySelector('#license_credit_code_3').value;
+			license_store_type = document.querySelector('#license_store_type_3').value;
+			license_residence = document.querySelector('#license_residence_3').value;
+			license_representative = document.querySelector('#license_representative_3').value;
+			license_capital = document.querySelector('#license_capital_3').value;
+			license_made_time = document.querySelector('#license_made_time_3').value;
+			license_time_limit = document.querySelector('#license_time_limit_3').value;
+			reg_num = '';
+	      	license_username = '';
+	      	license_form = '';
+	      	license_place = '';
+		}
+		var url = base_url + 'napi/jion_store?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				store_type:store_type,
+				store_name : store_name,
+				province_id : province_id,
+				city_id : city_id,
+				area_id : area_id,
+				address : address,
+				mobile : mobile,
+				owner_name : owner_name,
+				owner_card : owner_card,
+				im_qq : im_qq,
+				im_weixin : im_weixin,
+				im_ww : im_ww,
+				reg_num : reg_num,
+				license_store_name : license_store_name,
+				license_username : license_username,
+				license_form : license_form,
+				license_place : license_place,
+				license_credit_code : license_credit_code,
+				license_store_type : license_store_type,
+				license_residence : license_residence,
+				license_representative : license_representative,
+				license_capital : license_capital,
+				license_made_time : license_made_time,
+				license_time_limit : license_time_limit,
+				license_business_scope : license_business_scope
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("提交成功");
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		});
+	});
+</script>

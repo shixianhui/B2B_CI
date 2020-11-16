@@ -1,0 +1,704 @@
+{
+  "index.html": {
+    "resources": [
+      "css/base.css",
+      "img/ad_3.jpg",
+      "img/ad_1.jpg",
+      "img/ad_2.jpg",
+      "fonts/mui.ttf",
+      "js/swiper.min.js",
+      "img/type_img.png",
+      "css/pop.css",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "img/ad_5.jpg",
+      "fonts/iconfont.ttf",
+      "img/live-list.jpg",
+      "img/code.png",
+      "img/slide1.jpg",
+      "index-sub.html",
+      "js/jquery.js",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/immersed.min.js",
+      "js/mui.js",
+      "js/a_link.js",
+      "css/style.css",
+      "css/mui.css",
+      "product-category.html"
+    ],
+    "refer": [
+      "index-sub.html",
+      "product-category.html",
+      "cart.html",
+      "l-zb.html",
+      "member_ydl.html",
+      "product-view-2.html",
+      "member.html",
+      "login.html"
+    ]
+  },
+  "index-sub.html": {
+    "resources": [
+      "img/ad_3.jpg",
+      "img/ad_2.jpg",
+      "img/ad_1.jpg",
+      "fonts/mui.ttf",
+      "img/ad_5.jpg",
+      "js/swiper.min.js",
+      "img/type_img.png",
+      "img/live-list.jpg",
+      "img/code.png",
+      "img/slide1.jpg",
+      "css/pop.css",
+      "css/base.css",
+      "js/immersed.min.js",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "fonts/iconfont.ttf",
+      "js/template-native.js",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "img/banner.png",
+      "js/mui.picker.min.js",
+      "js/a_link.js",
+      "css/style.css",
+      "css/mui.css",
+      "js/immersed.js",
+      "css/mui.picker.min.css",
+      "css/mui.poppicker.css",
+      "js/index.js",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/jquery.js"
+    ],
+    "refer": [
+      "product-view.html",
+      "m-kffw-list.html",
+      "m-kffw-view.html",
+      "search.html",
+      "site.html",
+      "index_product_list.html",
+      "store-list.html"
+    ]
+  },
+  "product-category.html": {
+    "resources": [
+      "img/type_hd.jpg",
+      "img/shop_item.jpg",
+      "fonts/mui.ttf",
+      "fonts/iconfont.ttf",
+      "css/base.css",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "js/template-native.js",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "js/immersed.js",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "js/a_link.js"
+    ],
+    "refer": [
+      "product-list.html"
+    ]
+  },
+  "cart.html": {
+    "resources": [
+      "css/style.css",
+      "img/stop-picture.png",
+      "css/reset.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "fonts/iconfont.ttf",
+      "js/jquery.js",
+      "js/immersed.min.js",
+      "js/mui.js",
+      "js/immersed.js",
+      "%3C%\u003ddata[j].cart_list[0].path_thumb%%3E"
+    ],
+    "refer": [
+      "m-wdxx.html",
+      "login.html",
+      "cart_order_confirm.html",
+      "store-view.html",
+      "product-view.html"
+    ]
+  },
+  "l-zb.html": {
+    "resources": [
+      "img/lives_img2.jpg",
+      "img/lives_img1.jpg",
+      "fonts/mui.ttf",
+      "css/base.css",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "fonts/iconfont.ttf",
+      "js/immersed.js",
+      "js/mui.js",
+      "js/template-native.js",
+      "js/a_link.js",
+      "js/mui.lazyload.js",
+      "js/index.min.js",
+      "js/jquery.js",
+      "js/mui.lazyload.img.js"
+    ],
+    "refer": [
+      "store-list.html"
+    ]
+  },
+  "member_ydl.html": {
+    "resources": [
+      "img/wait4.jpg",
+      "img/wait5.jpg",
+      "img/wait1.jpg",
+      "img/wait3.jpg",
+      "img/wait3.png",
+      "img/wait1.png",
+      "img/wait2.png",
+      "img/wait2.jpg",
+      "img/wait6.png",
+      "img/control_hd.png",
+      "img/wait5.png",
+      "img/wait6.jpg",
+      "img/wait4.png",
+      "m-grxx.html",
+      "js/template-native.js",
+      "css/base.css",
+      "js/immersed.min.js",
+      "css/pop.css",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "fonts/iconfont.ttf",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js"
+    ],
+    "refer": [
+      "m-grxx.html"
+    ]
+  },
+  "m-grxx.html": {
+    "resources": [
+      "js/mui.picker.min.js",
+      "js/mui.poppicker.js",
+      "img/portrait.png",
+      "css/mui.poppicker.css",
+      "css/mui.picker.min.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/reset.css",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "fonts/mui.ttf",
+      "js/a_link.js",
+      "js/index.js",
+      "js/mui.js"
+    ],
+    "refer": [
+      "login.html",
+      "m-change-nickname.html",
+      "m-change-sex.html"
+    ]
+  },
+  "product-view-2.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "fonts/mui.ttf",
+      "js/a_link.js",
+      "js/index.js"
+    ],
+    "refer": []
+  },
+  "member.html": {
+    "resources": [
+      "img/wait4.jpg",
+      "img/wait5.jpg",
+      "img/wait1.jpg",
+      "img/wait3.jpg",
+      "img/wait3.png",
+      "img/wait1.png",
+      "img/wait2.png",
+      "img/wait2.jpg",
+      "img/wait6.png",
+      "img/control_hd.png",
+      "img/wait5.png",
+      "img/wait6.jpg",
+      "img/wait4.png",
+      "js/template-native.js",
+      "css/base.css",
+      "js/immersed.min.js",
+      "css/pop.css",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "fonts/iconfont.ttf",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "img/live_bg4.jpg",
+      "js/mui.lazyload.js",
+      "js/mui.lazyload.img.js",
+      "fonts/mui.ttf",
+      "js/a_link.js"
+    ],
+    "refer": [
+      "m-grxx.html",
+      "product-view.html",
+      "login.html",
+      "m-favorite-product-list.html",
+      "m-zhaq.html",
+      "m-order-list.html",
+      "m-favorite-store-list.html",
+      "m-order-dsh.html",
+      "m-order-dfk.html",
+      "m-zhgl.html",
+      "reg.html",
+      "m-kffw.html",
+      "business.html",
+      "l-zbkq.html",
+      "m-favorite-lljl-list.html",
+      "m-wdxx.html",
+      "m-sz.html",
+      "m-wdyhk.html",
+      "m-wdye.html",
+      "m-favorite-list.html",
+      "m-wdjf.html",
+      "b-wykd.html",
+      "m-wdqb.html",
+      "m-wdyhj.html",
+      "wait_open_store.html"
+    ]
+  },
+  "login.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "img/login-bg.png",
+      "css/mui.min.css",
+      "css/style.css",
+      "fonts/iconfont-supplement.ttf",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "css/reset.css",
+      "css/iconfont-supplement.css",
+      "js/a_link.js",
+      "js/index.js",
+      "js/mui.js",
+      "reg.html"
+    ],
+    "refer": [
+      "reg.html",
+      "pwd.html"
+    ]
+  },
+  "product-view.html": {
+    "resources": [
+      "js/template-native.js",
+      "css/base.css",
+      "js/mui.min.js",
+      "img/info1.jpg",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "img/tpxq1.jpg",
+      "js/index.min.js",
+      "js/a_link.min.js",
+      "js/immersed.min.js",
+      "js/jquery.js",
+      "css/pop.css",
+      "js/a_link.js",
+      "js/mui.lazyload.js",
+      "js/mui.js",
+      "js/index.js",
+      "img/logo.jpg",
+      "js/mui.lazyload.img.js",
+      "fonts/iconfont.ttf",
+      "js/swiper.min.js",
+      "img/close.png",
+      "css/style.css"
+    ],
+    "refer": [
+      "store-view.html",
+      "cart_order_confirm.html",
+      "product_comment_list.html",
+      "index.html"
+    ]
+  },
+  "m-favorite-product-list.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "css/reset.css",
+      "js/loading.js",
+      "js/template-native.js",
+      "js/mui.lazyload.js",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "js/mui.lazyload.img.js",
+      "js/mui.pullToRefresh.min.js",
+      "js/mui.pullToRefresh.material.min.js",
+      "css/mui.picker.min.css"
+    ],
+    "refer": [
+      "product-view.html"
+    ]
+  },
+  "m-order-list.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/mui.pullToRefresh.min.js",
+      "js/mui.pullToRefresh.material.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "css/reset.css"
+    ],
+    "refer": [
+      "store-home-s2.html",
+      "m-order-view.html",
+      "login.html",
+      "cart-pay.html",
+      "m-order-pjsd.html"
+    ]
+  },
+  "store-home-s2.html": {
+    "resources": [
+      "js/template-native.js",
+      "img/ticket_bg.jpg",
+      "img/shop_logo.jpg",
+      "js/immersed.js",
+      "img/shop_bg.jpg",
+      "img/ticket_slide.jpg",
+      "css/mui.min.css",
+      "img/ticket_img2.jpg",
+      "js/mui.js",
+      "img/product1.jpg",
+      "img/ticket_img1.jpg",
+      "js/index.min.js",
+      "js/jquery.js",
+      "js/a_link.min.js"
+    ],
+    "refer": [
+      "store-contact-s1.html"
+    ]
+  },
+  "m-favorite-store-list.html": {
+    "resources": [
+      "js/template-native.js",
+      "css/style.css",
+      "js/mui.lazyload.js",
+      "js/immersed.min.js",
+      "js/mui.lazyload.img.js",
+      "js/mui.pullToRefresh.min.js",
+      "js/mui.pullToRefresh.material.min.js",
+      "css/mui.min.css",
+      "js/mui.js",
+      "css/mui.picker.min.css",
+      "js/index.min.js",
+      "css/reset.css",
+      "js/jquery.js",
+      "js/a_link.min.js",
+      "js/loading.js"
+    ],
+    "refer": []
+  },
+  "product-list.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/mui.pullToRefresh.min.js",
+      "js/mui.pullToRefresh.material.min.js",
+      "css/mui.min.css",
+      "js/mui.lazyload.js",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/immersed.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "js/mui.lazyload.img.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/a_link.js",
+      "%3C%\u003dbrand_data[i].path_thumb%%3E"
+    ],
+    "refer": [
+      "product-view.html",
+      "search.html"
+    ]
+  },
+  "m-order-dsh.html": {
+    "resources": [
+      "js/template-native.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "css/reset.css"
+    ],
+    "refer": []
+  },
+  "m-order-view.html": {
+    "resources": [
+      "js/template-native.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.js",
+      "js/index.min.js",
+      "img/goods5.png",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "css/reset.css",
+      "%3C%\u003ddata.orders_detail[i].path_thumb%%3E"
+    ],
+    "refer": [
+      "m-order-ckwl.html",
+      "cart-pay.html"
+    ]
+  },
+  "m-order-dfk.html": {
+    "resources": [
+      "js/template-native.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.js",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "css/reset.css",
+      "m-order-dfk-sub.html"
+    ],
+    "refer": [
+      "m-order-dfk-sub.html"
+    ]
+  },
+  "ckdt.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.js",
+      "js/map.js",
+      "js/template-native.js",
+      "js/mui.lazyload.js",
+      "js/index.min.js",
+      "js/immersed.min.js",
+      "js/a_link.min.js",
+      "js/jquery.js",
+      "js/mui.lazyload.img.js"
+    ],
+    "refer": []
+  },
+  "store-contact-s1.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.js",
+      "js/template-native.js",
+      "js/index.min.js",
+      "js/immersed.js",
+      "js/a_link.min.js",
+      "js/jquery.js"
+    ],
+    "refer": [
+      "ckdt.html",
+      "store-view.html"
+    ]
+  },
+  "m-zhgl.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/a_link.js",
+      "js/swiper.min.js",
+      "css/style.css",
+      "js/mui.lazyload.js",
+      "js/immersed.min.js",
+      "js/mui.lazyload.img.js",
+      "css/mui.min.css",
+      "img/portrait.png",
+      "js/mui.js",
+      "css/reset.css",
+      "js/index.js",
+      "js/jquery.js"
+    ],
+    "refer": [
+      "m-zhaq.html",
+      "m-address-list.html",
+      "m-grxx.html",
+      "m-smrz.html"
+    ]
+  },
+  "m-order-dfk-sub.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/a_link.js",
+      "js/index.min.js",
+      "css/mui.min.css",
+      "js/mui.js",
+      "js/immersed.min.js",
+      "js/jquery.js",
+      "css/style.css",
+      "css/reset.css"
+    ],
+    "refer": []
+  },
+  "reg.html": {
+    "resources": [
+      "js/template-native.js",
+      "js/a_link.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.js",
+      "js/immersed.min.js",
+      "js/jquery.js",
+      "js/index.js",
+      "css/reset.css",
+      "login.html"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "m-zhaq.html": {
+    "refer": [
+      "m-change-pay-pass.html",
+      "m-change-pass.html",
+      "m-yzsj.html"
+    ],
+    "resources": []
+  },
+  "m-kffw-list.html": {
+    "refer": [
+      "m-kffw-view.html"
+    ],
+    "resources": []
+  },
+  "store-view.html": {
+    "refer": [
+      "store-contact-s1.html",
+      "store_info.html",
+      "store_product_category.html",
+      "site.html"
+    ],
+    "resources": []
+  },
+  "store-list.html": {
+    "refer": [
+      "l-zb.html",
+      "store-view.html",
+      "search.html"
+    ],
+    "resources": [
+      "%3C%\u003ddata_list[i].path_thumb%%3E"
+    ]
+  },
+  "search.html": {
+    "refer": [
+      "store-list.html"
+    ],
+    "resources": []
+  },
+  "m-yzsj.html": {
+    "refer": [
+      "m-change-mobile.html"
+    ],
+    "resources": []
+  },
+  "m-sz.html": {
+    "refer": [
+      "login.html"
+    ],
+    "resources": []
+  },
+  "m-wdqb.html": {
+    "refer": [
+      "m-wdye.html",
+      "m-wdjf.html"
+    ],
+    "resources": []
+  },
+  "business.html": {
+    "refer": [
+      "m-wdxx.html",
+      "business_order_list.html",
+      "b-spgl-add.html",
+      "business_order_return.html"
+    ],
+    "resources": []
+  },
+  "m-address-list.html": {
+    "refer": [
+      "m-address-add.html"
+    ],
+    "resources": []
+  },
+  "cart_order_confirm.html": {
+    "refer": [
+      "m-address-list.html",
+      "cart-pay.html",
+      "cart_after_pay.html",
+      "login.html"
+    ],
+    "resources": []
+  },
+  "m-kffw.html": {
+    "refer": [
+      "m-kffw-list.html"
+    ],
+    "resources": []
+  },
+  "m-favorite-list.html": {
+    "refer": [
+      "store-view.html",
+      "product-view.html"
+    ],
+    "resources": []
+  },
+  "cart_after_pay.html": {
+    "refer": [
+      "cart-pay.html"
+    ],
+    "resources": []
+  },
+  "cart-pay.html": {
+    "refer": [
+      "cart_pay_success.html"
+    ],
+    "resources": []
+  },
+  "cart_pay_success.html": {
+    "refer": [
+      "product-list.html"
+    ],
+    "resources": []
+  },
+  "m-order-pjsd.html": {
+    "refer": [
+      "m-order-pjcg.html"
+    ],
+    "resources": []
+  }
+}

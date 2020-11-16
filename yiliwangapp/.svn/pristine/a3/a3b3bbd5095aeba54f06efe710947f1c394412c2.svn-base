@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <style type="text/css">
+		
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">查看物流</h1>
+        <a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+	<div class="mui-content logistics-information mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div id="order_view">
+                
+            </div>
+        </div>
+        <script id="tpl_order_view" type="text/html">
+            <div class="mui-table-view" style="">
+                <img src="<%=data.orders_detail[0].path_thumb%>" alt="" />
+                <div>
+                    <p>物流状态：<span><%=#data.status_format%></span></p>
+                    <p>承运物流：<span><%=data.delivery_name%></span></p>
+                    <p>运单编号：<span><%=data.express_number%></span></p>
+                    <p>官方电话：<a href="">1212112515</a></p>
+                </div>
+            </div>
+            <h2>下单时间：   <%=data.add_time%></h2>
+            <ul class="mui-table-view" style="">
+                <%for (var i = data.order_process.length - 1, data = data.order_process; i >= 0; i--) { %>
+                    <li>
+                       <span></span><%=data[i].content%><br><%=data[i].add_time%>
+                    </li>
+                <%}%>
+            </ul>
+        </script>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    var order_id = '';
+
+    mui('#header').on('tap', 'a', function() {
+        var id = this.getAttribute('href');
+        if (id == 'm-wdxx.html') {
+            go_to_view(id, {
+                item_id : "ok"
+            });
+        }
+    });
+
+    window.addEventListener('go_to_parameter', function(e) {
+        order_id = e.detail.item_id;
+        get_order_detail(order_id);
+    });
+
+    function get_order_detail(order_id) {
+		if (!is_network(false)) {return;}
+ 
+        var url = base_url + 'napi/get_order_detail/' + order_id + '?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {},
+            dataType: "json",
+            type: "get",
+            timeout: 10000,
+            success: function(res) {
+                // mui.alert(JSON.stringify(res));
+                if (res.success) {
+                    var html = template('tpl_order_view', res);
+                    $('#order_view').html(html);
+                } else {
+                    mui.toast(res.message);
+                }
+            },
+            error: error
+        });
+    }
+</script>

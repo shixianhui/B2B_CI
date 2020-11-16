@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">店铺设置</h1>
+		</header>
+		<div class="mui-content no-bg store-settings-content">
+		    <ul id="store_info" class="mui-table-view" style="margin-top:0px;">
+
+		    </ul>
+		    <script id="tpl_store_info" type="text/html">
+	            <li class="mui-table-view-cell portrait">
+	                <a class="mui-navigate-right" style="" href="#photograph1">
+	         			店铺头像<img src="<%=data.path%>" class="mui-pull-right"/>
+	                </a>
+	                
+	            </li>
+	            <li class="mui-table-view-cell shop-signs">
+	                <a class="mui-navigate-right" style="" href="#photograph2">
+	         			店铺招牌<img src="<%=data.store_banner%>" class="mui-pull-right"/>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right" href="b-dpmc.html" data_info="<%=data.store_name%>">
+						店铺名称<p class="mui-pull-right"><%=data.store_name%></p>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right" href="b-dpjs.html" data_info="<%=data.description%>">
+	         			店铺介绍<p class="mui-pull-right mui-ellipsis mui-text-right mui-col-xs-9"><%=data.description%></p>
+	                </a>
+	            </li>
+	           <!--  <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right">
+	         			发货地址
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right">
+	         			发货地址
+	                </a>
+	            </li> -->
+			</script>
+		</div>
+		<div id="photograph1" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+		      	<li class="mui-table-view-cell text-color">
+		        	<a onclick="getImage('store_logo')" href="javascript:void(0);">拍照</a>
+		      	</li>
+		      	<li class="mui-table-view-cell">
+		        	<a onclick="chooseImgFromAlbums('store_logo')" href="javascript:void(0);">我的相册</a>
+		      	</li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+		      	<li class="mui-table-view-cell">
+		        	<a href="#photograph1">取消</a>
+		      	</li>
+		    </ul>
+		</div>
+		<div id="photograph2" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+		      	<li class="mui-table-view-cell text-color">
+		        	<a onclick="getImage('store_banner')" href="javascript:void(0);">拍照</a>
+		      	</li>
+		      	<li class="mui-table-view-cell">
+		        	<a onclick="chooseImgFromAlbums('store_banner')" href="javascript:void(0);">我的相册</a>
+		      	</li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+		      	<li class="mui-table-view-cell">
+		        	<a href="#photograph2">取消</a>
+		      	</li>
+		    </ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		var data_info = this.getAttribute('data_info');
+		if (id && ~id.indexOf('.html')) {
+			if (data_info) {
+				go_to_view(id, {
+					item_id : data_info
+				});
+			} else {
+				go_to_active(id);
+			}
+		}
+	});
+
+	window.addEventListener('change_store_info', function(e) {
+        get_my_store();
+
+        var list = plus.webview.getWebviewById('business.html');
+		mui.fire(list, 'change_business_info');
+    });
+
+	window.onload = function() {
+		get_my_store();
+	}
+
+	function get_my_store() {
+		if (!is_network(false)) {return;}
+
+        var url = base_url + 'napi/get_my_store?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+        	data: {},
+        	dataType: 'json',
+        	type: 'post',
+        	timeout: 10000,
+        	success: function(res) {
+        		// mui.alert(JSON.stringify(res));
+        		if (res.success) {
+        			var html = template('tpl_store_info', res);
+					$('#store_info').html(html);
+        		}
+        	},
+        	error: error
+        });
+	}
+
+	// 创建上传任务
+	var wt = null;
+
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		// plus.webView.currentWebview().addEventListener("popGesture", function(e) {
+		// 	if (e.type == "start") {
+		// 		closeImg();
+		// 	}
+		// }, false);
+	}
+
+	if (window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+
+	// 拍照
+	function getImage(ad_store) {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			createUpload(path, ad_store);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, {filename:"_doc/gallery/", index:1});
+	}
+
+	// 相册中选择照片
+	function chooseImgFromAlbums(ad_store) {
+		plus.gallery.pick(function(path) {
+			createUpload(path, ad_store);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, {
+			filter:"image",
+			multiple: false
+		});
+	}
+
+	// 上传广告
+	function createUpload(path, ad_store) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/uploadImage?sid=' + localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url,
+			{ method:"POST"},
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if (status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					if (json.success) {
+						mui('#photograph1').popover('hide');
+						mui('#photograph2').popover('hide');
+						mui.toast("修改成功");
+
+						get_my_store();
+
+						var list = plus.webview.getWebviewById('business.html');
+						mui.fire(list, 'change_business_info');
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast(t);
+					if(json.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			}
+		);
+		task.addFile(path, {key:"field"});
+		task.addData( "timestamp", "1471838886" );
+		task.addData( "token", "3abaf957cc1d002f9e86de431c3aa02a" );
+		task.addData( "model", ad_store);
+		task.start();
+	}
+
+	function closeImg() {
+		plus.uploader.clear();
+		if (wt) {
+			wt.close();
+		}
+	}
+</script>

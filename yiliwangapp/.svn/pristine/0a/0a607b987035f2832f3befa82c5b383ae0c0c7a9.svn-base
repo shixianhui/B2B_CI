@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<style type="text/css">
+			body{background:#fff;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar text-head">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">商品管理</h1>
+		    <a class="mui-pull-right" href="b-spgl2.html">编辑</a>
+		</header>
+		<div class="mui-content no-bg commodity-management-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+	    		<ul id="OA_task_1" class="mui-table-view">
+
+	    		</ul>
+	    		<script id="tpl_OA_task_1" type="text/html">
+	    			<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+	    		        <li class="mui-table-view-cell">
+	    		            <div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-red bg-color">删除</a>
+							</div>
+							<div class="mui-slider-handle">
+								<img src="<%=data[i].path_thumb%>" />
+								<div>
+									<h4><%=data[i].title%></h4>
+									<p>欧式风格</p>
+								</div>
+							</div>
+	    		        </li>
+	    		    <%}%>
+    		   	</script>
+		    </div>
+		</div>
+		<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell text-color">
+	            	<a href="#">拍照</a>
+	          	</li>
+	          	<li class="mui-table-view-cell">
+	            	<a href="#">我的相册</a>
+	          	</li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell">
+	            	<a href="#sheet1">取消</a>
+	          	</li>
+	        </ul>
+    	</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_view(id, {
+				item_id : "ok"
+			});
+		}
+	});
+
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false,
+	});
+
+	window.onload = function() {
+		get_seller_product_list();
+	}
+
+	function get_seller_product_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_seller_product_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					//mui.alert(JSON.stringify(res));
+					var html = template("tpl_OA_task_1", res);
+					$('#OA_task_1').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

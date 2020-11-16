@@ -1,0 +1,295 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<style type="text/css">
+			body{background:#fff;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">新增广告</h1>
+		</header>
+		<div class="mui-content no-bg advertisement-management-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+			    <div class="add-substance">
+			    	<h5>首页轮播广告</h5>
+		    		<div>
+		    			<ul id="OA_task_1" class="mui-table-view">
+		    		        
+		    		    </ul>
+		    		    <script id="tpl_OA_task_1" type="text/html">
+		    		    	<%for (var i = 0, data = data.ad_store_list_1; i < data.length; i++) { %>
+				    			<li class="mui-table-view-cell">
+			    		            <div class="mui-slider-right mui-disabled">
+										<a ad_id="<%=data[i].id%>" class="mui-btn mui-btn-red bg-color">删除</a>
+									</div>
+									<div class="mui-slider-handle">
+										<img src="<%=data[i].path%>"/>
+									</div>
+			    		        </li>
+		    		        <%}%>
+		    		    </script>
+		    			<a href="#photograph1"><i class="iconfont-supplement icon-xiangji"></i></a>
+		    		</div>
+	    		</div>
+		    	<div class="add-substance">
+		    		<h5>页面底部广告</h5>
+	    			<div>
+	    				<ul id="OA_task_2" class="mui-table-view">
+		    		        
+	    		    	</ul>
+	    		    	<script id="tpl_OA_task_2" type="text/html">
+	    		    		<%for (var i = 0, data = data.ad_store_list_2; i < data.length; i++) { %>
+			    		        <li class="mui-table-view-cell">
+			    		            <div class="mui-slider-right mui-disabled">
+										<a ad_id="<%=data[i].id%>" class="mui-btn mui-btn-red bg-color">删除</a>
+									</div>
+									<div class="mui-slider-handle">
+										<img src="<%=data[i].path%>" style="width:100%;"/>
+									</div>
+			    		        </li>
+			    		    <%}%>
+	    		    	</script>
+	    				<a href="#photograph2"><i class="iconfont-supplement icon-xiangji"></i></a>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+		<div id="photograph1" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	        	<li class="mui-table-view-cell text-color">
+					<a onclick="getImage('ad_store1')" href="javascript:void(0);">拍照</a>
+	          	</li>
+	          	<li class="mui-table-view-cell">
+	            	<a onclick="chooseImgFromAlbums('ad_store1')" href="javascript:void(0);">我的相册</a>
+	          	</li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell">
+	            	<a href="#photograph1">取消</a>
+	          	</li>
+	        </ul>
+    	</div>
+    	<div id="photograph2" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	        	<li class="mui-table-view-cell text-color">
+					<a onclick="getImage('ad_store2')" href="javascript:void(0);">拍照</a>
+	          	</li>
+	          	<li class="mui-table-view-cell">
+	            	<a onclick="chooseImgFromAlbums('ad_store2')" href="javascript:void(0);">我的相册</a>
+	          	</li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell">
+	            	<a href="#photograph2">取消</a>
+	          	</li>
+	        </ul>
+    	</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false,
+	});
+
+	mui.init({
+		beforeback: function() {
+			if (mui.os.plus) {
+				var list = plus.webview.getWebviewById('b-gggl.html');
+        		mui.fire(list, 'change_ad_list');
+
+        		var list = plus.webview.getWebviewById('b-gggl-edit.html');
+        		mui.fire(list, 'change_ad');
+			}
+			return true;
+		}
+	});
+
+	// 刷新广告列表界面
+
+	window.onload = function() {
+		get_seller_ad_list();
+	}
+
+	window.addEventListener('change_add_ad_list', function() {
+		get_seller_ad_list();
+	});
+
+	// 创建上传任务
+	var wt = null;
+
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		// plus.webView.currentWebview().addEventListener("popGesture", function(e) {
+		// 	if (e.type == "start") {
+		// 		closeImg();
+		// 	}
+		// }, false);
+	}
+
+	if (window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+
+	// 拍照
+	function getImage(ad_store) {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			createUpload(path, ad_store);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, {filename:"_doc/gallery/", index:1});
+	}
+
+	// 相册中选择照片
+	function chooseImgFromAlbums(ad_store) {
+		plus.gallery.pick(function(path) {
+			createUpload(path, ad_store);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, {
+			filter:"image",
+			multiple: false
+		});
+	}
+
+	// 上传广告
+	function createUpload(path, ad_store) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/upload_ad_store?sid=' + localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url,
+			{ method:"POST"},
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if (status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					if (json.success) {
+						mui('#photograph1').popover('hide');
+						mui('#photograph2').popover('hide');
+
+						// 刷新界面
+						get_seller_ad_list();
+
+						mui.toast("上传成功");
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast(t);
+					if(json.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			}
+		);
+		task.addFile(path, {key:"field"});
+		task.addData( "timestamp", "1471838886" );
+		task.addData( "token", "3abaf957cc1d002f9e86de431c3aa02a" );
+		task.addData( "model", ad_store);
+		task.start();
+	}
+
+	function closeImg() {
+		plus.uploader.clear();
+		if (wt) {
+			wt.close();
+		}
+	}
+
+	mui('#OA_task_1').on('tap', 'a', function() {
+		var ad_id = this.getAttribute("ad_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除该广告？', '提醒', btnArray, function(e) {
+			if (e.index == 0) {
+				delete_seller_ad(ad_id);
+			} else {
+				mui.toast("出现了一些小问题，稍后试试");
+			}
+		});
+	});
+
+	mui('#OA_task_2').on('tap', 'a', function() {
+		var ad_id = this.getAttribute("ad_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除该广告？', '提醒', btnArray, function(e) {
+			if (e.index == 0) {
+				delete_seller_ad(ad_id);
+			} else {
+				mui.toast("出现了一些小问题，稍后试试");
+			}
+		});
+	});
+
+	function delete_seller_ad(id) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_seller_ad?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				ids : id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("删除成功");
+					get_seller_ad_list();
+				} else {
+					mui.toast(res.message);
+				}
+			}
+		});
+	}
+
+	function get_seller_ad_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_seller_ad_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html1 = template('tpl_OA_task_1', res);
+					$('#OA_task_1').html(html1);
+
+					var html2 = template('tpl_OA_task_2', res);
+					$('#OA_task_2').html(html2);
+				} else {
+					mui.toast(res.success);
+				}
+			}, error: error
+		});
+	}
+</script>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">地址管理</h1>
+		</header>
+		<div class="mui-content no-bg address-management-content">
+			<div class="mui-scroll-wrapper">
+			    <div id="address_list" class="address-list mui-scroll">
+
+			    </div>
+			</div>
+		    <script id="tpl_address_list" type="text/html">
+		    	<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+			    	<ul class="mui-table-view">
+		    	        <li addr_id="<%=data[i].id%>" class="mui-table-view-cell">
+		    	        	<h4><span class="mui-pull-left"><%=data[i].buyer_name%></span><%=data[i].mobile%></h4>
+		    	          	<p><%=data[i].txt_address%></p>
+		    	        </li>
+		    	        	<li class="mui-table-view-cell mui-selected">
+		    	            	<div class="mui-input-row mui-radio mui-left mui-pull-left">
+	    	              		<label>默认地址</label>
+	    	              		<%if (data[i].is_default == 1) {%>
+	    	              			<input onclick="javascript:set_default_user_address('<%=data[i].id%>');" name="checkbox1" type="radio" checked />
+	    	              		<%} else {%>
+	    	              			<input onclick="javascript:set_default_user_address('<%=data[i].id%>');" name="checkbox1" type="radio" />
+	    	              		<%}%>
+		    	            	</div>
+		    	            	<a address_id="<%=data[i].id%>" class="mui-pull-right" href="javascript:void(0);"><i class="iconfont icon-32pxlajitong"></i>删除</a>
+		    	            	<a index="<%=i%>" buyer_name="<%=data[i].buyer_name%>" txt_address="<%=data[i].txt_address%>" phone="<%=data[i].mobile%>" province_id="<%=data[i].province_id%>" city_id="<%=data[i].city_id%>" area_id="<%=data[i].area_id%>" is_default="<%=data[i].is_default%>" address="<%=data[i].address%>" class="mui-pull-right"><i class="mui-icon mui-icon-compose"></i>编辑</a>
+		    	        	</li>
+		    	    </ul>
+	    	    <%}%>
+		    </script>
+		    <div class="button">
+		    		<button type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">+ 新增地址</button>
+		    </div>
+		</div>
+	</body>	
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content .mui-scroll-wrapper{top: '+(immersed+44)+'px !important;bottom:44px !important}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+	mui.init({
+	    beforeback: function() {
+			if (!address_arr.length) {
+				var list = plus.webview.getWebviewById('cart_order_confirm.html');
+ 				mui.fire(list, 'choose_address', {respone: ''});
+			} else {
+				if (!flag) {
+					var list = plus.webview.getWebviewById('cart_order_confirm.html');
+	 				mui.fire(list, 'refresh_address');
+	 			}
+			}
+	        return true;
+	    }
+	});
+	
+	var address_arr = [];
+	var choose_add = '';
+	var flag = 0;
+
+	window.addEventListener('go_to_parameter', function(e) {
+		init();
+		choose_addr = e.detail.item_id;
+	});
+	
+	mui.plusReady(function() {
+		init();
+	});
+
+	window.addEventListener('address_refresh', function(msg) {
+		init();
+	});
+
+	function init() {
+		choose_add = '';
+		flag = 0;
+		mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 1);
+		get_user_address_list();
+	}
+
+	 mui('#address_list').on('tap', 'li', function() {
+	 	var addr_id = this.getAttribute('addr_id');
+	 	if (addr_id && localStorage.getItem("is_default") == '1') {
+	 		flag = 1;
+	 		for (var i = 0; i < address_arr.length; i++) {
+	 			if (addr_id == address_arr[i].id) {
+	 				var list = plus.webview.getWebviewById('cart_order_confirm.html');
+	 				mui.fire(list, 'choose_address', {respone: address_arr[i]});
+	 				mui.back();
+	 			}
+	 		}
+	 	}
+	 });
+
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	mui('.mui-content').on('tap', 'button', function() {
+		var data = { id:'0' };
+		go_to_view('m-address-add.html', data);
+	});
+
+	mui('#address_list').on('tap', 'a', function() {
+		var address_id = this.getAttribute('address_id');
+		var buyer_name = this.getAttribute('buyer_name');
+		var index = this.getAttribute('index');
+		if (address_id) {
+			var btnArr = ['删除', '取消'];
+			mui.confirm('是否删除该收货地址?', "提示:", btnArr, function(e) {
+				if (e.index == 0) {
+					delete_user_address(address_id);
+				}
+			});
+		}
+		if (buyer_name) {
+			var data = address_arr[index];
+			go_to_view('m-address-add.html', data);
+		}
+	});
+
+	// 删除收货地址
+	function delete_user_address(address_id) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_user_address?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				address_id : address_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					init();
+					mui.toast(res.message);
+				} else {
+					mui.toast();
+				}
+			}
+		});
+	}
+
+	// 设置默认地址
+	function set_default_user_address(id) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/set_default_user_address?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				id : id
+			},
+			dataType: "json",
+		 	type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("设置成功");
+				} else {
+					mui.toast(res.message);
+					get_user_address_list();
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}	
+		});
+	}
+
+	// 获取地址信息
+	function get_user_address_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_user_address_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_address_list', res);
+					$('#address_list').html(html);
+					address_arr = res.data.item_list;
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+</script>

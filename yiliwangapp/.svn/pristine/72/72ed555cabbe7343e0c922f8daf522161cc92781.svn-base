@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">蚁客列表</h1>
+	        
+	    </header>
+	    <div class="mui-content asset follow ant">
+	    	<ul id="content_list" class="mui-table-view ">
+    	        
+    	    </ul>
+    	    <script id="tpl_content_list" type="text/html">
+    	    	<%if(data.item_list){%>
+	    	    	<%for(var i =0;i<data.item_list.length;i++){%>
+	    	    	<li class="mui-table-view-cell">
+	    	            <a href="javascript:void(0);">
+	    	                <img src="<%=data[i].path_thumb%>"/>
+	    	                <%=data[i].nickname%>
+	    	                <span class="iconfont-supplement icon-huiyuandengji"></span>
+	    	                <p>评估数<%=data[i].assessment_num%>条</p>
+	    	                <em nickname="<%=data[i].nickname%>" eli_guest_id="<%=data[i].id%>">选他</em>
+	    	            </a>
+	    	        </li>
+	    	        <%}%>
+    	        <%}else{%>
+    	        	<li class="mui-table-view-cell">
+    	        	暂无可邀人员
+    	        	</li>
+    	        <%}%>
+    	    </script>
+    	    
+	    </div>
+	    <div id="choice" class="mui-popover mui-popover-bottom mui-popover-action hint">
+	        <h4>
+	        	邀请蚁客
+	        </h4>
+	        <div id="txt" class="txt">
+	        	是否邀请【蚁客专家222】对拼团编号123456789进行评估
+	        </div>
+	        <div class="mui-clearfix">
+	        	<a id="cancel_btn" href="javascript:void(0);">取消</a>
+	        	<a id="submit_btn" href="javascript:void(0);">确定</a>
+	        </div>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var item_id="";
+	var page=1;
+	var category_id='';
+	var ptkj_id='';
+	var eli_guest_id='';
+	document.addEventListener('go_to_parameter',function(e){
+		page=1;
+		ptkj_id=e.detail.ptkj_id;
+		item_id=e.detail.item_id;
+		category_id=e.detail.category_id;
+//		console.log(ptkj_id)
+		get_invited_eli_guest_list()
+		
+		mui('#choice').popover('show');
+	});
+//	window.onload=function(){
+//		item_id=32
+//		get_group_purchase_detail(32)
+//		clearTimeout(settime1);
+//	}
+	
+	function afterload(){
+		
+	}
+	var nickname='';
+	mui('#content_list').on('tap','em',function(){
+		nickname=this.getAttribute('nickname')
+		eli_guest_id=this.getAttribute('eli_guest_id')
+		$('#txt').html('是否邀请【'+nickname+'】对拼团编号123456789进行评估');
+	});
+	document.getElementById('cancel_btn').addEventListener('tap',function(){
+		mui('#choice').popover('hide');
+	})
+	document.getElementById('submit_btn').addEventListener('tap',function(){
+		mui('#choice').popover('hide');
+		invite_eli_guest()
+		
+	})
+	// 列表
+	function get_invited_eli_guest_list() {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_invited_eli_guest_list?sid='+ localStorage.getItem('global_sid');
+		console.log(url)
+		mui.ajax(url, {
+			data: {
+				category_id:category_id,
+				group_purchase_id:item_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					
+					var html = template('tpl_content_list', res);
+					$('#content_list').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+				afterload();
+			},
+			error: error
+		});
+	}
+	
+	// 邀请
+	function invite_eli_guest() {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/invite_eli_guest?sid='+ localStorage.getItem('global_sid');
+//		console.log(url)
+		mui.ajax(url, {
+			data: {
+				eli_guest_id:eli_guest_id,
+				item_id:item_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					$('em[eli_guest_id='+eli_guest_id+']').addClass('active');
+				} else {
+					mui.toast(res.message);
+				}
+				afterload();
+			},
+			error: error
+		});
+	}
+</script>

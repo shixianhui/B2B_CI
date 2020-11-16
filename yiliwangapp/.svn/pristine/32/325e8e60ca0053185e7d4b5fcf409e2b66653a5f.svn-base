@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">申请售后</h1>
+        <a class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+	<div id="content" class="mui-content customer-service-content">
+	    <div class="mui-input-row checkbox">
+	        <label>服务类型<span class="text-color">*</span></label>
+	        <input type="text" readonly="readonly" id="service" name="" id="" value="" placeholder="请选择服务类型"/>
+	        <i class="mui-icon mui-icon-arrowdown"></i>
+	    </div>
+	    <div class="mui-input-row">
+	        <label>退款金额<span class="text-color">*</span></label>
+	        <input id="total" type="number" placeholder="最多222.00">
+	    </div>
+	    <div class="mui-input-row">
+	        <label>详细描述<span class="text-color">*</span></label>
+	        <textarea name="" rows="" cols=""placeholder="请您在此描述详细问题"></textarea>
+	        <!--<b>0/200</b>-->
+	    </div>
+	    <div class="mui-input-row">
+	        <label>上传照片<span class="text-color">*</span></label>
+	        <div class="picture">
+	        	<div class="list">
+		        	<!--<a href="javascript:void(0);"><img src="img/pictrue1.png"/><i class="iconfont-supplement icon-633"></i></a>
+		        	<a href="javascript:void(0);"><img src="img/pictrue1.png"/><i class="iconfont-supplement icon-633"></i></a>-->
+	        	</div>
+	        	<a href="javascript:void(0)" action class="iconfont-supplement icon-xiangji"></a>
+	        </div>
+	        <p>最多可上传5张照片，每张不超过5M，支持JPG、BMP、PNG</p>
+	    </div>
+	    <button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block">提交申请</button>
+	</div>
+	<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	    <!-- 可选择菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="javascript:void(0);" onclick="getImage()">拍照</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="javascript:void(0);" onclick="galleryImg()">从相册中选择</a>
+			</li>
+	    </ul>
+	    <!-- 取消菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a id="cancel_btn" href="javascript:void(0);">取消</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.min.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var item_id,total,exchange_reason_id,price,content,batch_path_ids;
+	window.addEventListener('go_to_parameter', function(e) {
+        item_id = e.detail.item_id;
+        total = e.detail.total;
+        exchange_reason_id="";
+        price="";
+        content="";
+        batch_path_ids="";
+        document.getElementById('service').value="";
+        $('#total').attr('placeholder','最多'+total);
+        $('.list').html('');
+    });
+	// 售后
+    function save_exchange(order_id) {
+    	var path_ids="";
+    	for(var i=0;i<batch_path_ids.length;i++){
+    		path_ids+=batch_path_ids[i].id+"_"
+    	}
+    	console.log(path_ids)
+		if (!is_network(false)) {return;}
+        var url = base_url + 'napi/save_exchange/' + order_id + '?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {
+            	exchange_reason_id: exchange_reason_id,
+			    price: price,
+			    content: content,
+			    batch_path_ids:path_ids
+	            },
+            dataType: "json",
+            type: "post",
+            timeout: 10000,
+            success: function(res) {
+                console.log(JSON.stringify(res.data));
+                if (res.success) {
+                    var html = template('tpl_content', res);
+                    $('#content').html(html);
+                } else {
+                    mui.toast(res.message);
+                }
+            },
+            error: error
+        });
+    }
+    
+    
+    mui('#content').on('tap', 'input[readonly]', function() {
+    	var picker = new mui.PopPicker();
+    	var that=this
+		picker.setData([{
+				value: '0',
+				text: '无理由退货'
+			}, {
+				value: '1',
+				text: '不需要/不想的商品'
+			}, {
+				value: '2',
+				text: '其他'
+			}]);
+		picker.show(function(items) {
+			document.getElementById('service').value=items[0].text;
+			exchange_reason_id=items[0].value;
+		});
+	});
+	mui('#content').on('input', 'textarea', function() {
+		content=$(this).val();
+	});
+	
+	mui('#content').on('tap', '#submit', function() {
+    	save_exchange(item_id)
+	});
+	mui('#content').on('input', 'input[id="total"]', function() {
+		price=$(this).val();
+		if (price>parseFloat(total)) {
+			mui.toast('不能超过最大值')
+			$(this).val(total);
+			price=total
+		}
+	});
+	
+	/****************************上传图片开始*****************************/
+	// 创建上传任务
+	var wt = null;
+	var cur_ele = null;
+	
+    mui('#content').on('tap', 'a[action]', function() {
+    	cur_ele = this;
+		mui('#photograph').popover('show');
+	});
+	document.getElementById('cancel_btn').addEventListener('tap',function () {
+		cur_ele = null;
+	    mui('#photograph').popover('hide');    
+	});
+	
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		plus.webview.currentWebview().addEventListener("popGesture", function(e) {
+			if(e.type == "start") {
+				closeImg();
+			}
+		}, false);
+	}
+	
+	if(window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+	
+	function getImage() {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			console.log("照片已成功保存到系统相册:" + path);
+			createUpload(path);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, { filename: "_doc/gallery/", index: 1 });
+	}
+	
+	function galleryImg() {
+		// 从相册中选择图片
+	
+		plus.gallery.pick(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, { filter: "image" });
+	}
+	
+	function createUpload(path) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/upload_order_comment?sid='+localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url, { method: "POST" },
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if(status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					console.log(JSON.stringify(json))
+					if(json.success) {
+						mui('#photograph').popover('hide');
+						var html = '<a href="javascript:void(0);">';
+						    html += '<i class="iconfont-supplement icon-633" onclick="javascript:delete_image(this);" item_id="'+json.data.id+'"></i>';
+							html += '<img src="'+json.data.path_thumb_url+'" />';
+							html += '</a>';
+						$(cur_ele).parent().find('div.list').append(html);
+						var index=$(cur_ele).parent().find('div.list').attr('value');
+						var newList = [];
+				        if (batch_path_ids) {
+				          newList = batch_path_ids;
+				        } else {
+				          newList = [];
+				        }
+				        newList.push(json.data);
+				        batch_path_ids = newList;
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast('头像上传失败');
+				}
+			}
+		);
+		task.addFile(path, { key: "field" });
+		task.addData("timestamp", "1471838886");
+		task.addData("token", "3abaf957cc1d002f9e86de431c3aa02a");
+		task.addData("model", "user");
+		task.start();
+	}
+	function closeImg() {
+		plus.uploader.clear();
+		if(wt) {
+			wt.close();
+		}
+	}
+	
+	function delete_image(obj) {
+		var id =$(obj).attr('item_id') ;
+	    var index =$(obj).parent().parent().attr('value') ;
+	    for (var i = 0; i < batch_path_ids.length; i++) {
+	      if (batch_path_ids[i].id == id) {
+	        batch_path_ids.splice(i, 1);
+	      }
+//	    console.log(batch_path_ids[index])
+	    }
+		var sums = 0;
+		$('#img_sum').html(sums);
+		$(obj).parent().remove();
+	}
+	/********************上传图片结束*********************/
+</script>

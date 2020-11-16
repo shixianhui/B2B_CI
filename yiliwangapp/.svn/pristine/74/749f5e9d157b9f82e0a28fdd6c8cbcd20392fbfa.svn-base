@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<style type="text/css">
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 9;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-card-content .product{width:100%; background:#fff;float:left;padding:0 12px;margin-top:12px;}
+			.mui-card-content .product li{float:left;width:48.5%;text-align:left;}
+			.mui-card-content .product li:nth-of-type(even){float:right;}
+			.mui-card-content .product li img{width:100%;}
+			.mui-card-content .product li p{color:#333;font-size:13px;margin:0;}
+			.mui-card-content .product li span{font-size:14px;text-align:left;font-weight:400;color:#f02d8c;display:block;margin-bottom:5px;line-height:22px;}
+			.mui-card-content .product li span i{font-size:13px;}
+			.mui-card-content .product li span em{font-weight:normal;color:#333;}
+			.mui-card-content .product li span em.active{color:#f02d8c;}
+			.mui-card-content .product li span .mui-icon-extra.mui-icon-extra-heart-filled{color:#ffdded;font-size:18px;}
+			.mui-card-content .product li span .mui-icon-extra.mui-icon-extra-heart{vertical-align:middle;margin-right:12px;font-weight:bold;font-size:18px;color:#333;}
+			.mui-card-content .product li span em{margin-right:12px;}
+			.mui-icon-extra{line-height: inherit;}
+			
+			.same p{width:100%;float:left;}
+			.same ul{float:left;}
+			.same ul li{margin-bottom:5px;float:left;width:31%;}
+			/*.type .mui-title.topbar{width:73%;}*/
+			.product_box{height:auto;}
+
+			.brand ul li img{opacity: 0.5;}
+			.brand ul li.current img{opacity: 1;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav top_bar">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">产品列表</h1>
+		</header>
+		<div class="nav" style="z-index:10;">
+			<ul id="sort_product" class="nav_list nav_list2 mui-clearfix">
+				<li type="synthesis" class="item"><a href="javascript:;">综合</i></a></li>
+				<li type="sales" class="item"><a href="javascript:;">销量<i class="triangle_d active"></i><i class="triangle_u"></i></a></li>
+				<li type="price" class="item"><a href="javascript:;">价格<i class="triangle_d"></i><i class="triangle_u"></i></a></li>
+			</ul>
+		</div>
+		<div class="mui-content mui-scroll-wrapper">
+		    <div class="mui-scroll">
+				<div class="product_box">
+					<ul id="content" class="mui-table-view">
+
+					</ul>
+					<script id="tpl_content" type="text/html">
+						<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+						    <li id="list_item_<%=data[i].id%>" data-id="<%=data[i].id%>" class="mui-table-view-cell mui-media">
+						        <a item_id="<%=data[i].id%>" href="product-view.html">
+						            <img class="mui-media-object mui-pull-left" src="<%=data[i].path_thumb%>">
+						            <div class="mui-media-body">
+						                <h4 class="mui-ellipsis mui-ellipsis-2"><%=data[i].title%></h4>
+						            	<span>销量 <%=data[i].sales%>件</span><span><%=data[i].store_name%></span> 
+						            	<p>￥<%=data[i].sell_price%></p>
+						            </div>
+						        </a>
+						    </li>
+					    <%}%>
+					</script>
+				</div>
+		  	</div>
+		</div>
+		<input type="hidden" id="max_id" value="0" />
+		<input type="hidden" id="since_id" value="0" />
+		<input type="hidden" id="per_page" value="20" />
+		<input type="hidden" id="page" value="1" />
+	</body>			
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-pull-top-tips{top:'+(44+immersed)+'px !important;}.nav{top: '+(immersed+44)+'px !important;}</style>';
+
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+	var item_id = '';
+	var order = 'desc';
+	var by = 'id';
+	
+	window.addEventListener('go_to_parameter', function(e) {console.log(111);
+		item_id = e.detail.item_id;
+	    order = 'desc';
+		by = 'id';
+
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		
+		$('#sort_product li').removeClass('active');
+		$('#sort_product li').eq(0).addClass('active');
+
+		get_booths_product_list(0, 'id', 'desc', 0, 0, per_page, 1);
+	});
+
+	// 排序、销量、价格
+	mui('#sort_product').on('tap', 'li[type]', function() {
+		var type = this.getAttribute("type");
+		var per_page = $('#per_page').val();
+		if (type == 'synthesis') { // 综合排序
+			by = 'id';
+			order = 'desc';
+		} else if (type == 'sales') { // 销量
+			if (by == 'sales') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sales';
+				order = 'desc';
+			}
+		} else if (type == 'price') { // 价格
+			if (by == 'sell_price') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sell_price';
+				order = 'desc';
+			}
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		if (by != 'id') {
+			if(order == 'desc') {
+				$(this).children().children('.triangle_d').addClass('active').siblings().removeClass('active');
+			} else {
+				$(this).children().children('.triangle_u').addClass('active').siblings().removeClass('active');
+			}
+		}
+		
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		get_booths_product_list(0, by, order, 0, 0, per_page, 1);
+	});
+
+	var self = mui('.mui-scroll').pullToRefresh({
+		down: {
+			callback: function() {
+				pulldownRefresh(this);
+			}
+		},
+		up: {
+			callback: function() {
+				pullupRefresh(this);
+			}
+		}
+	});
+
+	function pulldownRefresh(obj) {
+		var since_id = $('#since_id').val();
+		get_booths_product_list('down', by, order, 0, since_id, 100, 1);
+	}
+
+	function pullupRefresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var page = $('#page').val();
+		get_booths_product_list('up', by, order, 0, 0, per_page, page);
+	}
+
+	function get_booths_product_list(type, by, order, max_id, since_id, per_page, page) {
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/get_booths_product_list/' + by + '/' + order + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page;
+		mui.ajax(url, {
+			data: {
+				booth_id : item_id
+			},
+			dataType: 'json',
+			type: 'post',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_content', res);
+			 		if (type == 'down') {
+			 			if (res.data.item_list.length > 0) {
+							mui.toast('更新了' + res.data.item_list.length + '条数据');
+							$('#since_id').val(res.data.max_id);
+							var size = $("#content li[id]").size();
+							if (size > 0) {
+								$('#content li[id]:first').before(html);
+							} else {
+								$('#content').html(html);
+							}
+						} else {
+							mui.toast('没有新的商品');
+						}
+						self.endPullDownToRefresh();
+			 		} else if (type == 'up') {
+						var size = $("#content li[id]").size();
+						if (size > 0) {
+							$("#content li[id]:last").after(html);
+						} else {
+							$('#content').html(html);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+			 			respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content').html(no_data_html);
+                        }
+			 		}
+			 	} 
+			 	else {
+		 			mui.toast(res.message);
+				}
+			}, error: error
+		});
+	}
+</script>	

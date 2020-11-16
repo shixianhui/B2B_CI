@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar text-head">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 id="sort_manage" class="mui-title">分类管理</h1>
+		    <a id="sort_edit" class="mui-pull-right" href="javascript:void(0);"></a>
+		</header>
+		<div class="mui-content classified-management-content no-bg mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul id="sort_product" class="mui-table-view">
+
+				</ul>
+				<script id="tpl_sort_product" type="text/html">
+					<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+						<li style_name="<%=data[i].style_name%>" class="mui-table-view-cell"><a class="mui-navigate-right stair-list" href="#"><%=data[i].style_name%></a>
+						</li>
+					<%}%>
+				</script>
+				<ul id="sort_product2" class="mui-table-view">
+
+				</ul>
+				<script id="tpl_sort_product2" type="text/html">
+					<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+						<li material_name="<%=data[i].material_name%>" class="mui-table-view-cell"><a class="mui-navigate-right stair-list" href="#"><%=data[i].material_name%></a>
+						</li>
+					<%}%>
+				</script>
+			</div>	
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false
+	});
+
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	window.addEventListener('go_to_parameter', function(e) {
+		if (e.detail.item_id == 'material') {
+			$('#sort_product2').show();
+			$('#sort_product').hide();
+			$('#sort_manage').html('材质列表');
+			get_material_list();
+		} else {
+			$('#sort_product').show();
+			$('#sort_product2').hide();
+			$('#sort_manage').html('风格列表');
+			get_style_list();
+		}
+	});
+
+	// 材质列表
+	function get_material_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_material_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html = template("tpl_sort_product2", res);
+					$("#sort_product2").html(html);
+
+					mui('#sort_product2').on('tap', 'li', function() {
+						var material_name = this.getAttribute("material_name");
+						if (material_name) {
+							var list = plus.webview.getWebviewById('b-spgl-add.html');
+                    		mui.fire(list, 'choose_material_name', {
+                    			item_id : material_name
+                    		});
+                    		mui.back();
+                    		if (res.field == 'login') {
+		                        mui.plusReady(function() {
+		                            go_to_active('login.html');
+		                        });
+		                    }
+						}
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	function get_style_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_style_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html = template("tpl_sort_product", res);
+					$("#sort_product").html(html);
+
+					mui('#sort_product').on('tap', 'li', function() {
+						var style_name = this.getAttribute("style_name");
+						if (style_name) {
+							var list = plus.webview.getWebviewById('b-spgl-add.html');
+                    		mui.fire(list, 'choose_style_name', {
+                			item_id : style_name
+                		});
+                    		mui.back();
+                    		if (res.field == 'login') {
+		                        mui.plusReady(function() {
+		                            go_to_active('login.html');
+		                        });
+		                    }
+						}
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		})
+	}
+</script>

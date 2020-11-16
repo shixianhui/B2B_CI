@@ -1,0 +1,535 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			html, body {
+			    height: 100%;
+			    margin: 0px;
+			    padding: 0px;
+			    overflow: hidden;
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			}
+			
+			.mui-content {
+			    height: 100%;
+			    overflow: auto; 
+			}
+			
+			.product_list .list li .title div img{width:13px !important;height:13px !important;min-height:0 !important;display: inline-block;}
+		
+		</style>
+	</head>
+	
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title search_box">
+		    	<div class="mui-input-row mui-search">
+			        <input id="search_input" type="search" placeholder="请输入关键字">
+			    </div>
+			    <label id="search_btn" class="search_btn">搜索</label>
+		    </h1>
+		</header>
+		<div class="mui-content nearby">
+			<div id="shangjia" class="shangjia scroll mui-scroll-wrapper">
+				<div class="product_list mui-scroll">
+					<div class="list">
+						<ul class="list_box">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<div class="info">
+									<div class="store">
+										<img src="img/circle.png"/>
+										<p>YooyoYooyo</p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-dizhi"></span>
+										<span class="number">12213</span>
+									</div>
+								</div>
+								<div class="title">kaimeng 皮床 真皮床1.8米双人床 1.8*2.0米</div>
+							</li>-->
+						</ul>
+						<ul class="list_box">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<div class="info">
+									<div class="store">
+										<img src="img/circle.png"/>
+										<p>Yooyo</p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-dizhi"></span>
+										<span class="number">12213</span>
+									</div>
+								</div>
+								<div class="title">kaimeng 皮床 真皮床1.8米双人床 1.8*2.0米</div>
+							</li>-->
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+			<div id="pintuan" class="mui-scroll-wrapper">
+				<div class="product_list mui-scroll">
+					
+					<div class="list">
+						<ul id="group_purchase1" class="list_box">
+							
+							
+						</ul>
+						<ul id="group_purchase2" class="list_box">
+						</ul>
+						<script id="tpl_group_purchase1" type="text/html">
+							<%for(var i =0;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title"><%=data.item_list[i].title%></div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+										<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+						<script id="tpl_group_purchase2" type="text/html">
+							<%for(var i =1;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title"><%=data.item_list[i].title%></div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+										<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+					</div>
+					
+				</div>
+			</div>
+			<div id="yike" class="yike mui-scroll-wrapper">
+				<div class="product_list mui-scroll">
+					<div class="list yike_list">
+						<ul id="biji_list1" class="list_box">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<div class="title">
+									<div class="red">
+										<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+										优质生活
+									</div>
+									这款电器的存在，让我的生活档次提高了许多！
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="img/circle.png"/>
+										<p>Yooyo</p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-xin1"></span>
+										<span class="number">12213</span>
+									</div>
+								</div>
+							</li>-->
+						</ul>
+						
+						<ul id="biji_list2" class="list_box">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<div class="title">
+									<div class="red">
+										<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+										优质生活
+									</div>
+									这款电器的存在，让我的生活档次提高了许多！
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="img/circle.png"/>
+										<p>Yooyo</p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-xin1"></span>
+										<span class="number">12213</span>
+									</div>
+								</div>
+							</li>-->
+						</ul>
+						<script id="tpl_biji_list1" type="text/html">
+							<%for(var i =0;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=#data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+							
+							
+						</script>
+						<script id="tpl_biji_list2" type="text/html">
+							<%for(var i =1;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=#data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+					
+				</div>
+				
+			</div>
+			<div class="mui-clear"></div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content{padding-top:'+(44+immersed)+'px !important;}#shangjia,#pintuan,#yike{padding-top:'+(44+immersed)+'px !important;}.left_nav{margin-top:'+immersed+'px;}header{padding-top:'+immersed+'px;height:'+(44+immersed)+'px !important;}#index_header{margin-top: ' + (44+immersed) + 'px !important;height:' + (44 + 0) + 'px;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript" charset="utf-8">
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			
+		}
+	});
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	
+	var types=''
+	document.addEventListener('go_to_parameter',function(e){
+		keywords='';
+		types=e.detail.types;
+		page=1;
+		page1=1;
+		self.endPullUpToRefresh(true);
+		self2.endPullUpToRefresh(true);
+		$('#search_input').val('');
+		if (types=='0') {
+			$('#pintuan').attr('style','display:none;');
+			$('#shangjia').attr('style','display:block;');
+			$('#yike').attr('style','display:none;');
+		} else if (types=='1') {
+			$('#pintuan').attr('style','display:block;');
+			$('#shangjia').attr('style','display:none;');
+			$('#yike').attr('style','display:none;');
+		} else if (types=='2') {
+			$('#pintuan').attr('style','display:none;');
+			$('#shangjia').attr('style','display:none;');
+			$('#yike').attr('style','display:block;');
+		}
+		
+		var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+            no_data_html += '<div id="no_data" class="no_data">请在搜索框进行搜索</div>';
+            no_data_html += '</div>';
+            $('.list_box:last-of-type').html('');
+            $('.list_box:first-of-type').html(no_data_html);
+		$('.mui-control-item').eq(1).addClass('mui-active').siblings().removeClass('mui-active')
+		data_init();
+	});
+	
+	function data_init() {
+//		get_group_purchase_list('0');
+//		get_notes_list('0');
+	}
+	document.getElementById('search_btn').addEventListener('tap',function(){
+		keywords=$('#search_input').val();
+		if (types=='0') {
+			
+		} else if (types=='1') {
+			get_group_purchase_list('0');
+		} else if (types=='2') {
+			get_notes_list('0');
+		}
+	});
+
+
+	mui('#pintuan').on('tap', 'li', function() {
+		var product_id = this.getAttribute("item_id");
+		go_to_view("groups_view.html", {
+			item_id : product_id
+		});
+	});
+	
+	mui('#yike').on('tap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		go_to_view("note_detail.html", {
+			item_id : item_id
+		});
+	});
+	
+	mui('.header').on('tap', 'a.mui-control-item', function() {
+		console.log($(this).index())
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		page=1;
+		page1=1;
+		if ($(this).index()==0) {
+			$('#shangjia').attr('style','display:block;');
+			$('#pintuan').attr('style','display:none;');
+			$('#yike').attr('style','display:none;');
+		} else if($(this).index()==1){
+			
+			$('#shangjia').attr('style','display:none;');
+			$('#pintuan').attr('style','display:block;');
+			$('#yike').attr('style','display:none;');
+		}else{
+			
+			$('#shangjia').attr('style','display:none;');
+			$('#pintuan').attr('style','display:none;');
+			$('#yike').attr('style','display:block;');
+		}
+		
+	});
+	
+	/*拼团*/
+	var keywords='';
+	var page=1;
+	var page1=1;
+	mui('#pintuan').scroll();
+	var self = mui('#pintuan>.mui-scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		if (keywords!='') {
+			get_group_purchase_list('up');
+		} 
+	}
+	
+	var self2 = mui('#yike>.mui-scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh2(this);
+			}
+		}
+	});
+	function up_refresh2(obj) {
+		if (keywords!='') {
+			get_notes_list('up');
+		}
+		
+	}
+	// 拼团
+	function get_group_purchase_list(type) {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_group_purchase_list/0/0/20/'+page;
+		mui.ajax(url, {
+			data: {
+				status:2,
+				keywords:keywords
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html1 = template('tpl_group_purchase1', res);
+					var html2 = template('tpl_group_purchase2', res);
+					if (type == 'up') {
+						var size1 = $("#group_purchase1 li[item_id]").size();
+						var size2= $("#group_purchase2 li[item_id]").size();
+						if ((size2+size1) > 0) {
+							if(size2>size1){
+								$("#group_purchase1 li[item_id]:last").after(html1);
+								$("#group_purchase2 li[item_id]:last").after(html2);
+							}else{
+								$("#group_purchase1 li[item_id]:last").after(html2);
+								$("#group_purchase2 li[item_id]:last").after(html1);
+							}
+						} else {
+							$('#group_purchase1').html(html1);
+							$('#group_purchase2').html(html2);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#group_purchase1').html(no_data_html);
+                            $('#group_purchase2').html('');
+                        }else{
+                        	
+							$('#group_purchase1').html(html1);
+							$('#group_purchase2').html(html2);
+                        }
+					}
+					
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+
+	// 蚁客
+	function get_notes_list(type) {
+		if (!is_network(false)) {return;}
+		console.log(page1)
+		var url = base_url + 'napi/get_notes_list/0/0/20/'+page1;
+		mui.ajax(url, {
+			data: {
+				keywords:keywords
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html1 = template('tpl_biji_list1', res);
+					var html2 = template('tpl_biji_list2', res);
+					if (type == 'up') {
+						var size1 = $("#biji_list1 li[item_id]").size();
+						var size2= $("#biji_list2 li[item_id]").size();
+						if ((size2+size1) > 0) {
+							if(size2>size1){
+								$("#biji_list1 li[item_id]:last").after(html1);
+								$("#biji_list2 li[item_id]:last").after(html2);
+							}else{
+								$("#biji_list1 li[item_id]:last").after(html2);
+								$("#biji_list2 li[item_id]:last").after(html1);
+							}
+						} else {
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+						}
+						if(res.data.is_next_page!='0') {
+							page1=page1+1;
+							self2.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self2.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page1=page1+1;
+						if (res.data.is_next_page == 0) {
+							self2.endPullUpToRefresh(true);
+						} else {
+							self2.endPullUpToRefresh(false);
+							self2.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#biji_list1').html(no_data_html);
+                            $('#biji_list2').html('');
+                        }else{
+                        	
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+                        }
+					}
+					
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+
+</script>

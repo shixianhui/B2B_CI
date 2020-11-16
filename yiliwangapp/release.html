@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+	    <style type="text/css">
+	    	html, body {
+			    height: 100%;
+			    margin: 0px;
+			    padding: 0px;
+			    overflow: hidden;
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			}
+			
+			.mui-content {
+			    height: 100%;
+			    overflow: auto; 
+			}
+			
+			.btn_box{display:flex;}
+			.btn_box button{ width:50%;}
+			.abstract {position:relative;padding-bottom:15px;background:#fff;margin-bottom:5px;}
+			.abstract div{position:absolute;bottom:5px;right:15px;}
+			.biji .abstract{margin:5px 0 0;}
+			.topic_gs{text-align:center;background:#fff;margin:5px 0 0;height:37px;}
+			.topic_gs>div{display:inline-block;}
+	    </style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">发布</h1>
+		</header>
+		<div class="mui-content release">
+			<div class="radio_nav mui-clearfix">
+				<div class="mui-input-row mui-radio mui-left" value="to_pintuan">
+				    <label>拼团</label>
+				    <input id="to_pintuan" value="to_pintuan" name="radio" type="radio" checked>
+				</div>
+				<div class="mui-input-row mui-radio mui-left" value="to_biji">
+				    <label>心得</label>
+				    <input id="to_biji" value="to_biji" name="radio" type="radio">
+				</div>
+			</div>
+			<div class="pintuan">
+				<div class="product_img">
+					<h4>商品图片</h4>
+					<div class="mui-clearfix">
+						<ul class="img_list">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<span class="iconfont-supplement icon-cha"></span>
+							</li>-->
+						</ul>
+						<a href="javascript:void(0);" action><img src="img/apply-pic1.png"/></a>
+					</div>
+				</div>
+				<div class="abstract">
+					<textarea id="abstract" maxlength="2000" placeholder="请描述您对这类商品的理解、疑惑、喜好、期望，蚁立将从中立客观的角度为您提供专业的评估"></textarea>
+					<div id="abstract_number"><span>1</span>/2000</div>
+				</div>
+				<div class="input_box">
+					<div class="mui-input-row choose">
+					    <label>商品类别</label>
+					    <input type="text" readonly="readonly" placeholder="选择商品类别"/>
+					    <span class="mui-icon mui-icon-arrowright"></span>
+					</div>
+					<div class="mui-input-row">
+					    <label>标题</label>
+					    <input id="title" type="text" placeholder="商品的名称">
+					</div>
+					<div class="mui-input-row">
+					    <label>品牌</label>
+					    <input id="brand_name" type="text" placeholder="商品的品牌">
+					</div>
+					<div class="mui-input-row">
+					    <label>一般报价</label>
+					    <input id="price" type="number" placeholder="商品的价格">
+					</div>
+					<div class="mui-input-row">
+					    <label>商品地址/链接</label>
+					    <input id="urls" type="text" placeholder="请输入商品来自哪里">
+					</div>
+				</div>
+				<div class="waiting_time_box">
+					<h4>期望到货时间</h4>
+					<div id="waiting_time" class="waiting_time ">
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="biji">
+				<div class="product_img">
+					<h4>上传图片</h4>
+					<div class="mui-clearfix">
+						<ul class="img_list">
+							<!--<li>
+								<img src="img/ad_5.jpg"/>
+								<span class="iconfont-supplement icon-cha"></span>
+							</li>-->
+						</ul>
+						<a href="javascript:void(0);" action><img src="img/apply-pic1.png"/></a>
+					</div>
+				</div>
+				<div class="input_box">
+					<div class="mui-input-row choose2">
+					    <label>话题类别</label>
+					    <input placeholder="选择话题类别" type="text" readonly="readonly"/>
+					    <span class="mui-icon mui-icon-arrowright"></span>
+					</div>
+				</div>
+				<div class="topic_gs" style="display:none;">
+					<div class="mui-input-row mui-checkbox mui-left">
+					  <label>标准格式</label>
+					  <input name="checkbox1" type="checkbox" value="1">
+					</div>
+					<div class="mui-input-row mui-checkbox mui-left">
+					  <label>自由格式</label>
+					  <input name="checkbox1" type="checkbox" value="2">
+					</div>
+				</div>
+				<div class="abstract">
+					<textarea id="contenttext" maxlength="2000" placeholder="请描述您对这类商品的理解、疑惑、喜好、期望，蚁立将从中立客观的角度为您提供专业的评估"></textarea>
+					<div id="contenttext_number"><span>1</span>/2000</div>
+				</div>
+			</div>
+			<div class="btn_box">
+				<button type="button" id="delete_btn" class="mui-btn mui-btn-grey mui-btn-block">全部撤销</button>
+				<button type="button" id="submit_btn" class="mui-btn mui-btn-red mui-btn-block">我要发布</button>
+			</div>
+		</div>
+		
+		<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="javascript:void(0);" onclick="getImage()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="javascript:void(0);" onclick="galleryImg()">从相册中选择</a>
+				</li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="cancel_btn" href="javascript:void(0);">取消</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var category_list='';
+	var batch_path_ids='';/*json数组*/
+	var batch_path_id='';/*id字符串*/
+	var category_id_1='';
+	var category_id_2='';
+	var title='';
+	var abstract='';
+	var brand_name='';
+	var price='';
+	var urls='';
+	var arrival_time='';
+	var lat='';
+	var lng='';
+	var model='group_purchase';
+	
+	/*笔记*/
+	var topic_id='';
+	var content='';
+	var topic_gs='';
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	mui.init({
+		beforeback:function(){
+			var self = plus.webview.getWebviewById('member2.html');
+			mui.fire(self, 'page_init', {is_init: '1'});
+		}
+	})
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	$('textarea').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	$('textarea').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	
+	document.getElementById('contenttext').addEventListener('input',function(){
+		var numbers=$(this).val().length;
+		$('#contenttext_number span').html(numbers)
+		
+	});
+	document.getElementById('abstract').addEventListener('input',function(){
+		var numbers=$(this).val().length;
+		$('#abstract_number span').html(numbers)
+		
+	});
+	
+	document.addEventListener('page_init',function(){
+		document.getElementById('to_pintuan').checked=true;
+		$('#to_biji').removeAttr('checked')
+		$('.pintuan').attr('style','display:block;');
+		model='group_purchase'
+		$('.biji').attr('style','display:none;');
+		get_arrival_time();
+		get_product_category_list();
+		get_geolocation();
+	})
+	window.onload=function(){
+		document.getElementById('to_pintuan').checked=true;
+		$('#to_biji').removeAttr('checked')
+		$('.pintuan').attr('style','display:block;');
+		model='group_purchase'
+		$('.biji').attr('style','display:none;');
+		get_arrival_time();
+		get_product_category_list();
+		get_geolocation();
+	};
+	/*切换*/
+	mui('.radio_nav').on('tap','.mui-radio',function(){
+//		console.log($(this).attr('value'))
+		if ($(this).attr('value')=='to_pintuan') {
+			$('.pintuan').attr('style','display:block;');
+			$('.biji').attr('style','display:none;');
+			model='group_purchase'
+		} else{
+			$('.pintuan').attr('style','display:none;');
+			$('.biji').attr('style','display:block;');
+			model='notes'
+		}
+		batch_path_ids='';
+	});
+	/*切换结束*/
+	
+	mui('.mui-content').on('tap', '.choose', function() {
+		$('.mui-content input').blur()
+		$('.mui-content textarea').blur()
+		var categoryPicker = new mui.PopPicker({
+		layer: 2
+		});
+		categoryPicker.setData(category_list);
+		categoryPicker.show(function(items) {
+//			console.log('1'+JSON.stringify(items))
+			document.querySelector('.choose input').value=(items[0] || {}).text + " " + (items[1] || {}).text;
+			category_id_1 = (items[0] || {}).id;
+			category_id_2 = (items[1] || {}).id;
+			//返回 false 可以阻止选择框的关闭
+			//return false;
+		});
+	});
+	
+	
+	function get_geolocation() {
+	 	plus.geolocation.getCurrentPosition(function(position){
+	 		console.log(JSON.stringify(position));
+	        lat = position.coords.latitude; 
+	        lng = position.coords.longitude;
+	    }, function(e) {
+	    	console.log(JSON.stringify(e))
+	    	lat = ''; 
+	        lng = '';
+        mui.alert("请开启定位功能再尝试");
+   	 	}, {provider: 'amap'});
+	}
+	document.getElementById('submit_btn').addEventListener('tap',function(){
+		if ($('input[name=radio]:checked').attr('value')=='to_pintuan') {
+			title=$('#title').val();
+			for (var i =0;i<batch_path_ids.length;i++) {
+				batch_path_id =batch_path_id+batch_path_ids[i].id+'_'
+			}
+			console.log(batch_path_id)
+			abstract=$('#abstract').val();
+			price=$('#price').val();
+			brand_name=$('#brand_name').val();
+			urls=$('#urls').val();
+			arrival_time=$('input[name=radio1]:checked').val();
+			release_group_purchase();
+		}else{
+			for (var i =0;i<batch_path_ids.length;i++) {
+				batch_path_id =batch_path_id+batch_path_ids[i].id+'_'
+			}
+			release_notes();
+		}
+		console.log(batch_path_id)
+	});
+	
+	document.getElementById('delete_btn').addEventListener('tap',function(){
+		if ($('input[name=radio]:checked').attr('value')=='to_pintuan') {
+			batch_path_ids='';
+			batch_path_id='';
+			category_id_1='';
+			category_id_2='';
+			title='';
+			abstract='';
+			brand_name='';
+			price='';
+			urls='';
+			arrival_time='';
+			$('input[type=text]').val('');
+			$('input[type=number]').val('');
+			$('textarea').val('');
+			$('input[type=radio][name=radio1]').removeAttr('checked');
+			$('ul.img_list').html('');
+		}else{
+			batch_path_ids='';
+			batch_path_id='';
+			title='';
+			abstract='';
+			brand_name='';
+			price='';
+			urls='';
+			arrival_time='';
+			$('input[type=text]').val('');
+			$('input[type=number]').val('');
+			$('textarea').val('');
+			$('input[type=radio][name=radio1]').removeAttr('checked');
+			$('ul.img_list').html('');
+		}
+		console.log(batch_path_id)
+	});
+	
+	function get_arrival_time(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_arrival_time';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log(JSON.stringify(res))
+					var html=''
+					for(var i =0;i<res.data.item_list.length ;i++){
+						html+='<div class="mui-input-row mui-radio mui-left">'+
+						    '<label>'+res.data.item_list[i]+'</label>'
+						    +'<input name="radio1" type="radio" value="'+res.data.item_list[i]+'">'
+						+'</div>'
+					}
+					$('#waiting_time').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	
+	
+	function get_product_category_list(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_product_category_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log('11/'+JSON.stringify(res))
+					category_list=res.data.item_list;
+					if(category_list.length>0){
+						for(var i =0 ;i<category_list.length;i++){
+							category_list[i].text=category_list[i].product_category_name
+							if(category_list[i].subMenuList.length>0){
+								for(var j=0 ;j<category_list[i].subMenuList.length;j++){
+									category_list[i].subMenuList[j].text=category_list[i].subMenuList[j].product_category_name
+								}
+							}
+							category_list[i].children=category_list[i].subMenuList
+						}
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	function release_group_purchase(){
+		if (!is_network(false)) {return;}
+		
+		if (batch_path_id=='') {
+			mui.toast('请添加图片')
+			return;
+		}
+		if (category_id_1=='') {
+			mui.toast('请选择商品类别')
+			return;
+		}
+		if (category_id_2=='') {
+			mui.toast('请选择商品类别')
+			return;
+		}
+		if (title=='') {
+			mui.toast('请输入商品名称')
+			return;
+		}
+		if (abstract=='') {
+			mui.toast('请输入商品描述')
+			return;
+		}
+		if (brand_name=='') {
+			mui.toast('请输入商品品牌')
+			return;
+		}
+		if (price=='') {
+			mui.toast('请输入商品价格')
+			return;
+		}
+		if (urls=='') {
+			mui.toast('请输入商品地址/链接')
+			return;
+		}
+		var reg = /^(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?$/;
+		if (!reg.test(urls)) {
+			mui.toast('请输入正确商品地址/链接')
+			return;
+		}
+		if (arrival_time=='') {
+			mui.toast('请选择期望到货时间')
+			return;
+		}
+		var url =  base_url + 'napi/release_group_purchase?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				batch_path_ids:batch_path_id,
+				category_id_1:category_id_1,
+				category_id_2:category_id_2,
+				title:title,
+				abstract:abstract,
+				brand_name:brand_name,
+				price:price,
+				url:urls,
+				arrival_time:arrival_time,
+				lat:lat,
+				lng:lng
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					batch_path_ids='';
+					batch_path_id='';
+					category_id_1='';
+					category_id_2='';
+					title='';
+					abstract='';
+					brand_name='';
+					price='';
+					urls='';
+					arrival_time='';
+					$('input[type=text]').val('');
+					$('input[type=number]').val('');
+					$('textarea').val('');
+					$('input[type=radio][name=radio1]').removeAttr('checked');
+					$('ul.img_list').html('');
+					mui.toast(res.message);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	/*笔记*/
+
+	
+	mui('.topic_gs').on('tap', 'div.mui-checkbox', function() {
+		$(this).siblings('div').children('input').removeAttr('checked')
+		var val=''
+		if (!$(this).children('input').is(':checked')) {
+			console.log('11') 
+			val=$(this).children('input').val()
+		} else{
+			val=''
+		}
+		if (val=='1') {
+			$('#contenttext').val(topic_gs.format_1);
+		} else if (val=='2') {
+			$('#contenttext').val(topic_gs.format_2);
+		}else{
+			$('#contenttext').val('');
+		}
+	});
+	document.addEventListener('topic_check',function(e){
+		topic_id=e.detail.topic_id;
+		topic_gs=e.detail.topic_gs
+		if (topic_gs=='') {
+			$('.topic_gs').css('display','none')
+		} else{
+			
+			$('.topic_gs').css('display','block')
+		}
+		document.querySelector('.choose2 input').value=e.detail.topic_name;
+	});
+	mui('.mui-content').on('tap', '.choose2', function() {
+//		$('.mui-content input').blur()
+//		$('.mui-content textarea').blur()
+//  	var picker = new mui.PopPicker({
+//		layer: 2
+//		});
+//  	var that=this
+//		picker.setData(topic_category_list);
+//		picker.show(function(items) {
+//			document.querySelector('.choose2 input').value=items[0].text +' '+items[1].text;
+//			topic_id = (items[1] || {}).id;
+//		});
+		go_to_active('topic_list.html')
+		
+	});
+	
+	function release_notes(){
+		if (!is_network(false)) {return;}
+		
+		content=$('#contenttext').val();
+		
+		if (batch_path_id=='') {
+			mui.toast('请添加图片')
+			return;
+		}
+		if (topic_id=='') {
+			mui.toast('请选择话题类别')
+			return;
+		}
+		if (content=='') {
+			mui.toast('请输入内容')
+			return;
+		}
+		var url =  base_url + 'napi/release_notes?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				batch_path_ids:batch_path_id,
+				topic_id:topic_id,
+				content:content,
+				lat:lat,
+				lng:lng
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					batch_path_ids='';
+					batch_path_id='';
+					title='';
+					abstract='';
+					brand_name='';
+					price='';
+					urls='';
+					arrival_time='';
+					$('input[type=text]').val('');
+					$('input[type=number]').val('');
+					$('textarea').val('');
+					$('input[type=radio][name=radio1]').removeAttr('checked');
+					$('input[type=checkbox]').removeAttr('checked');
+					$('ul.img_list').html('');
+					$('.topic_gs').css('display','none');
+					mui.toast(res.message);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	/****************************上传图片开始*****************************/
+	// 创建上传任务
+	var wt = null;
+	var cur_ele = null;
+	
+    mui('.mui-content').on('tap', 'a[action]', function() {
+		$('.mui-content input').blur()
+		$('.mui-content textarea').blur()
+    	cur_ele = this;
+		mui('#photograph').popover('show');
+	});
+	document.getElementById('cancel_btn').addEventListener('tap',function () {
+		cur_ele = null;
+	    mui('#photograph').popover('hide');    
+	});
+	
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		plus.webview.currentWebview().addEventListener("popGesture", function(e) {
+			if(e.type == "start") {
+				closeImg();
+			}
+		}, false);
+	}
+	
+	if(window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+	
+	function getImage() {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+//			console.log("照片已成功保存到系统相册:" + path);
+//			createUpload(path);
+			plus.io.resolveLocalFileSystemURL(path, function(entry) {
+                go_to_view('cropper.html', {item_id:'1', path:entry.toLocalURL()});
+            }, function(e) {
+                console.log("读取拍照文件错误：" + e.message);
+            });
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, { filename: "_doc/gallery/", index: 1 });
+	}
+	
+	function galleryImg() {
+		// 从相册中选择图片
+	
+		plus.gallery.pick(function(path) {
+			console.log(path);
+//			createUpload(path);
+			go_to_view('cropper.html', {item_id:'1', path:path});
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, { filter: "image" });
+	}
+	
+	function createUpload(path) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/uploadImage?sid='+localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url, { method: "POST" },
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if(status == 200) {
+					var json = eval("(" + t.responseText + ")");
+//					console.log(JSON.stringify(json))
+					if(json.success) {
+						mui('#photograph').popover('hide');
+						var html = '<li>';
+							html += '<img src="'+json.data.path_thumb_url+'" />';
+							html += '<span class="iconfont-supplement icon-cha" onclick="javascript:delete_image(this);" item_id="'+json.data.id+'"></span></li>';
+						$(cur_ele).siblings('ul.img_list').append(html);
+						console.log($(cur_ele).siblings('ul.img_list').html())
+						var index=$(cur_ele).siblings('ul.img_list').attr('value');
+//						console.log(index)
+						var newList = [];
+				        if (batch_path_ids) {
+				          newList = batch_path_ids;
+				        } else {
+				          newList = [];
+				        }
+				        newList.push(json.data);
+				        batch_path_ids = newList;
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast('图片上传失败');
+				}
+			}
+		);
+		task.addFile(path, { key: "field" });
+		task.addData("timestamp", "1471838886");
+		task.addData("token", "3abaf957cc1d002f9e86de431c3aa02a");
+		task.addData("model", model);
+		task.start();
+	}
+	function closeImg() {
+		plus.uploader.clear();
+		if(wt) {
+			wt.close();
+		}
+	}
+	
+	function delete_image(obj) {
+		var id =$(obj).attr('item_id') ;
+	    var index =$(obj).parent().parent().attr('value') ;
+	    for (var i = 0; i < batch_path_ids.length; i++) {
+	      if (batch_path_ids[i].id == id) {
+	        batch_path_ids.splice(i, 1);
+	      }
+//	    console.log(batch_path_ids[index])
+	    }
+	    console.log(JSON.stringify(batch_path_ids))
+		var sums = 0;
+		$('#img_sum').html(sums);
+		$(obj).parent().remove();
+	}
+	/********************上传图片结束*********************/
+</script>

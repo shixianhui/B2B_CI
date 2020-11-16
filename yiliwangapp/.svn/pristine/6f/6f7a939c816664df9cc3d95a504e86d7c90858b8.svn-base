@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">我的资产</h1>
+	        
+	    </header>
+	    <div class="mui-content asset">
+	    	<ul class="mui-table-view ">
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-wdjf.html">
+    	                <span class="iconfont-supplement icon-jifen"></span>
+    	                	蚁贝积分
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-wdyhj.html">
+    	                <span class="iconfont-supplement icon-coupon"></span>
+    	            	优惠券
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-wdye.html">
+    	                <span class="iconfont-supplement icon-zhanghuyue"></span>
+    	            	余额
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-wdyhk.html">
+    	                <span class="iconfont-supplement icon-yinhangqia"></span>
+    	            	银行卡
+    	            </a>
+    	        </li>
+    	    </ul>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	mui('.asset').on('tap','a',function(){
+		var id =this.getAttribute('href')
+		if(id=='m-wdyhk.html' || id=='m-wdyhj.html'){
+			mui.toast('建设中...')
+		}else{
+			go_to_active(id);
+		}
+	});
+</script>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />
+		<style type="text/css">
+			#header{background-color:rgba(255,255,255,0);}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav" style="">
+			<a class="position" href="javascript:void(0);" class="mui-pull-left"><i i_type="position" class="mui-icon iconfont icon-dingwei"></i  i_type="position">杭州</a>
+			<i i_type="close" class="mui-icon mui-icon-closeempty mui-pull-right"></i>
+		</header>
+		<div class="live-start-bg mui-scroll-wrapper" style="padding-top:0;">
+			<div class="live_start">
+				<div class="mui-input-row live_room">
+					<input type="number" placeholder="输入直播间房间号" />
+				</div>
+				<a href="javascript:void(0);" class="live_sure">开始直播</a>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/yim.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.live-start-bg').on('tap', 'a', function() {
+		var live_id = '111';
+		if (plus.os.ios) {
+			plus.yim.openLive(live_id, function(){}, function(){});
+		} else {
+			plus.yim.openLive(live_id);
+		}
+	});
+
+	mui('#header').on('tap', 'i', function() {
+		var type = this.getAttribute('i_type');
+		if (type == "close") {
+			mui.back();
+		} else if (type == 'position') {
+			get_site_list();
+		}
+	});
+
+	window.onload = function() {
+		get_site_list();
+	}
+
+	// 获取所在地
+	// function get_site_list() {
+	// 	var url = base_url + 'napi/get_site_list';
+	// 	mui.ajax(url, {
+	// 	data: {},
+	// 		dataType: "json",
+	// 		data: "post",
+	// 		timeout: 10000,
+	// 		 success: function(res) {
+	// 		 	// mui.alert(JSON.stringify(res));
+	// 		 }, error: error
+	// 	});
+	// }
+</script>

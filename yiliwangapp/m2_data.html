@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+	    <style type="text/css">
+	    	html, body {
+			    height: 100%;
+			    margin: 0px;
+			    padding: 0px;
+			    overflow: hidden;
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			}
+			
+			.mui-content {
+			    height: 100%;
+			    overflow: auto; 
+			}
+			
+	    	.m2-data-list li:last-of-type{padding:0px 15px;width:100%;float:left;}
+	    	.m2-data-list li:last-of-type em{height:45px;line-height:45px;}
+	    	.m2-data-list li:last-of-type input{height:45px;}
+	    </style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">个人资料</h1>
+	        
+	    </header>
+	    <div class="mui-content">
+	    	<div class="m2-data-txt">
+	    		<p>仅用于保证账号安全，不向任何第三方泄露个人资料，确保保密。</p>
+	    	</div>
+	    	<ul class="mui-table-view m2-data-list">
+	    	    <li class="mui-table-view-cell">
+	    	        <a class="mui-navigate-right" href="#photograph">
+	    	        	<img id="user_icon_path" src="img/tx.jpg"/>
+	    	        	<span>修改头像</span>
+	    	        </a>
+	    	        
+	    	    </li>
+	    	    <li class="mui-table-view-cell">
+	    	        <a class="mui-navigate-right" href="m-change-nickname.html">
+	    	        	<em>昵称</em>
+	    	        	<p id="user-nickname" >Yooyo</p>
+	    	        </a>
+	    	            
+	    	    </li>
+	    	    <li class="mui-table-view-cell">
+	    	        <a class="mui-navigate-right" href="m-change-sex.html">
+	    	        	<em>性别</em>
+	    	        	<p id="user-gender">男</p>
+	    	        </a>
+	    	        
+	    	    </li>
+	    	    <li class="mui-table-view-cell" style="display:none;">
+	    	        <a class="mui-navigate-right" href="javascript:void(0);">
+	    	        	<em>生日</em>
+	    	        	<p>1899-11-11</p>
+	    	        </a>
+	    	        
+	    	    </li>
+	    	    <li class="mui-table-view-cell" style="display:none;">
+	    	        <a class="mui-navigate-right" href="javascript:void(0);">
+	    	        	<em>身份证号</em>
+	    	        	<input type="text" name="" id="" value="" placeholder="未填写"/>
+	    	        </a>
+	    	        
+	    	    </li>
+	    	    <li class="mui-table-view-cell">
+	    	        <a id="address" href="javascript:void(0);">
+	    	        	<em>地址</em>
+	    	        	<p>点击选择地址 </p>
+	    	        	<span class="iconfont-supplement icon-dizhi mui-pull-right"></span>
+	    	        </a>
+	    	        
+	    	    </li>
+	    	    <li class="mui-table-view-cell">
+	    	        	<em>个人签写</em>
+	    	        	<input type="text" name="" id="slogan" value="" placeholder="未填写"/>
+	    	    </li>
+	    	</ul>
+	    </div>
+	    
+	    <div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+		      <li class="mui-table-view-cell text-color">
+		        <a onclick="getImage()" href="javascript:void(0);">拍照</a>
+		      </li>
+		      <li class="mui-table-view-cell">
+		        <a onclick="chooseImgFromAlbums()" href="javascript:void(0);">我的相册</a>
+		      </li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+		      <li class="mui-table-view-cell">
+		        <a href="#photograph">取消</a>
+		      </li>
+		    </ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+		beforeback: function(){
+			//获得列表界面的webview
+			var list = plus.webview.getWebviewById('member2.html');
+			//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+			mui.fire(list,'changeHeadImage');
+
+			return true;
+		}
+	});
+	
+	window.onload = function() {
+		data_init();
+	}
+	mui('.mui-content').on('tap', 'a', function() {
+		var pushHTML = this.getAttribute('href');
+		if (pushHTML == "m-change-sex.html" | pushHTML == "m-change-nickname.html") {
+			go_to_active(pushHTML);
+		}
+	});
+	
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+
+	// 数据初始化
+	function data_init() {
+		// 用户头像
+		if (localStorage.getItem("global_path_thumb") && localStorage.getItem("global_path_thumb") != 'undefined') {
+			$('#user_icon_path').attr('src', localStorage.getItem("global_path_thumb"));
+		} else {
+			$('#user_icon_path').attr('src', "img/tx.jpg");
+		}
+		// 用户昵称
+		if(localStorage.getItem('global_nickname') && localStorage.getItem('global_nickname') != 'undefined'){
+			$('#user-nickname').text(localStorage.getItem('global_nickname'));
+		}else{
+			$('#user-nickname').text('请输入名称');
+		}
+		// 用户地址
+		if(localStorage.getItem('global_txt_address') && localStorage.getItem('global_txt_address') != 'undefined'){
+			$('#address p').text(localStorage.getItem('global_txt_address'));
+		}else{
+			$('#address p').text('点击选择地址');
+		}
+
+		// 用户性别
+		if(localStorage.getItem('global_sex') == '1') {
+			$('#user-gender').text('男');
+		}else if(localStorage.getItem('global_sex') == '2') {
+			$('#user-gender').text('女');
+		}else {
+			$('#user-gender').text('保密');
+		}
+	}
+	// 修改名称或者性别后调用
+	window.addEventListener('change_name_gender',function (){
+		$('#user-nickname').text(localStorage.getItem('global_nickname'));
+		// 用户性别
+		if(localStorage.getItem('global_sex') == 1){
+			$('#user-gender').text('男');
+		}else if(localStorage.getItem('global_sex') == 2){
+			$('#user-gender').text('女');
+		}else{
+			$('#user-gender').text('保密');
+		}
+	});
+
+	window.addEventListener('page_init', function(e) {
+		onload();
+	});
+
+	
+	document.getElementById('address').addEventListener('tap', function(event) {
+		var cityPicker3 = new mui.PopPicker({
+			layer: 3
+		});
+		cityPicker3.setData(cityData3);
+		$('.mui-content input').blur()
+		$('.mui-content textarea').blur()
+		cityPicker3.show(function(items) {
+			document.querySelector('#address p').innerText=(items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+			var province_id = (items[0] || {}).value;
+			var city_id = (items[1] || {}).value;
+			var area_id = (items[2] || {}).value;
+			change_user_location(province_id,city_id,area_id)
+			//返回 false 可以阻止选择框的关闭
+			//return false;
+		});
+	}, false);
+	
+	function change_user_location(province_id,city_id,area_id){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/change_user_location?sid='+localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				province_id:province_id,
+				city_id:city_id,
+				area_id:area_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					mui.toast(res.message);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	document.getElementById('slogan').addEventListener('blur',function(){
+		var slogan=$(this).val();
+		change_user_slogan(slogan)
+	});
+	function change_user_slogan(slogan){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/change_user_slogan?sid='+localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				slogan:slogan
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast(res.message);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	
+	/*********************************************************/
+	/*------------------------图片上传------------------------*/
+	/*********************************************************/
+
+	// 创建上传任务
+	var wt = null;
+
+	function plusReady() {
+//		// 用户侧滑返回时关闭显示的图片
+//		plus.webView.currentWebview().addEventListener("popGesture", function(e) {
+//			if (e.type == "start") {
+//				closeImg();
+//			}
+//		}, false);
+	}
+
+	if (window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+
+	// 拍照
+	function getImage() {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, {filename:"_doc/gallery/", index:1});
+	}
+
+	// 相册中选择照片
+	function chooseImgFromAlbums() {
+		plus.gallery.pick(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, {
+			filter:"image",
+			multiple: false
+		});
+	}
+
+	// 上传头像
+	function createUpload(path) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/change_user_image?sid='+localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url,
+			{ method:"POST"},
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if (status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					if (json.success) {
+						mui('#photograph').popover('hide');
+						$('#user_icon_path').attr('src', json.data.path_thumb_url);
+						localStorage.setItem("global_path", json.data.path_url);
+						localStorage.setItem("global_path_thumb", json.data.path_thumb_url);
+						mui.toast("成功修改头像");
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast('头像上传失败');
+					if(json.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			}
+		);
+		task.addFile(path, {key:"field"});
+		task.addData( "timestamp", "1471838886" );
+		task.addData( "token", "3abaf957cc1d002f9e86de431c3aa02a" );
+		task.addData( "model", "user");
+		task.start();
+	}
+
+	function closeImg() {
+		plus.uploader.clear();
+		if (wt) {
+			wt.close();
+		}
+	}
+
+	
+//
+//	document.getElementById('user_nickname').addEventListener('tap', function() {
+//		var list = plus.webview.getWebviewById('m-change-nickname.html');
+//		mui.fire(list, 'changenickname');
+//	})
+</script>

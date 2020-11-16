@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />		
+	</head>
+	<style>
+		.mui-table-view-cell:after{left:0;}
+		.mui-slider-handle{}
+		.mui-slider-handle>img{width:46px;height:46px;margin-right:10px;}
+		.mui-slider-handle>em{font-size:15px;color:#323232;}
+		.sex_sel{width:14px;height:14px;position:relative;top:-2px;}
+		.sex_sel img{width:14px;height:14px;}
+		.mui-table-view-cell .mui-btn{background:#C81624;}
+	</style>
+	<body>
+		<header id="menu_bar" class="mui-bar mui-bar-nav top_bar">
+			<a class="mui-action-back mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></a>
+			<h1 class="mui-title">管理员列表</h1>
+			
+		</header>
+		
+		<div class="mui-content">
+			<div class="control">
+				<h4>当前管理员：（1/5）</h4>
+				<ul id="OA_task_1" class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">取消管理</a>
+						</div>
+						<div class="mui-slider-handle">
+							<img src="img/control_hd.png"/>
+							<em>懵懂的心</em>
+							<i class="sex_sel"><img src="img/sex.png"/></i>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">取消管理</a>
+						</div>
+						<div class="mui-slider-handle">
+							<img src="img/control_hd.png"/>
+							<em>懵懂的心</em>
+							<i class="sex_sel"><img src="img/sex.png"/></i>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script>
+		mui.init();
+	</script>
+
+</html>

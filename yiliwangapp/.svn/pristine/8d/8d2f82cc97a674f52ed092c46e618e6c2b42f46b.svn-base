@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		
+		<style type="text/css">
+			html, body {
+				    height: 100%;
+				    margin: 0px;
+				    padding: 0px;
+				    overflow: hidden;
+				    -webkit-touch-callout: none;
+				    -webkit-user-select: none;
+				}
+				
+				.mui-content {
+				    height: 100%;
+				    overflow: auto; 
+				}
+			.mui-content>.mui-table-view:first-child{margin-top: 1px;}
+			body{background: #fff;}
+			.mui-content{background: #fff;}
+			.mui-radio input[type=radio]:checked:before{content: "\e442";}
+			.mui-radio.mui-left input[type=radio]{left: 15px;}
+			.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{color: #c81624;}
+			.mui-radio.mui-left label{line-height: 28px;padding: 5px 0 0 50px;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">专业蚁客申请</h1>
+	        
+	    </header>
+	    <div class="mui-content">
+	    	<div class="m2-apply-top">
+	    		<p class="bt"><strong><em>申请条件</em><span></span></strong></p>
+	    		<p>
+	    			1、对申请的分类商品领域有从业经历或丰富的消费心得。</br>
+	    			2、发布2篇体现心得认知的分类商品领域心得。</br>
+	    			3、专业心得累积获得3次转发和10个以上的点赞或收藏。</br>
+	    			4、通过一次实习拼团评估。
+	    		</p>
+	    		<p class="bt"><strong><em>专业蚁客等级划分</em><span></span></strong></p>
+	    		<!--<em>专业蚁客等级划分-卡通形象展示</em>-->
+	    		<img style="width:100%;" src="img/img-1.png"/>
+	    		<p class="bt"><strong><em>专业蚁客的价值</em><span></span></strong></p>
+	    		<p>
+	    			专业蚁客的价值（您的专业知识，严谨态度，值得回报）：</br>
+	    			中立客观的监督拼团等交易，获取分成。</br>
+	    			<!--您的专业知识，严谨态度，值得回报。</br>-->
+	    			可能成为某个领域的意见领袖或网红。</br>
+	    			获得酷炫的专业蚁客标志形象。</br>
+	    			更多成就感等您开拓。</p>
+	    		
+	    		<p>【如果您对某类商品有专业独到的经验心得，能够站在中立客观的角度提供专业的评估，都可以来申请成为专业蚁客。首次申请只能申请一种分类哦!】</p>
+	    		<!--<p class="bt"><strong><em>我要成为专业蚁客</em><span></span></strong></p>-->
+	    	</div>
+	    	<div class="m2-apply-radio">
+	    		<p>行业选择</p>
+	    		<div id="trade_type_list">
+	    		
+		    	</div>
+		    	<script id="tpl_trade_type_list" type="text/html">
+		    		<%for(var i=0;i<data.trade_type_list.length;i++){%>
+		    		<div class=" mui-radio mui-left">
+			    	    <label><%=data.trade_type_list[i].product_category_name%></label>
+			    	    <input name="radio" type="radio" item_id="<%=data.trade_type_list[i].id%>">
+			    	</div>
+			    	<%}%>
+		    	</script>
+	    	</div>
+	    	<div class="m2-apply-content">
+	    		<p>相关资料上传</p>
+	    		<div class="m2-apply-pic1">
+	    			<p>手持身份证证件照片</p>
+	    			<img class="image_card" src="img/apply-btn1.png"/>
+	    		</div>
+	    		<div class="m2-apply-pic2">
+	    			<p>专业执照照片(可选项)</p>
+	    			<img class="image" src="img/apply-pic1.png"/>
+	    		</div>
+	    	</div>
+	    	<div class="m2-apply-text">
+	    		<p>相关描述</p>
+	    		<textarea id="content_text" placeholder="相关行业从业简历或对该行业商品的认知经历"></textarea>
+	    	</div>
+	    	<div class="m2-apply-btn">
+	    		<button id="submit">提交申请</button>
+	    	</div>
+	    </div>
+	    <div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+		    <!-- 可选择菜单 -->
+		    <ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="javascript:void(0);" onclick="getImage()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="javascript:void(0);" onclick="galleryImg()">从相册中选择</a>
+				</li>
+		    </ul>
+		    <!-- 取消菜单 -->
+		    <ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a id="cancel_btn" href="javascript:void(0);">取消</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('textarea').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	$('textarea').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	
+	$(".m2-nav ul li").click(function(){
+		var index = $(this).index();
+		$(this).addClass("active").siblings().removeClass("active");
+		$(".m2-content").eq(index).show().siblings().hide();
+	})
+	
+	
+	
+	document.addEventListener('page_init',function(){
+		get_apply_detail();
+	});
+	window.onload=function(){
+		get_apply_detail();
+	}
+	
+	function get_apply_detail() {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_apply_detail?sid='+ localStorage.getItem('global_sid');
+//		console.log(url)
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					var html = template('tpl_trade_type_list', res);
+					$('#trade_type_list').html(html)
+				} else {
+					mui.toast(res.message);
+				}
+				
+			},
+			error: error
+		});
+	}
+	
+	var content=''
+	var trade_type_id=''
+	var id_card_path=''
+	var license_path=''
+	document.getElementById('submit').addEventListener('tap',function(){
+		trade_type_id=$("input[type='radio']:checked").attr('item_id');
+		id_card_path=$('img.image_card').attr('path');
+		license_path=$('img.image').attr('path');
+		content=$('#content_text').val();
+//		console.log(content)
+//		console.log(license_path)
+//		console.log(id_card_path)
+//		console.log(trade_type_id)
+		apply_eli_guest();
+	});
+	function apply_eli_guest() {
+		if (!is_network(false)) {return;}
+//		if (trade_type_id=='') {
+//			mui.toast('请选择行业')
+//			return;
+//		}
+//		if (id_card_path=='') {
+//			mui.toast('请上传手持身份证证件照片')
+//			return;
+//		}
+//		if (content=='') {
+//			mui.toast('请输入相关行业从业简历或对该行业商品的认知经历')
+//			return;
+//		}
+
+		url = base_url + 'napi/apply_eli_guest?sid='+ localStorage.getItem('global_sid');
+//		console.log(url)
+		mui.ajax(url, {
+			data: {
+				trade_type_id:trade_type_id,
+		        id_card_path: id_card_path,
+		        license_path: license_path,
+		        content:content
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					
+				} else {
+					mui.toast(res.message);
+				}
+				
+			},
+			error: error
+		});
+	}
+
+
+
+
+/****************************上传图片开始*****************************/
+	// 创建上传任务
+	var wt = null;
+	var cur_ele = null;
+	
+    mui('.mui-content').on('tap', 'img.image_card', function() {
+		$('.mui-content textarea').blur()
+    	cur_ele = this;
+		mui('#photograph').popover('show');
+	});
+	mui('.mui-content').on('tap', 'img.image', function() {
+		$('.mui-content textarea').blur()
+    	cur_ele = this;
+		mui('#photograph').popover('show');
+	});
+	
+	document.getElementById('cancel_btn').addEventListener('tap',function () {
+		cur_ele = null;
+	    mui('#photograph').popover('hide');    
+	});
+	
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		plus.webview.currentWebview().addEventListener("popGesture", function(e) {
+			if(e.type == "start") {
+				closeImg();
+			}
+		}, false);
+	}
+	
+	if(window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+	
+	function getImage() {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			console.log("照片已成功保存到系统相册:" + path);
+			createUpload(path);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, { filename: "_doc/gallery/", index: 1 });
+	}
+	
+	function galleryImg() {
+		// 从相册中选择图片
+	
+		plus.gallery.pick(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, { filter: "image" });
+	}
+	
+	function createUpload(path) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/uploadImage?sid='+localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url, { method: "POST" },
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if(status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					console.log(JSON.stringify(json))
+					if(json.success) {
+						mui('#photograph').popover('hide');
+//						var html = '<li>';
+//							html += '<img src="'+json.data.path_thumb_url+'" />';
+//							html += '<span class="iconfont-supplement icon-cha" onclick="javascript:delete_image(this);" item_id="'+json.data.id+'"></span></li>';
+						$(cur_ele).attr('src',json.data.path_thumb_url);
+						$(cur_ele).attr('path',json.data.path);
+						console.log($(cur_ele).attr('src'))
+//						var index=$(cur_ele).siblings('ul.img_list').attr('value');
+//						console.log(index)
+//						var newList = [];
+//				        if (batch_path_ids) {
+//				          newList = batch_path_ids;
+//				        } else {
+//				          newList = [];
+//				        }
+//				        newList.push(json.data);
+//				        batch_path_ids = newList;
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast('图片上传失败');
+				}
+			}
+		);
+		task.addFile(path, { key: "field" });
+		task.addData("timestamp", "1471838886");
+		task.addData("token", "3abaf957cc1d002f9e86de431c3aa02a");
+		task.addData("model", "eli_guest");
+		task.start();
+	}
+	function closeImg() {
+		plus.uploader.clear();
+		if(wt) {
+			wt.close();
+		}
+	}
+	
+	function delete_image(obj) {
+		var id =$(obj).attr('item_id') ;
+	    var index =$(obj).parent().parent().attr('value') ;
+	    for (var i = 0; i < batch_path_ids.length; i++) {
+	      if (batch_path_ids[i].id == id) {
+	        batch_path_ids.splice(i, 1);
+	      }
+//	    console.log(batch_path_ids[index])
+	    }
+	    console.log(JSON.stringify(batch_path_ids))
+		var sums = 0;
+		$('#img_sum').html(sums);
+		$(obj).parent().remove();
+	}
+	/********************上传图片结束*********************/
+
+</script>

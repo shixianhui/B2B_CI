@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">订单详情</h1>
+        <!--<a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>-->
+    </header>
+    <div class="mui-content order-details-content no-bg mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div id="content">
+                
+            </div>
+            <script id="tpl_content" type="text/html">
+                <ul class="mui-table-view title" style="margin-top:0;">
+                    <li class="mui-table-view-cell">
+                        <h4 class="mui-pull-left">订单号：<%=data.order_number%></h4><h5 class="text-color mui-pull-right"><%=#data.status_format%></h5>
+                    </li>
+                </ul>
+                <ul class="mui-table-view address">
+                    <li class="mui-table-view-cell">
+                        <h4><span class="mui-pull-left"><%=data.buyer_name%></span><%=data.mobile%></h4>
+                        <p><%=data.txt_address%> <%=data.address%></p>
+                        <i class="iconfont icon-dizhi"></i>
+                    </li>
+                </ul>
+                <ul class="mui-table-view project">
+                    <li class="mui-table-view-cell">
+                        <div class="box1"><h4 class="mui-pull-left"><i class="iconfont icon-dianpu2"></i><%=data.store_name%></h4></div>
+                        <%for (var i = 0, data_list = data.orders_detail; i < data_list.length; i++) {%>
+	                        <div  class="box2">
+	                        		<img src="<%=data.orders_detail[i].path_thumb%>" />
+	                        		<p>
+	                        			<span style="display:flex;"><i class="mui-ellipsis-2 mui-col-xs-8"><%=data.orders_detail[i].product_title%></i><i class="mui-pull-right mui-col-xs-4 mui-text-right">￥<%=data.orders_detail[i].buy_price%></i></span>
+	                        			数量：<%=data.orders_detail[i].buy_number%>　
+	                                	<%if (data.orders_detail[i].color_name) {%>
+	                                    颜色：<%=data.orders_detail[i].color_name%>　
+	                                <%}%>
+	                                <%if (data.orders_detail[i].size_name) {%>
+	                                    尺码：<%=data.orders_detail[i].size_name%>
+	                                <%}%>
+	                        		</p>
+	                        </div>
+	                    <%}%>
+                        <button type="button" class="mui-btn mui-pull-right">申请售后</button>
+                        <!--<div  class="box3"><button type="button" class="mui-btn mui-btn-block">联系卖家</button></div>-->
+                    </li>
+                </ul>
+                <ul class="mui-table-view payment">
+                    <li class="mui-table-view-cell">
+                        <h4 class="mui-pull-left">支付方式</h4>
+                        <h5 class="mui-pull-right"><%=data.payment_title%></h5>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <h4 class="mui-pull-left">快递公司</h4>
+                        <h5 class="mui-pull-right"><%=data.delivery_name%></h5>
+                    </li>
+                </ul>
+                <ul class="mui-table-view price">
+                    <li class="mui-table-view-cell">
+                        <div class="mui-pull-left">
+                            <h4 class="mui-pull-left">商品总额</h4>
+                            <h5 class="mui-pull-right text-color">￥<%=data.product_total%></h5>
+                        </div>
+                        <div class="mui-pull-left">
+                            <h4 class="mui-pull-left" style="font-size:14px;">-优惠</h4>
+                            <h5 class="mui-pull-right text-color">￥<%=data.discount_total%></h5>
+                        </div>
+                        <div class="mui-pull-left">
+                            <h4 class="mui-pull-left" style="font-size:14px;">+运费</h4>
+                            <h5 class="mui-pull-right text-color">￥<%=data.postage_price%></h5>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <h2>付款：<span class="text-color">￥<%=data.total%></span></h2>
+                        <p>下单时间：<%=data.add_time%></p>
+                    </li>
+                </ul>
+                <div class="button">
+                	<!--<button onclick="check_logistics()" type="button" class="mui-btn mui-btn-grey mui-btn-outlined">查看物流</button>-->
+                    <%if (data.status == '0') {%>
+                        <!--<button onclick="cancel_order()" type="button" class="mui-btn mui-btn-grey mui-btn-outlined">取消订单</button>-->
+                        <button onclick="pay('<%=data.total%>','<%=data.id%>','<%=data.order_number%>')" type="button" class="mui-btn mui-btn-red mui-btn-outlined">去支付</button>
+                    <%} else if (data.status == '1') {%>
+                        <!--<button onclick="cancel_order()" type="button" class="mui-btn mui-btn-grey mui-btn-outlined">取消订单</button>
+                        <button onclick="press_goods()" type="button" class="mui-btn mui-btn-red mui-btn-outlined">催促发货</button>-->
+                		<%} else if (data.status == '2') {%>
+                        <button onclick="confirm_receipt()" type="button" class="mui-btn mui-btn-red mui-btn-outlined">确认收货</button>
+                		<%} else if (data.status == '3') {%>
+                        <%if (data.is_comment_to_seller == '0') {%>
+                            <button onclick="evaluate_order()" type="button" class="mui-btn mui-btn-red mui-btn-outlined">评价晒单</button>
+                        <%}%>
+                        <!--<button onclick="buy_again()" type="button" class="mui-btn mui-btn-red mui-btn-outlined">再次购买</button>-->
+                    <%} else if (data.status == '4') {%>
+                	   		<!--<button onclick="buy_again()" type="button" class="mui-btn mui-btn-red mui-btn-outlined">再次购买</button>-->
+                    <%}%>
+                </div>
+            </script>
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+        beforeback:function() {
+            mui('.mui-scroll-wrapper').scroll().scrollTo(0, 0, 100);
+        }
+    });
+    
+    mui('.mui-scroll-wrapper').scroll();
+    
+    var item_id = '';
+    
+    window.addEventListener('go_to_parameter', function(e) {
+        item_id = e.detail.item_id;
+        get_order_detail(item_id);
+    });
+    window.addEventListener('pay_success_refrsh_list', function(e) {
+        item_id = e.detail.order_id;
+        get_order_detail(item_id);
+    });
+
+    // 评价晒单
+    function evaluate_order() {
+        go_to_view("m-order-pjsd.html",{item_id:item_id});
+    }
+
+    // 确认收货
+    function confirm_receipt() {
+
+    }
+
+    // 去支付
+    function pay(total,order_id,order_num) {
+    	go_to_view("cart-pay.html", {
+			item_id: order_id,total:total,prv_id:'m-order-view.html',order_num:order_num
+		});
+    }
+
+	// 订单详情
+    function get_order_detail(order_id) {
+		if (!is_network(false)) {return;}
+ 
+        var url = base_url + 'napi/get_order_detail/' + order_id + '?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {},
+            dataType: "json",
+            type: "get",
+            timeout: 10000,
+            success: function(res) {
+                console.log(JSON.stringify(res.data));
+                if (res.success) {
+                    var html = template('tpl_content', res);
+                    $('#content').html(html);
+                } else {
+                    mui.toast(res.message);
+                }
+            },
+            error: error
+        });
+    }
+</script>

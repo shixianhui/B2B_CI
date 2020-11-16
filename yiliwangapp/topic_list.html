@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<style type="text/css">
+			html, body {
+			    height: 100%;
+			    margin: 0px;
+			    padding: 0px;
+			    overflow: hidden;
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			}
+			
+			.mui-content {
+			    height: 100%;
+			    overflow: auto; 
+			}
+			
+			.search {display: flex;justify-content: space-between;align-items: center; background-color: #fff;padding: 15px 0 15px 15px;}
+			.search .search-box {width: 80%;height: 30px;display: flex;align-items: center; border-radius: 15px;background-color: #f5f5f5;}
+			.search .search-box .icon{width: 15px;height: 15px;margin: 0 10px 0 10px;}
+			.search .search-box .input{width: 100%; font-size: 15px;color: #333;height:30px;}
+			.search .clear{font-size: 15px;color: #5f5f5f;padding: 3px 15px;}
+			.mui-search{position:relative;}
+			.mui-search input{background-color: rgba(0,0,0,0);position:relative;padding:0 30px !important;height:30px !important;line-height:15px !important;}
+			.mui-search.mui-active:before{line-height:30px;top:60% !important;}
+			.mui-search .mui-placeholder {
+font-size: 16px;
+line-height: 30px;
+position: absolute;
+z-index: 1;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+display: inline-block;
+height: 30px;
+text-align: center;
+color: #999;
+border: 0;
+border-radius: 6px;
+background: 0 0;
+}
+			
+			.menu-box{width:100%;background:#fff;height:90px !important;margin-top:1px;display:block;}
+			.menu-box .ul-scroll{overflow: hidden;background-color: #fff;height:90px !important;}
+			.menu-box .ul-scroll .ul{width: 100%;height: 70px; white-space:nowrap;padding: 10px 10px;}
+			.menu-box .ul-scroll .ul .li-1{position: relative;z-index: 0; display:inline-block;margin-right: 7px;font-size: 15px;width: 100px;height: 70px;}
+			.menu-box .ul-scroll .ul .li-1 .img-bg{width: 100%;height: 100%;border-radius: 9px;display: block;}
+			.menu-box .ul-scroll .ul .li-1 .txt{position: absolute;left: 0;right: 0;bottom: 0;z-index: 1;text-align: center;}
+			.menu-box .ul-scroll .ul .li-1 .txt .h5{color: #fff;font-weight: bold;}
+			.menu-box .ul-scroll .ul .li-1 .txt .span{width: 0px;height: 3px;background-color: #fff; margin: 6px auto;transition: all 0.3s;display:block;}
+			.menu-box .ul-scroll .ul .li-1.active .txt .span{width: 30px;}
+			.menu-box.hide{display:none;}
+			
+			.topic-list .ul{background-color: #fff;padding-left: 15px;border-top: 1px solid #f2f2f2;}
+			.topic-list .ul .li{padding: 25px 0;border-bottom: 1px solid #f2f2f2;}
+			.topic-list .ul .li .txt {display: flex;align-items: center;}
+			.topic-list .ul .li .txt .h4{font-size: 15px;}
+			.topic-list .ul .li .txt .h5{background-color: #f6f6f6;border-radius: 10px;padding: 2px 7px;display: flex;align-items: center;margin-left: 5px;}
+			.topic-list .ul .li .txt .h5 .icon{width: 10px;height: 10px;}
+			.topic-list .ul .li .txt .h5 .i{font-size: 10px;color: #ccc;}
+			.topic-list .ul .li.add .h6{font-size: 14px;color: #666;}
+			.topic-list .ul .li.add .h6 .i{color: #c81624;}
+			.topic-list .ul .li.add{display:none;}
+			.topic-list .ul .li.add.is_show{display:block;}
+			.topic-list .ul:last-of-type{border:none;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">话题列表</h1>
+		</header>
+		<div class="mui-content">
+		  <div>
+		    <div class="list search">
+		      <div class="search-box">
+		        <div class="mui-input-row mui-search input">
+			        <input id="search" class="mui-input-clear" type="search" placeholder="请输入关键字">
+			    </div>
+			    
+		      </div>
+		      <a href="javascript:void(0);" class="clear">取消</a>
+		    </div>
+		    
+		    <div class="list menu-box mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+		      <div class="ul-scroll mui-scroll">
+		        <ul id="topic_category_list" class="ul">
+		
+		          
+		        </ul>
+		        <script id="tpl_topic_category_list" type="text/html">
+		        	<%for(var i =0 ;i<data.length;i++){%>
+		        	<li class="li-1 <%if(i==0){%>active<%}%>" item_id="<%=data[i].id%>" item_i="<%=i%>">
+			            <img class="img-bg" src="<%=data[i].path_thumb%>"/>
+			            <div class="txt">
+			              <h5 class="h5"><%=data[i].name%></h5>
+			              <span class="span"></span>
+			            </div>
+			          </li>
+					<%}%>
+		        </script>
+		      </div>
+		    </div>
+		    <div class="list topic-list">
+		      <ul id="text_list" class="ul">
+		       
+		      </ul>
+		      <ul class="ul">
+		       
+		        <li class="li add">
+		          <div class="txt">
+		            <h6 class="h6">没有想参与的话题？</h6>
+		            <h6 class="h6">
+		              创建新话题:
+		              <i id="search_text" class="i"></i>
+		            </h6>
+		          </div>
+		        </li>
+		      </ul>
+		      <script id="tpl_text_list" type="text/html">
+		      	<%for(var i=0;i<topic_list.length;i++){%>
+		      	<li class="li" topic_id="<%=topic_list[i].id%>" topic_name="<%=topic_list[i].topic_name%>">
+		          
+		          <div class="txt">
+		            <h4 class="h4"># <%=topic_list[i].topic_name%></h4>
+		            <h5 class="h5">
+		              <img class="icon" src="img/topic-icon-1.png"/>
+		              <i class="i"><%=topic_list[i].note_num%></i>
+		            </h5>
+		          </div>
+		        </li>
+		        <%}%>
+		      </script>
+		      <script id="tpl_text_list2" type="text/html">
+		      	<%for(var i=0;i<item_list.length;i++){%>
+		      	<li class="li">
+		          
+		          <div class="txt">
+		            <h4 class="h4"># <%=item_list[i].topic_name%></h4>
+		            <h5 class="h5">
+		              <img class="icon" src="img/topic-icon-1.png"/>
+		              <i class="i"><%=item_list[i].note_num%></i>
+		            </h5>
+		          </div>
+		        </li>
+		        <%}%>
+		        
+		      </script>
+		    </div>
+		  </div>
+		</div>
+	</body>
+	
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+		}
+		$('.menu-box').addClass('hide');
+	});
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+		$('.menu-box').removeClass('hide');
+	});
+	window.onload = function() {
+		
+		get_topic_category_list();
+	};
+	
+	document.addEventListener('page_init',function(){
+		get_topic_category_list();
+	})
+	document.getElementById('search').addEventListener('input',function(){
+		var keyword=$(this).val();
+		$('#search_text').html(keyword);
+		if (keyword!='') {
+			search_topic(keyword)
+		}else{
+			$('.li.add').removeClass('is_show')
+		}
+	})
+	
+	document.querySelector('a.clear').addEventListener('tap',function(){
+		$('input').blur();
+	});
+	
+	var respon='';
+	
+	mui('#topic_category_list').on('tap','li',function(){
+		var item_id=$(this).attr('item_id');
+		var item_i=$(this).attr('item_i');
+		$(this).addClass('active');
+		$(this).siblings().removeClass('active');
+		var html2 = template('tpl_text_list', respon.data[item_i]);
+		$('#text_list').html(html2);
+	});
+	
+	
+	
+	mui('#text_list~ul').on('tap','li.add',function(){
+		var name=$('#search_text').html();
+		add_topic(name);
+	});
+	function get_topic_category_list(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_topic_category_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log('111/'+JSON.stringify(res))
+					var html1 = template('tpl_topic_category_list', res);
+					$('#topic_category_list').html(html1);
+					respon=res;
+					var html2 = template('tpl_text_list', res.data[0]);
+					$('#text_list').html(html2);
+//					
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	function search_topic(keyword){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/search_topic?sid='+ localStorage.getItem('global_sid');
+		console.log(url)
+		console.log(keyword)
+		mui.ajax(url, {
+			data: {
+				keyword:keyword
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log('111/'+JSON.stringify(res))
+						if (res.data.is_count!='0') {
+							$('.li.add').removeClass('is_show')
+						}else{
+							$('.li.add').addClass('is_show')
+						}	
+					
+					var html2 = template('tpl_text_list2', res.data);
+					$('#text_list').html(html2);
+//					
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	function add_topic(name){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/add_topic?sid='+ localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				name:name
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log('111/'+JSON.stringify(res))
+					var topic_id=res.data.id;
+					var topic_name=res.data.topic_name;
+					var self=plus.webview.getWebviewById('release.html');
+					mui.fire(self,'topic_check',{topic_id:topic_id,topic_name:topic_name,topic_gs:''})
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	mui('#text_list').on('tap','li',function(){
+		var topic_id=$(this).attr('topic_id');
+		var topic_name=$(this).attr('topic_name');
+		get_notes_format(topic_id,topic_name,self);
+	});
+	function get_notes_format(topic_id,topic_name){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_notes_format/'+ topic_id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log('111/'+JSON.stringify(res))
+					var self=plus.webview.getWebviewById('release.html');
+					mui.fire(self,'topic_check',{topic_id:topic_id,topic_name:topic_name,topic_gs:res.data})
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

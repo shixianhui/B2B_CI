@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			.mui-table-view-cell a{font-size:14px;color:#333;}
+			.mui-table-view-cell.mui-active,.mui-table-view-cell a.mui-active{background:#fff !important;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title"></h1>
+		</header>
+		<div class="mui-content no-bg mui-scroll-wrapper">
+			<div id="new_list" class="mui-scroll">
+			    <ul id ="content_list" class="mui-table-view notmt">
+		            
+		        </ul>
+		        <script id="tpl_content_list" type="text/html">
+		        	<%for(var i=0,data_list=data.item_list;i<data_list.length;i++){%>
+		        	<li class="mui-table-view-cell">
+		                <a href="m-kffw-view.html" item_id="<%=data_list[i].id%>" class="mui-navigate-right">
+		          			<%=data_list[i].title%>
+		                </a>
+		            </li>
+		            <%}%>
+		        </script>
+			</div>
+		</div>
+	</body>
+	<input type="hidden" id="max_id" value="0" />
+	<input type="hidden" id="since_id" value="0" />
+	<input type="hidden" id="per_page" value="20" />
+	<input type="hidden" id="page" value="1" />
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var item_id;
+	mui('.mui-scroll-wrapper').scroll();
+	window.addEventListener('go_to_parameter',function(e){
+		console.log(e.detail.header_title)
+		$('.mui-title').html(e.detail.header_title);
+		item_id =e.detail.item_id;
+		get_page_list();
+	});
+	function get_page_list(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_page_list/' + item_id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html=template('tpl_content_list', res);
+					$('#content_list').html(html);
+					if (!res.data.item_list.length) {
+                        var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                        no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                        no_data_html += '</div>';
+                        $('#content_list').html(no_data_html);
+                   }
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			var list_id=this.getAttribute('item_id');
+			go_to_view(id,{item_id:list_id});
+		}
+	});
+</script>

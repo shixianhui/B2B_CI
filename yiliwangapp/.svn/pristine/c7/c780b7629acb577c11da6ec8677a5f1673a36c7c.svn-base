@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.min.css" rel="stylesheet" />
+		<style type="text/css">
+			.shore_list{background:#fff;margin-bottom:10px;}
+			.shore_list h4{font-weight:normal; font-size:15px;padding:10px 15px;border-bottom:1px solid #e6e6e6;margin:0;}
+			.shore_list h4 i{margin-right:5px;line-height:15px;}
+			.address_box{min-height:50px;}
+			.address_box a.mui-btn{margin:0 2%!important;position:static !important;background:#c01 !important;width:96%;height:44px;padding:0;line-height:44px;transform:none;-webkit-transform:none;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">确认订单</h1>
+		</header>
+		<div class="confirm-order-bottom">
+			<div id="total" class="text-color">实付款：<span>￥</span>2940.00</div>
+			<button id="add_order" type="button" class="mui-btn mui-btn-red bg-color">提交订单</button>
+		</div>
+		<div class="mui-content no-bg confirm-order-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="content">
+					
+				</div>
+				<script id="tpl_content" type="text/html">
+					<%if (data.default_user_address.length > 0) {%>
+						<%for (var i = 0, address_list = data.default_user_address; i < address_list.length; i++) {%>
+						    <div class="mui-table-view-cell address_box">
+							    	<a href="m-address-list.html" item_id="ok" class="mui-navigate-right">
+							    		<h4>
+							    			<span class="mui-pull-left"><%=address_list[i].buyer_name%></span><%=address_list[i].mobile%>
+							    			<%if (address_list[i].is_default == '1') {%>
+							    				<em>默认</em>
+							    			<%}%>
+							    		</h4>
+						    	        <p><i class="iconfont icon-dizhi1"></i><%=address_list[i].txt_address%> <%=address_list[i].address%></p>
+							    	</a>
+						    		<img src="img/fgx.png"/>
+						    </div>
+						<%}%>
+					<%} else {%>
+						<div class="mui-table-view-cell address_box">
+							<a href="m-address-list.html" item_id="ok" class="mui-btn mui-btn-red mui-btn-block">请选择地址</a>
+				    		<img src="img/fgx.png"/>
+					    </div>
+					<%}%>
+					<%for (var i = 0, data_list = data.item_list; i < data_list.length; i++) {%>
+						<div class="shore_list">
+							<h4><i class="iconfont icon-dianpu2"></i><%=data_list[i].store_name%></h4>
+							<%for (var j = 0, cart_list = data_list[i].cart_list; j < cart_list.length; j++) {%>
+							    <div class="mui-table-view-cell">
+						    			<img src="<%=cart_list[j].path_thumb%>"/>
+							    		<div class="">
+							    			<h3><%=cart_list[j].title%></h3>
+							    			<p><%=cart_list[j].product_color_name%>:<%=cart_list[j].color_name%>  <%=cart_list[j].product_size_name%>:<%=cart_list[j].size_name%></p>
+							    			<s class="text-color"><b>￥</b><%=cart_list[j].sell_price%><span class="mui-pull-right">x<%=cart_list[j].buy_number%></span></s>
+							    		</div>
+							    </div>
+							<%}%>
+						    <ul class="mui-table-view">
+								<%if (data_list[i].postage_way_list.length>0) {%>
+						            <li store_id="data_list[i].store_id" item_id="<%=i%>" class="mui-table-view-cell">
+						                <a href="javascript:;" class="mui-navigate-right">
+						                		配送方式<span class="mui-pull-right mui-ellipsis" style="max-width:65%;">请选择配送方式</span>
+						                </a>
+						            </li>
+					        	<%}%>
+					        </ul>
+					        <div class="mui-input-row">
+					            <input type="text" placeholder="选填：给商家留言">
+					        </div>
+					        <ul class="mui-table-view price">
+					        	<li class="mui-table-view-cell" name="freight" item_id="<%=i%>">运费<span class="text-color mui-pull-right">+ ￥<%=data_list[i].store_postage_price%></span></li>
+					        	<li class="mui-table-view-cell">税费<span class="text-color mui-pull-right">+ ￥<%=data_list[i].store_taxation_total%></span></li>
+					        	<li class="mui-table-view-cell">优惠<span class="text-color  mui-pull-right">- ￥<%=data_list[i].store_discount_total%></span></li>
+					        	<li class="mui-table-view-cell" name="store_price" item_id="<%=i%>">店铺合计<span class="text-color mui-pull-right">￥<%=data_list[i].store_total%></span></li>
+					        </ul>	
+				        </div>
+					<%}%>
+				</script>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" ></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	mui.init({
+	    beforeback: function() {
+			localStorage.setItem("is_default", '0');
+	        return true;
+	    }
+	});
+	
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var item_id = '';
+	var postage_way_list = [];
+	var store_postage_ids = [];
+	var select_user_address_id = '';
+	var store_remark = [];
+	var store_cart_ids="";
+	var respone = new Object();
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		localStorage.setItem("is_default", '1');
+		item_id = e.detail.item_id;
+//		console.log(item_id)
+		store_postage_ids = [];
+		store_remark = [];
+		cart_confirm();
+	});
+	
+	// 选择地址
+	window.addEventListener('choose_address', function(e) {
+		if (respone.default_user_address.length) {
+			respone.default_user_address[0] = e.detail.respone;
+		} else {
+			respone.default_user_address.push(e.detail.respone);
+		}
+		var res = '{"data":' + JSON.stringify(respone) + '}';
+		var html = template('tpl_content', JSON.parse(res));
+		$('#content').html(html);
+	});
+	
+	// 刷新地址
+	window.addEventListener('refresh_address', function(e) {
+		store_postage_ids = [];
+		store_remark = [];
+		cart_confirm();
+	});
+	
+	// 选择配送方式
+	mui('#content').on('tap', 'li[item_id]', function() {
+//		if (respone.default_user_address.length > 0) {
+//			select_user_address_id = respone.default_user_address[0].id;
+//		} else {
+//			select_user_address_id = '';
+//			mui.toast('请选择地址');
+//			return;
+//		}
+		
+		var picker = new mui.PopPicker();
+		var that = this;
+		var index = this.getAttribute('item_id');
+		store_cart_ids=respone.item_list[index].store_cart_ids
+		picker.setData(respone.item_list[index].postage_way_list);
+		picker.show(function(items) {
+			postage_id=items[0].id
+			store_postage_ids[index] = items[0].id.toString();
+			$(that).find('span').html(items[0].title);
+//			console.log(items[0].title)
+			get_postage_way_info(index);
+		});
+	});
+	
+	// 提交订单
+	document.getElementById('add_order').addEventListener('tap', function() {
+		if (respone.default_user_address.length > 0) {
+			select_user_address_id = respone.default_user_address[0].id;
+		} else {
+			select_user_address_id = '';
+			mui.toast('请选择地址');
+			return;
+		}
+		
+		for (var i = 0; i < respone.item_list.length; i++) {
+			if (respone.item_list[i].postage_way_list.length>0){
+				if (!store_postage_ids[i]) {
+					mui.toast('请选择配送方式');
+					return;
+				}
+				
+	        }
+		}
+		
+		$("#content input").each(function(i, n) {
+			store_remark[i] = $(this).val();
+		});
+		
+		add_order();
+	});
+	
+	// 提交订单
+	function add_order() {
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/add_order?sid=' + localStorage.getItem('global_sid');
+		console.log(url)
+console.log(item_id+'/'+select_user_address_id+'/'+store_remark+'/'+store_postage_ids)
+		mui.ajax(url, {
+			data:{
+				cart_ids: item_id,
+				select_user_address_id: select_user_address_id,
+		      	store_remark: store_remark,
+		      	store_postage_ids: store_postage_ids.toString()
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					if (res.field == 'go_to_pay') {
+						var id = res.message.id;
+						go_to_view('cart-pay.html', {item_id:id, total:res.message.total,prv_id:'cart_order_confirm.html',
+		order_num:res.message.order_number});
+					} else if (res.field = 'go_to_pay_list') {
+						go_to_view('cart_after_pay.html', {respone:res.message});
+					}
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+	
+	// 确认订单列表
+	function cart_confirm() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/cart_confirm?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data:{
+				cart_ids: item_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					respone = res.data;
+					$('#total').html('实付款：<span>￥</span>' + res.data.total);
+					var html = template('tpl_content', res);
+					$('#content').html(html);
+					for (var i = 0; i < res.data.item_list.length; i++) {
+						store_postage_ids[i] = '';
+					}
+					
+//					postage_way_list = '[';
+					for (var i = 0; i < res.data.item_list.length; i++) {
+						for (var j = 0; j < res.data.item_list[i].postage_way_list.length; j++) {
+							respone.item_list[i].postage_way_list[j].text=respone.item_list[i].postage_way_list[j].title;
+						}
+					}
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}	
+	
+	// 获取运费
+	function get_postage_way_info(index) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_postage_way_info?sid=' + localStorage.getItem('global_sid');
+		console.log(url)
+		mui.ajax(url, {
+			data:{
+				store_cart_ids: store_cart_ids,
+				user_address_id: select_user_address_id,
+		      	postage_id: postage_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					var postage_price = res.data.postage_price.toString();
+			        var rs_postage_price = postage_price.indexOf('.');
+			        if (rs_postage_price < 0) {
+			          rs_postage_price = postage_price.length;
+			          postage_price += '.';
+			        } 
+			        while (postage_price.length <= rs_postage_price + 2) {
+			          postage_price += '0';
+			        }
+					$('.price li[item_id='+index+'][name="freight"] span').html('+ ￥'+postage_price);
+					var store_total = res.data.store_total.toString();
+			        var rs_store_total = store_total.indexOf('.');
+			        if (rs_store_total < 0) {
+			          rs_store_total = store_total.length;
+			          store_total += '.';
+			        } 
+			        while (store_total.length <= rs_store_total + 2) {
+			          store_total += '0';
+			        }
+					$('.price li[item_id='+index+'][name="store_price"] span').html('￥'+store_total);
+					respone.item_list[index].store_total = res.data.store_total;
+        			respone.item_list[index].store_postage_price = res.data.postage_price;
+					var total=0;
+			        for (var i = 0; i < respone.item_list.length;i++){
+			          total += respone.item_list[i].store_total * 1
+			        }
+			        total = total.toString();
+			        var rs = total.indexOf('.');
+			        if (rs < 0) {
+			          rs = total.length;
+			          total += '.';
+			        } 
+			        while (total.length <= rs + 2) {
+			          total += '0';
+			        }
+			        
+			        respone.total=total;
+					$('#total').html('实付款：<span>￥</span>' +respone.total);
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+</script> 

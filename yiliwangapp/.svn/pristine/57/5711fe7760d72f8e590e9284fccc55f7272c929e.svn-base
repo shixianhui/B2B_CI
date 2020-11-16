@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<style type="text/css">
+			.mui-content{margin-bottom:44px !important;}
+			.mui-bar~.mui-content .mui-fullscreen {top: 44px; height: auto;}
+			.mui-pull-top-tips {position: absolute; top: 84px; left: 50%; margin-left: -25px; width: 40px; height: 40px; border-radius: 100%; z-index: 1;}
+			.mui-bar~.mui-pull-top-tips {top: 24px;}
+			.mui-pull-top-wrapper {width: 42px;height: 42px;display: block;text-align: center;background-color: #efeff4;border: 1px solid #ddd;border-radius: 25px;background-clip: padding-box;box-shadow: 0 4px 10px #bbb;overflow: hidden;}
+			.mui-pull-top-tips.mui-transitioning {-webkit-transition-duration: 200ms;transition-duration: 200ms;}
+			.mui-pull-top-tips .mui-pull-loading {margin: 0;}
+			.mui-pull-top-wrapper .mui-icon, .mui-pull-top-wrapper .mui-spinner {margin-top: 7px;}
+			.mui-pull-bottom-tips {text-align: center; background-color: #efeff4; font-size: 15px; line-height: 40px; color: #777; display: none;}
+			.mui-pull-top-canvas { overflow: hidden; background-color: #fafafa; border-radius: 40px; box-shadow: 0 4px 10px #bbb; width: 40px; height: 40px; margin: 0 auto;}
+			.mui-pull-top-canvas canvas {width: 40px;}
+			
+			
+			.recommend ul{background:none !important;}
+			.recommend ul li{background:#fff;margin-top:10px;margin-bottom:0 !important;}
+			.recommend ul li p{padding:0 5px;}
+			.recommend ul li em{padding:0 5px;}
+			.focus.grey{background:#e6e6e6;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="type mui-bar mui-bar-nav top_bar">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title"></h1>
+			<a class="mui-pull-right" style="padding-top:3px;"><span class="mui-icon mui-icon-more"></span><i class="circle" style="top:10px;"></i></a>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div id="store_content">
+					
+				</div>
+				<script id="tpl_store_content" type="text/html">
+					<div class="shop_bg">
+						<img src="<%=data.app_banner%>" style="width:100%;"/>
+						<div class="shop_info mui-clearfix">
+							<h1 class="mui-pull-left"><img src="<%=data.path_thumb%>" /></h1>
+							<span class="mui-pull-left mui-ellipsis-2"><%=data.store_name%></span>
+							<a id="favorite" flag="<%=data.is_favorite%>" href="javascript:void(0);" class="focus mui-pull-right"><i class="iconfont icon-guanzhu"></i>关注</a>
+						</div>
+					</div>
+					<div class="shop_type">
+						<ul>
+							<li class="current"><a href="javascript:;"><i class="iconfont icon-dianpu"></i>店铺首页</a></li>
+							<li><a href="javascript:;"><i class="iconfont"><%=data.product_count%></i> 全部商品</a></li>
+						</ul>
+					</div>
+					<div class="tab_show">
+						<div class="ticket_box" style="display:none;">
+							<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="height:100%;">
+								<div class="mui-scroll" style="height:100%;">
+									<div class="mui-control-item" style="padding:0;">
+										<div class="ticket_bg">
+											<p>优惠券</p>
+											<p>￥满3000减100</p>
+										</div>
+									</div>
+									<div class="mui-control-item" style="padding:0;">
+										<div class="ticket_bg">
+											<p>优惠券</p>
+											<p>￥满3000减100</p>
+										</div>
+									</div>
+									<div class="mui-control-item" style="padding:0;">
+										<div class="ticket_bg">
+											<p>优惠券</p>
+											<p>￥满3000减100</p>
+										</div>
+									</div>
+									<div class="mui-control-item" style="padding:0;">
+										<div class="ticket_bg">
+											<p>优惠券</p>
+											<p>￥满3000减100</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="slide_show">
+							<div id="slider" class="mui-slider">
+								<div class="mui-slider-group mui-slider-loop">
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<a href="javascript:;" url="<%=data.ad_banner_list[0].url%>"><img src="<%=data.ad_banner_list[data.ad_banner_list.length-1].path%>" /></a>
+									</div>
+									<%for (var i = 0, image = data.ad_banner_list; i < image.length; i++) {%>
+										<div class="mui-slider-item">
+											<a href="javascript:;" url="<%=data.ad_banner_list[0].url%>"><img src="<%=image[i].path%>" /></a>
+										</div>
+									<%}%>
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<a href="javascript:;" url="<%=data.ad_banner_list[0].url%>"><img src="<%=data.ad_banner_list[0].path%>" /></a>
+									</div>
+								</div>
+								<div class="mui-slider-indicator">
+									<%for (var i = 0; i < image.length; i++) {%>
+										<%if (i == 0) {%>
+											<div class="mui-indicator mui-active"></div>
+										<%} else {%>
+											<div class="mui-indicator"></div>
+										<%}%>
+									<%}%>
+								</div>
+							</div>
+						</div>
+						<div class="shop_show">
+							<%for (var i = 0; i < data.ad_list.length; i++) {%>
+								<div class="show_img"><a href="javascript:;" url="<%=data.ad_banner_list[0].url%>"><img src="<%=data.ad_list[i].path%>" /></a></div>
+							<%}%>
+						</div>
+						<div class="recommend" style="padding:10px 0 0;">
+							<h4>精品推荐</h4>
+							<ul class="mui-clearfix">
+								<%for (var i = 0, data = data.cus_product_list; i < data.length; i++) {%>
+									<li class="recommend_item">
+										<a item_id="<%=data[i].id%>" href="javascript:void(0);">
+											<img src="<%=data[i].path_thumb%>" />
+											<p class="mui-ellipsis-2"><%=data[i].title%></p>
+											<em><span>￥</span><%=data[i].sell_price%></em>
+										</a>
+									</li>
+								<%}%>
+							</ul>
+						</div>
+					</div>
+				</script>
+				
+				<div class="tab_show">
+					<div class="nav">
+						<ul class="nav_list mui-clearfix">
+							<li type="synthesis" class="item"><a href="javascript:;">综合</i></a></li>
+							<li type="news" class="item"><a href="javascript:;">新品</i></a></li>
+							<li type="sales" class="item"><a href="javascript:;">销量<i class="triangle_d active"></i><i class="triangle_u"></i></a></li>
+							<li type="price" class="item"><a href="javascript:;">价格<i class="triangle_d"></i><i class="triangle_u"></i></a></li>
+						</ul>
+					</div>
+					<div class="product_box">
+						<ul id="content" class="mui-table-view">
+
+						</ul>
+						<script id="tpl_content" type="text/html">
+							<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+								<li id="list_item_<%=data[i].id%>" class="mui-table-view-cell mui-media">
+									<a item_id="<%=data[i].id%>" href="product-view.html">
+										<img class="mui-media-object mui-pull-left" src="<%=data[i].path_thumb%>">
+										<div class="mui-media-body">
+											<h4 class="mui-ellipsis mui-ellipsis-2"><%=data[i].title%></h4>
+											<span>销量 <%=data[i].sales%>件</span><span><%=data.store_name%></span>
+											<p>￥<%=data[i].sell_price%></p>
+										</div>
+									</a>
+								</li>
+							<%}%>
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+		<nav class="mui-bar mui-bar-tab bottom_menu">
+			<ul>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a id="store_info" href="javascript:;">店铺介绍</a>
+				</li>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a id="product_category" href="javascript:;"><i class="iconfont icon-fenlei"></i>宝贝分类</a>
+				</li>
+				<li class="mui-pull-left mui-col-xs-4">
+					<a id="contact_store" href="javascript:;"><i class="iconfont icon-kefuxitong"></i>联系商城</a>
+				</li>
+			</ul>
+		</nav>
+		<input type="hidden" id="max_id" value="0" />
+		<input type="hidden" id="since_id" value="0" />
+		<input type="hidden" id="per_page" value="20" />
+		<input type="hidden" id="page" value="1" />
+	</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script type="text/javascript">
+
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var item_id = '';
+	var order = 'desc';
+	var by = 'id';
+	var flag = 0;
+	var respone = new Object();
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		$('.nav_list li').removeClass('active');
+		$('.nav_list li').eq(0).addClass('active');
+		item_id = e.detail.item_id;
+		get_store_home();
+	});
+	
+	// 联系商城
+	document.getElementById('contact_store').addEventListener('tap', function() {
+		mui.toast('建设中...');
+	});
+	
+	// 宝贝分类
+	document.getElementById('product_category').addEventListener('tap', function() {
+		go_to_view('store_product_category.html', {item_id:item_id});
+	});
+	
+	// 跳转外链
+	mui('#store_content').on('tap', 'a[url]', function() {
+		var id = this.getAttribute('url');
+		var url_zz = /^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+		if(url_zz.test(id)) {
+			go_to_view('site.html', {url: id});
+		} else {
+			if(id && ~id.indexOf('.html')) {
+				if(id.indexOf('?') > 0) {
+					var target = id.split('?')[0];
+					var data = paramToObject(id.split('?')[1]);
+					go_to_view(target, data);
+				} else {
+					go_to_active(id);
+				}
+			}
+		}
+	});
+	
+	function paramToObject($str) {
+		var obj = {};
+		var arr = $str.split('&');
+		mui.each(arr, function(key, value) {
+			obj[value.split('=')[0]] = decodeURIComponent(value.split('=')[1]);
+		});
+		return obj;
+	}
+	
+	document.getElementById('store_info').addEventListener('tap', function() {
+		go_to_view('store_info.html', {respone:respone});
+	});
+
+	function get_store_home() {
+		if (!is_network(false)) {return;}
+		
+		 var url = base_url + 'napi/get_store_home/' + item_id + '?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					respone = res.data;
+					$('#title').html(res.data.store_name);
+					var html = template('tpl_store_content', res);
+					$('#store_content').html(html);
+					
+					if (res.data.is_favorite==1) {
+						$('#favorite').attr('flag', '1');
+						favorite_status = 1;
+						$('#favorite').addClass('grey');
+						$('#favorite').html('<i class="iconfont icon-guanzhu"></i>已关注');
+					} else{
+						favorite_status = 0;
+						$('#favorite').attr('flag', '0');
+						$('#favorite').html('<i class="iconfont icon-guanzhu"></i>关注');
+						$('#favorite').removeClass('grey');
+					}
+					
+					// 设置图片轮播时间
+					var time = 5000;
+					if (res.data.ad_list.length == 1) {
+						timer = 0;
+					}
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: time
+					});
+
+					init();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 精品推荐
+	mui('#store_content, #all_product').on('tap', 'a[item_id]', function() {
+		var item_id = this.getAttribute("item_id");
+		go_to_view("product-view.html", {item_id : item_id});
+	});
+	
+	// 切换列表
+	function init() {
+		var shopType = document.querySelector('.shop_type');
+		var aLi = shopType.getElementsByTagName('li');
+		var tabShow=document.querySelectorAll('.tab_show');
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].index = i;
+			aLi[i].addEventListener('tap', function() {
+				if (flag) {
+					flag = 0;
+					$('.mui-pull-bottom-tips').css('display', 'none');
+				} else {
+					flag = 1;
+					$('#max_id').val('0');
+					$('#since_id').val('0');
+					var per_page = $('#per_page').val();
+					$('#page').val('1');
+					by = 'id';
+					order = 'desc';
+					get_product_list(0, by, order, 0, 0, per_page, 1);
+					$('.mui-pull-bottom-tips').css('display', 'block');
+				}
+				for (var i = 0; i < aLi.length; i++) {
+					aLi[i].className = '';
+					tabShow[i].style.display = 'none';
+				}
+				this.className = 'current';
+				tabShow[this.index].style.display = 'block';
+			});
+		}
+		
+		flag = 0;
+		$('.tab_show').css('display','none');
+		$('.tab_show').eq(0).css('display','block');
+		$('.mui-pull-bottom-tips').css('display', 'none');
+		
+		// 关注、取消关注
+		document.getElementById('favorite').addEventListener('tap', function() {
+			var flag = this.getAttribute('flag');
+			if (flag == '0') {
+				favoriteStore();
+			} else {
+				favoriteDel();
+			}
+		});
+	}
+	
+	// 取消收藏
+	function favoriteDel() {
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/delete_favorite/store/0/' + item_id + '?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					mui.toast(res.message);
+					favorite_status = 0;
+					$('#favorite').attr('flag', '0');
+					$('#favorite').html('<i class="iconfont icon-guanzhu"></i>关注');
+					$('#favorite').removeClass('grey');
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_view('login.html', {flag:0});
+							});
+						} else {
+							go_to_view('login.html', {flag:0});
+						}
+					}
+				}
+			}, 
+			error: error
+		});
+	}
+	
+	// 关注店铺
+	function favoriteStore() {
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/save_favorite?sid=' + localStorage.getItem('global_sid');console.log()
+		mui.ajax(url, {
+			data: {
+				type: "store",
+				item_id: item_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast(res.message);
+					$('#favorite').attr('flag', '1');
+					favorite_status = 1;
+					$('#favorite').addClass('grey');
+					$('#favorite').html('<i class="iconfont icon-guanzhu"></i>已关注');
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_view('login.html', {flag:0});
+							});
+						} else {
+							go_to_view('login.html', {flag:0});
+						}
+					}
+				}
+			}, 
+			error: error
+		});
+	}
+	
+	// 综合、新品、销量、价格
+	mui('.nav_list').on('tap', 'li[type]', function() {
+		var type = this.getAttribute("type");
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		if (type == 'synthesis') { // 综合排序
+			by = 'id';
+			order = 'desc';
+		} else if (type == 'news') { // 新品
+			by = 'add_time';
+			order = 'desc';
+		} else if (type == 'sales') { // 销量
+			if (by == 'sales') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sales';
+				order = 'desc';
+			}
+		} else if (type == 'price') { // 价格
+			if (by == 'sell_price') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sell_price';
+				order = 'desc';
+			}
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		if (by != 'id') {
+			if(order == 'desc') {
+				$(this).children().children('.triangle_d').addClass('active').siblings().removeClass('active');
+			} else {
+				$(this).children().children('.triangle_u').addClass('active').siblings().removeClass('active');
+			}
+		}
+		get_product_list(0, by, order, 0, 0, per_page, 1);
+	});
+	
+	// 刷新列表
+	var self = mui('.mui-scroll').pullToRefresh({
+		up: {
+			callback: function() {
+				pullupRefresh(this);
+			}
+		}
+	});
+	
+	function pullupRefresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var page = $('#page').val();
+		get_product_list('up', by, order, 0, 0, per_page, page);
+	}
+
+	function get_product_list(type, by, order, max_id, since_id, per_page, page) {
+		if (flag == 0) {return;}
+
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/get_product_list/' + by + '/' + order + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page;
+		mui.ajax(url, {
+			data: {
+				store_id : item_id,
+				category_id_1 : '',
+				category_id_2 : '',
+				brand_name : '',
+				style_name : '',
+				material_name : '',
+				low_price : '',
+				high_price : '',
+				keyword : ''
+			},
+			dataType: 'json',
+			type: 'post',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_content', res);
+			 		if (type == 'up') {
+						var size = $("#content li[id]").size();
+						if (size > 0) {
+							$("#content li[id]:last").after(html);
+						} else {
+							$('#content').html(html);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+			 			respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content').html(no_data_html);
+                        }
+			 		}
+			 	} 
+			 	else {
+		 			mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+</script>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" href="css/mui.picker.min.css" />
+	<link rel="stylesheet" href="css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">添加银行卡</h1>
+    </header>
+    <div class="mui-content add-bank-card no-bg">
+        <div class="mui-input-row">
+            <input type="text" placeholder="请选择银行卡类别" readonly="true" id="xycard">
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </div>
+        <div class="mui-input-row">
+            <input type="text" placeholder="银行卡号">
+        </div>
+        <h4 class="text-color">填写以下信息用于身份确认</h4>
+        <div class="mui-input-row">
+            <input type="text" placeholder="请输入你的姓名">
+        </div>
+        <div class="mui-input-row">
+            <input type="text" placeholder="请输入你的身份证号码">
+        </div>
+        <div class="mui-input-row">
+            <input type="text" placeholder="银行卡预留号码">
+        </div>
+        <div class="mui-input-row">
+            <input type="text" placeholder="请输入短信验证码">
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script type="text/javascript">
+
+    (function($, doc) {
+        $.init();
+        
+        $.ready(function() {
+            var userPicker = new $.PopPicker();
+            userPicker.setData([{
+                    text: "招商银行"
+                }, {
+                    text: "工商银行"
+                }, {
+                    text: "农业银行"
+                }, {
+                    text: "中国银行"
+                }, {
+                    text: "杭州银行"
+                }]);
+            var showUserPickerButton = doc.getElementById('xycard');
+            var userResult = doc.getElementById('userResult');
+            showUserPickerButton.addEventListener('tap', function(event) {
+                userPicker.show(function(items) {
+                    showUserPickerButton.value = items[0].text;
+                    //返回 false 可以阻止选择框的关闭
+                    //return false;
+                });
+            }, false);
+        });
+    })(mui, document);
+</script>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>-->
+    <style type="text/css">
+    	.head-bar{box-shadow:none;background-color: rgba(204, 0, 17,0);}
+    	
+    	.data_wait{height:82px;background:#fff;border-bottom:1px solid #f5f5f5;margin-bottom:10px;}
+    	.data_wait ul{margin:0;padding:0;}
+		.data_wait ul li{float:left;width:20%;text-align:center;height:82px;list-style:none;}
+		.data_wait ul li a{width:100%;height:100%;display:block;position:relative;padding-top:22px;}
+		.data_wait li a em{position:absolute;top:50%;margin-top: -21px;right:22px;background:red;width:11px;height:11px;line-height:11px;text-align:center;font-size:10px;color:#fff;border-radius:50%;}
+		.data_wait ul li img{width:21px;margin-bottom:5px;}
+		.data_wait ul li p{font-size:11px;color:#323232;}
+		.mui-table-view-cell.mui-active{background:#fff !important;}
+
+    </style>
+</head>
+<body>
+    <div class="mui-content no-bg personal-stores-content">
+    	<div id="store_info">
+    		
+    	</div>
+    	<script id="tpl_store_info" type="text/html">
+	        <div class="content-head">
+	        	<img src="img/title-bg.png" class="bg-picture" />
+	        	<div class="shop-portrait">
+	        		<img src="<%=data.path%>"/>
+	        		<p><%=data.store_name%></p>
+	        	</div>
+	        </div>
+	        <div class="banner">
+	        	<img src="<%=data.store_banner%>"/>
+	        </div>
+        </script>
+        <div class="data_wait">
+			<ul>
+				<li>
+					<a status="a" pushHTML="business_order_list" href="javascript:void(0);">
+						<em id="dfk" style="display: none;"></em>
+						<img src="img/wait1.jpg" style="margin-top:6px;"/>
+						<p>待付款</p>
+					</a>
+				</li>
+				<li>
+					<a status="b" pushHTML="business_order_list" href="javascript:void(0);">
+						<em id="dfh" style="display: none;"></em>
+						<img src="img/wait2.jpg" style="margin-top:2px;"/>
+						<p>待发货</p>
+					</a>
+				</li>
+				<li>
+					<a status="c" pushHTML="business_order_list" href="javascript:void(0);">
+						<em id="dsh" style="display: none;"></em>
+						<img src="img/wait3.jpg"/>
+						<p>待收货</p>
+					</a>
+				</li>
+				<li>
+					<a status="d" pushHTML="business_order_list" href="javascript:void(0);">
+						<em id="dpj" style="display: none;"></em>
+						<img src="img/wait4.jpg" style="margin-top:1px;"/>
+						<p>待评价</p>
+					</a>
+				</li>
+				<li>
+					<a status="all" pushHTML="business_order_list" href="javascript:void(0);">
+						<em id="order" style="display: none;"></em>
+						<img src="img/wait5.jpg" style="margin-top:-1px;"/>
+						<p>我的订单<span class="mui-icon mui-icon-arrowright" style="font-size:12px;"></span></p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<ul class="mui-table-view mui-grid-view mui-grid-9">
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3">
+	            <a href="business_order_return.html" style="padding:0;">
+	                <span class="mui-icon" style="background:#fff;overflow:hidden;padding:0;height:auto;"><img style="width:50%;" src="img/tuihuanhuo.png"/></span>
+	                <div class="mui-media-body">退换货</div>
+	            </a>
+	        </li>
+        </ul>
+        <!--<ul class="mui-table-view mui-grid-view mui-grid-9">
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-spgl-add.html">
+	                <span class="mui-icon iconfont icon-jinlingyingcaiwangtubiao33" style="background:#72ca8c;"></span>
+	                <div class="mui-media-body">发布商品</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-spgl.html">
+	                <span class="mui-icon iconfont icon-shangpin" style="background:#6fce8b;"></span>
+	                <div class="mui-media-body">商品管理</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-gggl-add.html">
+	                <span class="mui-icon iconfont icon-huodong" style="background:#ee646f;font-size:26px;padding-top:18px;"></span>
+	                <div class="mui-media-body">新增广告</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-gggl.html">
+	                <span class="mui-icon iconfont icon-guanggaoguanli-copy" style="background:#ee646f;font-size:24px;padding-top:20px;"></span>
+	                <div class="mui-media-body">广告管理</div>
+	            </a>
+	        </li>
+        </ul>
+    	<ul class="mui-table-view mui-grid-view mui-grid-9">
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a a_type="sort_manage" href="b-flgl.html">
+	                <span class="mui-icon iconfont icon-fenlei1" style="background:#4bc0fd;font-size:32px;padding-top:16px;"></span>
+	                <div class="mui-media-body">分类管理</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="#">
+	                <span class="mui-icon iconfont icon-daohang1" style="background:#71d2c5;padding-top:18px;"></span>
+	                <div class="mui-media-body">导航管理</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-ztgl.html">
+	                <span class="mui-icon iconfont-supplement icon-zhutizhengchangzhuangtai" style="background:#f97ab4;font-size:34px;padding-top:14px;"></span>
+	                <div class="mui-media-body">主题管理</div>
+	            </a>
+	        </li>
+	        <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+	            <a href="b-dpsz.html">
+	                <span class="mui-icon iconfont icon-shezhi" style="background:#b3bcc7;font-size:30px;padding-top:16px;"></span>
+	                <div class="mui-media-body">设置</div>
+	            </a>
+	        </li>
+        </ul>-->
+	</div>
+	<header id="header" class="mui-bar mui-bar-nav head-bar mui-bar-transparent">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的店铺</h1>
+        <!--<a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>-->
+    </header>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css='<style>.shop-portrait{top:'+(50 + immersed)+'px !important;}.bg-picture{min-height:'+(175 + immersed)+'px !important;}</style>';
+	document.write(style_css);
+	
+	mui('.data_wait').on('tap', 'a', function() {
+		var pushHTML = this.getAttribute('pushHTML');
+		pushHTML += '.html';
+		var status = this.getAttribute('status');
+		go_to_view(pushHTML, {status: status});
+	});
+	
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		var a_type = this.getAttribute('a_type');
+		if (id && ~id.indexOf('.html')) {
+			if (a_type == 'sort_manage') {
+				go_to_view(id, {
+					item_id : "ok"
+				});
+			} else {
+				go_to_active(id);
+			}
+		}
+	});
+
+//	mui('#header').on('tap', 'a', function() {
+//		var id = this.getAttribute('href');
+//		if (id == 'm-wdxx.html') {
+//			go_to_view(id, {
+//				item_id : "ok"
+//			});
+//		}
+//	});
+
+	window.addEventListener('change_business_info', function(e) {
+        get_my_store();
+    });
+
+    window.onload = function() {
+    	get_my_store();
+    }
+
+//	var shopportrait = document.getElementsByClassName("shop-portrait")[0];
+//	shopportrait.style.top = (document.getElementsByClassName("bg-picture")[0].offsetHeight - 75) / 2 + "px";
+
+	function get_my_store() {
+		
+		if (!is_network(false)) {return;}
+        var url = base_url + 'napi/get_my_store?sid=' + localStorage.getItem('global_sid');
+		//var	url='https://www.chinaeli.com/index.php/napi/get_my_store?sid=31746527fd52fce310b217a56f06bbda'
+		console.log(url)
+        mui.ajax(url, {
+        	data: {},
+        	dataType: 'json',
+        	type: 'post',
+        	timeout: 10000,
+        	success: function(res) {
+        		// mui.alert(JSON.stringify(res));
+        		if (res.success) {
+        			var html = template('tpl_store_info', res);
+					$('#store_info').html(html);
+        		}
+        	},
+        	error: error
+        });
+	}
+</script> 

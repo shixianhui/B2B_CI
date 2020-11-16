@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content no-bg settings-content">
+		    <ul class="mui-table-view">
+		            <!--<li class="mui-table-view-cell">
+		                <span>接受消息通知</span>
+						<div class="mui-switch mui-switch-mini mui-active ">
+							<div class="mui-switch-handle"></div>
+						</div>
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <span>非wifi环境下手动下载图片</span>
+						<div class="mui-switch mui-switch-mini mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+		            </li>-->
+		            <li class="mui-table-view-cell" onclick="mui.toast('建设中。。。')">
+		                	清除本地缓存<p>20.02M</p>
+		            </li>
+		        </ul>
+		    <ul class="mui-table-view">
+		            <li class="mui-table-view-cell">
+		                <a href="m-gywm.html" class="mui-navigate-right">
+		                	关于<p>V 1.0.0</p>
+		                </a>
+		            </li>
+		        </ul>
+		    <div class="button">
+		    	<button id="exit_app" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">退出登录</button>
+		    </div>    
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+		beforeback:function () {
+			var self = plus.webview.getWebviewById('member.html');
+			mui.fire(self,'init_data',{id:'0'});
+			// var indexWebView = plus.webview.getLaunchWebview();
+			// mui.fire(indexWebView,'flush_cart_count');
+		}
+	});
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	window.onload = function() {
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+
+		} else {
+			mui.back();
+		}
+	}
+
+	//退出登录
+	document.getElementById('exit_app').addEventListener('tap', function() {
+		var btnArray = ['确认', '取消'];
+		mui.confirm('您确定要退出登录？', '提示：', btnArray, function(e) {
+			if(e.index == 0) {
+				if (!is_network(false)) {return;}
+				var url = base_url + 'napi/logout?sid='+localStorage.getItem('global_sid');
+				mui.ajax(url, {
+					data: {},
+					dataType: "json",
+					type: "get",
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(res) {
+						if(res.success) {
+							localStorage.removeItem("global_id");
+							localStorage.removeItem("global_sex");
+							localStorage.removeItem("global_nickname");
+							localStorage.removeItem("global_nickname");
+							localStorage.removeItem("global_path");
+							localStorage.removeItem("global_path_thumb");
+							localStorage.removeItem("global_sex");
+							localStorage.removeItem("global_total");
+							localStorage.removeItem("global_score");
+							localStorage.removeItem("global_sid");
+							mui.toast('请登录');
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: error
+				});
+			}
+		});
+	});
+</script>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<style type="text/css">
+			.menu-wrapper {top:44px;position:fixed;}
+			.swiper-wrapper{width:59% !important;	left: 25%;right:16%;}
+			.swiper-wrapper a{display:block;}
+			.mui-slider{height:33vh;}
+			.mui-slider-group{height:100%;}
+			.mui-slider-group a{height:100%;position:relative;width:100%;overflow:hidden;}
+			.mui-slider img{height:100%;min-width:100%;width:auto !important;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" style="padding-top:0;">
+			<div id="slider" class="mui-slider">
+
+			</div>
+			<script id="tpl_slider" type="text/html">
+				<div class="mui-slider-group mui-slider-loop">
+					<%if (data.item_list.length > 1) {%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[data.item_list.length-1].app_url%>" href="javascript:;">
+								<img data-lazyload="<%=data.item_list[data.item_list.length-1].path%>" src="<%=data.item_list[data.item_list.length-1].path%>">
+							</a>
+						</div>
+						<%for (var i = 0, image = data.item_list; i < image.length; i++) {%>
+							<div class="mui-slider-item">
+								<a url="<%=data.item_list[i].app_url%>" href="javascript:;">
+									<img data-lazyload="<%=data.item_list[i].path%>" src="<%=data.item_list[i].path%>">
+								</a>
+							</div>
+						<%}%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[0].app_url%>"  href="javascript:;">
+								<img data-lazyload="<%=data.item_list[0].path%>" src="<%=data.item_list[0].path%>">
+							</a>
+						</div>
+					<%} else {%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[0].app_url%>"  href="javascript:;">
+								<img data-lazyload="<%=data.item_list[0].path%>" src="<%=data.item_list[0].path%>">
+							</a>
+						</div>	
+					<%}%>
+				</div>
+				<div class="mui-slider-indicator">
+					<%for (var i = 0; i < image.length; i++) {%>
+						<%if (i == 0) {%>
+							<div class="mui-indicator mui-active"></div>
+						<%} else {%>
+							<div class="mui-indicator"></div>
+						<%}%>
+					<%}%>
+				</div>
+			</script>
+			<div class="main_type">
+				<ul class="type_list mui-clearfix">
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="1" title="本地商家" href="store-list.html">
+							<img src="img/index-icon2.png"/>
+							<div class="mui-media-body">本地商家</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="2" title="招商采购" href="store-list.html">
+							<img src="img/index-icon6.png"/>
+							<div class="mui-media-body">招商采购</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="3" title="实力电商" href="store-list.html">
+							<img src="img/index-icon3.png"/>
+							<div class="mui-media-body">实力电商</div>
+						</a>
+					</li>
+					<!--<li class="mui-table-view-cell mui-media">
+						<a href="javascript:void(0);">
+							<img src="img/index-icon4.png"/>
+							<div class="mui-media-body">热门城市</div>
+						</a>
+					</li>-->
+					
+					<li class="mui-table-view-cell mui-media mui-col-xs-3">
+						<a title="蚁立直播" href="javascript:void(0);">
+							<img src="img/index-icon1.png"/>
+							<div class="mui-media-body">蚁立直播</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a title="旅游教育" href="javascript:void(0);">
+							<img src="img/index-icon5.png"/>
+							<div class="mui-media-body">旅游教育</div>
+						</a>
+					</li>
+				</ul>
+				<div id="new_list" class="headlines">
+					
+				</div>
+				<script id="tpl_new_list" type="text/html">
+					<strong>蚁立<span>头条</span>:</strong>
+					<ul class="swiper-wrapper">
+						<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+							<li class="swiper-slide"><a href="m-kffw-view.html" item_id="<%=data[i].id%>"><%=data[i].title%></a></li>
+						<%}%>
+					</ul>
+					<a href="m-kffw-list.html" class="more">更多</a>
+				</script>
+			</div>
+			<div class="day_live" style="display:none;">
+				<div class="live_title">
+					<h4 class="mui-pull-left">
+						<span>今日直播</span>
+					</h4>
+					<a href="javascript:;" class="more mui-pull-right">更多<span class="iconfont icon-jiantouyou"></span></a>
+				</div>
+				<div class="live_list">
+					<ul>
+						<li class="list_item">
+							<a href="javascript:;">
+								<img src="img/live-list.jpg"/>
+								<p>9:00-16:00</p>
+								<p>杭州筑家家居实家居实家居实</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="index_booth">
+
+			</div>
+
+			<script id="tpl_index_booth" type="text/html">
+				<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+					<div class="ad_box">
+						<div class="ad">
+							<div class="ad_title mui-clearfix">
+								<h4 class="mui-pull-left"><%=data[i].menu_name%></h4>
+								<a item_id="<%=data[i].id%>" href="javascript:;" class="more mui-pull-right">更多<span class="iconfont icon-jiantouyou"></span></a>
+							</div>
+							<div class="ad_content">
+								<div class="ad_content_b mui-pull-left">
+									<a url="<%=data[i].app_url%>" href="javascript:;" class="ad_pic">
+										<img src="<%=data[i].left_ad_list[0].path%>"/>
+									</a>
+								</div>
+								<div class="ad_content_s mui-pull-right">
+									<%for (var j = 0, product = data[i].product_list; j < (product.length > 2 ? 2 : product.length); j++) {%>
+										<a href="javascript:void(0);" product_id="<%=product[j].id%>" class="ad_pic">
+											<div class="title">
+												<p class="mui-ellipsis-2"><%=product[j].title%></p>
+												<p class="price">￥<%=product[j].sell_price%></p>
+											</div>
+											<div class="img">
+												<img src="<%=product[j].path_thumb%>">
+											</div>
+										</a>
+									<%}%>
+								</div>
+							</div>
+						</div>
+					</div>
+				<%}%>
+			</script>
+			<div class="like">
+				<h4 class="like_title">
+					<span>猜您喜欢</span>
+				</h4>
+				<div class="like_box">
+					<ul id="guess_like">
+
+					</ul>
+					<script id="tpl_guess_like" type="text/html">
+						<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+							<li class="like_item">
+								<a product_id="<%=data[i].id%>" href="javascript:void(0);">
+									<img src="<%=data[i].path_thumb%>" class="img_bg" />
+									<p class="mui-ellipsis-2" style="height:3em;"><%=data[i].title%></p>
+									<!-- <p>双人床 1.8*2.0米</p> -->
+									<em><span>￥</span><%=data[i].sell_price%></em>
+								</a>
+							</li>
+						<%}%>
+					</script>
+				</div>
+			</div>
+		</div>
+		<header id="index_header" class="mui-bar mui-bar-nav mui-bar-transparent home-head" style="background-color:rgba(204, 0, 17, 0);">
+			<!--<a id="city_btn" class="mui-pull-right city"><span>杭州</span><span class="mui-icon mui-icon-arrowdown"></span></a>-->
+			<h1 class="mui-title topbar">
+		    	<a href="search.html">
+		    		<div class="mui-input-row search_box">
+		    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>输入搜索关键词
+		    		</div>
+		    	</a>
+		    </h1>
+		</header>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">#index_header{padding-top: ' + immersed + 'px !important;height:' + (44 + immersed) + 'px;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript" charset="utf-8">
+var latitude,longitude;
+	mui.init({
+		gestureConfig:{
+	   longtap: true
+	  }
+	})
+	mui('.mui-scroll-wrapper').scroll({
+		indicators: false
+	});
+
+	window.onload = function() {
+    		data_init();
+	};
+	
+	function data_init() {
+		get_cus_page_list();
+		get_cus_product_list('a', 10);
+		get_index_booths_list();
+		get_index_ad_list(1);
+	}
+	
+	// 展位跳转
+	mui('#index_booth').on('tap', 'a[url]', function() {
+		var id = this.getAttribute('url');
+		var url_zz = /^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+		if(url_zz.test(id)) {
+			go_to_view('site.html', {url: id});
+		} else {
+			if(id && ~id.indexOf('.html')) {
+				if(id.indexOf('?') > 0) {
+					var target = id.split('?')[0];
+					var data = paramToObject(id.split('?')[1]);
+					go_to_view(target, data);
+				} else {
+					go_to_active(id);
+				}
+			}
+		}
+	});
+	
+	mui('#index_booth').on('tap', 'a[item_id]', function() {
+		var item_id = this.getAttribute('item_id');
+		go_to_view('index_product_list.html', {item_id:item_id});
+	});
+	
+	// 首页跳转
+	mui('#slider').on('tap', 'a[url]', function() {
+		var id = this.getAttribute('url');
+		var url_zz = /^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+		if(url_zz.test(id)) {
+			go_to_view('site.html', {url: id});
+		} else {
+			if(id && ~id.indexOf('.html')) {
+				if(id.indexOf('?') > 0) {
+					var target = id.split('?')[0];
+					var data = paramToObject(id.split('?')[1]);
+					go_to_view(target, data);
+				} else {
+					go_to_active(id);
+				}
+			}
+		}
+	});
+	
+	function paramToObject($str) {
+		var obj = {};
+		var arr = $str.split('&');
+		mui.each(arr, function(key, value) {
+			obj[value.split('=')[0]] = decodeURIComponent(value.split('=')[1]);
+		});
+		return obj;
+	}
+
+	// 首页广告
+	function get_index_ad_list(id) {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_index_ad_list/' + id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_slider', res);
+					$('#slider').html(html);
+
+					// 开启轮播
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 4000
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 获取首页展位及商品
+	function get_index_booths_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_index_booths_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_index_booth', res);
+					$('#index_booth').html(html);
+
+					mui('.ad_content_s').on('tap', 'a', function() {
+						var product_id = this.getAttribute("product_id");
+						go_to_view("product-view.html", {
+							item_id : product_id
+						});
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 猜您喜欢商品详情
+	mui('#guess_like').on('tap', 'a', function() {
+		var product_id = this.getAttribute("product_id");
+		go_to_view("product-view.html", {
+			item_id : product_id
+		});
+	});
+	// 猜您喜欢
+	function get_cus_product_list(type, num) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_cus_product_list/' + type + '/' + num;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_guess_like', res);
+					$('#guess_like').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 新闻轮播
+	function get_cus_page_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_cus_page_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_new_list', res);
+					$('#new_list').html(html);
+
+					var swiperPromotion = new Swiper('.headlines', {
+						direction: 'vertical',
+						loop: true,
+						autoplay: 3000,
+						autoplayDisableOnInteraction: false
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+
+	mui('.main_type').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=="store-list.html") {
+				var auth_type=this.getAttribute('auth_type');
+				var title=this.getAttribute('title');
+				if (auth_type==2) {
+					if(localStorage.getItem('global_store_id')!=0 && localStorage.getItem('global_store_display')==1){
+							go_to_view(id,{auth_type:auth_type,title:title,latitude:latitude,longitude:longitude})
+					}else{
+						mui.alert('招商采购频道，经认证的入驻商家方可进入');
+					}
+				}else{
+					go_to_view(id,{auth_type:auth_type,title:title,latitude:latitude,longitude:longitude})
+				}
+			} else{
+				go_to_active(id)
+			}
+		}else{
+			mui.toast('建设中...')
+		}
+	});
+	mui('#new_list').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=='m-kffw-view.html') {
+				var item_id=this.getAttribute('item_id');
+				go_to_view(id,{item_id:item_id})
+			} else if (id=='m-kffw-list.html') {
+				var item_id=127;
+				go_to_view(id,{item_id:item_id,header_title:'蚁立招聘'})
+			} else{
+				go_to_active(id)
+			}
+		}else{
+			mui.toast('建设中...')
+		}
+	});
+	mui('#index_header').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		go_to_view(id,{flag:'product'})
+	});
+	
+	// 获取定位信息
+	 mui.plusReady(function() {
+//	 function get_geolocation() {
+	 	plus.geolocation.getCurrentPosition(function(position){
+//	 			console.log(JSON.stringify(position));
+                latitude = position.coords.latitude; 
+                longitude = position.coords.longitude;
+             }, function(e) {
+                 mui.alert("请开启定位功能再尝试");
+             }, {provider: 'baidu'});
+	 })
+	 
+</script>

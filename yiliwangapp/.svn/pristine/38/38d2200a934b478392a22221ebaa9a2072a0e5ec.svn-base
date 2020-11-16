@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">验证手机</h1>
+		</header>
+		<div class="mui-content no-bg verify-phone-content">
+			<ul class="mui-table-view" style="margin-top:0;">
+		        <li class="mui-table-view-cell">
+		            <div>
+				    	<h5>当前绑定手机号</h5>
+				    	<h4 id="mobile">你还没有绑定手机号，赶快去绑定</h4>
+				    </div>
+		        </li>
+		    </ul>
+		    <div class="button"><button onclick="change_phone()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">更换手机号</button></div>
+		    <p>为确保账号安全，更换手机前，需验证原手机号</p>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	mui.init({
+		beforeback: function() {
+			//获得列表界面的webview
+			var list = plus.webview.getWebviewById('m-zhaq.html');
+			//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+			mui.fire(list,'changeMobile');
+			//返回true，继续页面关闭逻辑
+			return true;
+		}
+	});
+
+	window.onload = function() {
+		init();
+	}
+
+	window.addEventListener('change_mobile', function(mes) {
+		init();
+	});
+
+	function init() {
+		if (localStorage.getItem("global_mobile")) {
+			$('#mobile').html(localStorage.getItem("global_mobile"));
+		} else {
+			$('#mobile').html("你还没有绑定手机号，赶快去绑定");
+		}
+	}
+	
+
+	function change_phone() {
+		go_to_active('m-change-mobile.html');
+	}
+</script>

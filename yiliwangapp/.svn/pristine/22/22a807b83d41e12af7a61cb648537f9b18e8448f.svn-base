@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body>
+	<header id="header" class="mui-bar mui-bar-nav head-bar">
+	    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	    <h1 class="mui-title">支付平台</h1>
+	</header>
+	<div class="mui-content pay-platform-content no-bg">
+	    <ul class="mui-table-view order-amount">
+            <li class="mui-table-view-cell">
+                <p class="mui-pull-left">订单金额</p><p class="mui-pull-right"><span id="total" style="font-size:16px;"></span>元</p>
+            </li>
+        </ul>
+	    <ul id="payment_list" class="mui-table-view payment-method">
+            <li pay_type="alipay" class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    <img src="img/zfblogo.png" class="mui-pull-left"/>
+                    <div>支付宝支付<p>支付宝安全支付</p></div>
+                </a>
+            </li>
+            <li pay_type="wxpay" class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    <img src="img/wxzflogo.png" class="mui-pull-left"/>
+                    <div>微信支付<p>微信安全支付</p></div>
+                </a>
+            </li>
+            <li pay_type="yue" class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    <img src="img/yue.png" class="mui-pull-left"/>
+                    <div>余额<p>余额快捷支付</p></div>
+                </a>
+            </li>
+            <!--<li pay_type="yue" class="mui-table-view-cell">
+                <a class="mui-navigate-right">
+                    <img src="img/yue.png" class="mui-pull-left"/>
+                    <div>余额<p>余额快捷支付</p></div>
+                </a>
+            </li>-->
+        </ul>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var item_id = '';
+	var order_num = '';
+	var total = '';
+	var prv_id = '';
+	var open_id = '';
+	
+	mui.init({
+		beforeback: function() {
+			console.log(prv_id);
+			if (prv_id == 'cart2.html') {
+				if (mui.os.plus) {
+					var self = plus.webview.getWebviewById(prv_id);
+					self.close();
+					var cartWebView = plus.webview.getWebviewById('cart.html');
+					mui.fire(cartWebView,'page_init',{init:1});
+				} else {
+					go_to_active('cart.html');
+				}
+				return true;
+			} else {
+				return true;
+			}				
+		}
+	});
+	window.addEventListener('go_to_parameter', function(e) {
+//		console.log(JSON.stringify(e.detail));
+		item_id = e.detail.item_id;
+		total = e.detail.total;
+		prv_id = e.detail.prv_id;
+		order_num = e.detail.order_num;
+		$('#total').html(total);
+	});
+
+	mui('#payment_list').on('tap', 'li', function() {
+		var pay_type = this.getAttribute('pay_type');
+		if(!pay_type) {
+			mui.toast('请选择支付方式');
+		}
+		console.log('pay_type:' + pay_type);
+
+		if(pay_type == 'yue') {
+			var btnArray = ['确认', '取消'];
+			mui.prompt('请输入支付密码：', '', '', btnArray, function(e) {
+				console.log('ddddd:' + e.index);
+				if(e.index == 0) {
+					if(!e.value) {
+						mui.toast('请输入支付密码');
+						return false;
+					}
+					console.log(e.value)
+					yue_pay(e.value);
+				} else if(e.index == 1) {}
+			}, 'div');
+			document.querySelector('.mui-popup-input input').type = 'password';
+		} else if(pay_type == 'alipay') {
+                pay('alipay');
+		} else if(pay_type == 'wxpay') {
+                pay('wxpay');
+		} else if(pay_type == 'ebank') {
+
+		}
+	});
+
+	//余额支付
+	function yue_pay(pay_password) {
+		if (!is_network(true)) {return;}
+		var url = base_url + 'napi/order_yue_pay?sid=' + localStorage.getItem('global_sid');
+		console.log(url)
+		mui.ajax(url, {
+			data: {
+				order_id: item_id,
+				pay_password: pay_password
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if(res.success) {
+					if(prv_id == 'm-order-list.html') {
+						mui.toast('订单支付成功');
+						var self = plus.webview.getWebviewById(prv_id);
+						mui.fire(self, 'pay_success_refrsh_list',{status:'b'});
+						mui.back();
+					} else if(prv_id == 'm-order-view.html') {
+						mui.toast('订单支付成功');
+						var self = plus.webview.getWebviewById(prv_id);
+						mui.fire(self, 'pay_success_refrsh_list', {
+							order_id: item_id
+						});
+						mui.back();
+					} else {
+						go_to_view('cart_pay_success.html', {
+							order_num: res.data.order_num,prv_id:prv_id
+						});
+					}
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						if(mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			},
+			error: error
+		});
+	}
+		
+//	// 支付-js-h5
+//	function alipay_pay_js() {
+//		if (!is_network(true)) {return;}
+//		var url = base_url + 'napi/order_app_pay_js/'+item_id+'/alipay/1?sid=' + localStorage.getItem('global_sid');
+//		mui.ajax(url, {
+//				data: {},
+//				dataType: "json",
+//				type: "get",
+//				timeout: 10000,
+//				success: function(res) {
+//					if(res.success) {
+//						$('body').append(res.data.request_form);
+//					} else {
+//						mui.toast(res.message);
+//						if(res.field == 'login') {
+//							if(mui.os.plus) {
+//								mui.plusReady(function() {
+//									go_to_active('login.html');
+//								});
+//							} else {
+//								go_to_active('login.html');
+//							}
+//						}
+//					}
+//				},
+//				error: error
+//		});
+//	}
+//		
+//	// 支付-js-h5
+//	function weixin_pay_js() {
+//		if (!is_network(true)) {return;}
+//		var url = base_url + 'napi/order_app_pay_js/'+item_id+'/wxpay/'+open_id+'?sid=' + localStorage.getItem('global_sid');
+//		mui.ajax(url, {
+//				data: {},
+//				dataType: "json",
+//				type: "get",
+//				timeout: 10000,
+//				success: function(res) {
+//					if(res.success) {
+//						if (typeof WeixinJSBridge == "undefined"){
+//							if( document.addEventListener ){
+//								document.addEventListener('WeixinJSBridgeReady', jsApiCall(res.data), false);
+//							}else if (document.attachEvent){
+//								document.attachEvent('WeixinJSBridgeReady', jsApiCall(res.data)); 
+//								document.attachEvent('onWeixinJSBridgeReady', jsApiCall(res.data));
+//							}
+//						}else{
+//							jsApiCall(res.data);
+//						}
+//					} else {
+//						mui.toast(res.message);
+//						if(res.field == 'login') {
+//							if(mui.os.plus) {
+//								mui.plusReady(function() {
+//									go_to_active('login.html');
+//								});
+//							} else {
+//								go_to_active('login.html');
+//							}
+//						}
+//					}
+//				},
+//				error: error
+//		});
+//	}
+	
+//	//调用微信JS api 支付
+//	function jsApiCall(jsApiParameters) {
+//		WeixinJSBridge.invoke(
+//			'getBrandWCPayRequest',
+//			jsApiParameters,
+//			function(res){
+//				if (res.err_msg == 'get_brand_wcpay_request:ok') {
+//					if(prv_id == 'm-order-list.html') {
+//						mui.toast('订单支付成功');
+//						go_to_active(prv_id);
+//					} else {
+//						go_to_view('cart_pay_success.html', {
+//							order_num: res.data.order_num
+//						});
+//					}
+//				} else if (res.err_msg == 'get_brand_wcpay_request:cancel') {
+//					mui.toast('取消支付');
+//				} else {
+//					mui.toast(res.err_msg);
+//				}
+//			}
+//		);
+//	}
+</script>
+<script type="text/javascript">
+	var pays = {};
+	function plusReady() {
+		// 获取支付通道
+		plus.payment.getChannels(function(channels) {
+			console.log(JSON.stringify(channels));
+			for(var i in channels) {
+				var channel = channels[i];
+				if(channel.id == 'alipay' || channel.id == 'wxpay') {
+					pays[channel.id] = channel;
+				    checkServices(channel);
+				}
+			}
+		}, function(e) {
+			console.log('获取支付通道失败：' + e.message);
+		});
+	}
+	document.addEventListener('plusready', plusReady, false);
+	// 检测是否安装支付服务
+	function checkServices(pc) {
+		if(!pc.serviceReady) {
+			var txt = null;
+			switch(pc.id) {
+				case 'alipay':
+					txt = '检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？';
+					break;
+				case 'wxpay':
+					txt = '检测到系统未安装“微信快捷支付服务”，无法完成支付操作，是否立即安装？';
+					break;
+				default:
+					txt = '系统未安装“' + pc.description + '”服务，无法完成支付，是否立即安装？';
+					break;
+			}
+			plus.nativeUI.confirm(txt, function(e) {
+				if(e.index == 0) {
+					pc.installService();
+				}
+			}, pc.description);
+		}
+	}
+	// 支付
+	function pay(pay_type) {
+		var url = base_url + 'napi/order_app_pay/'+item_id+'/'+pay_type+'?sid=' + localStorage.getItem('global_sid');
+		console.log('url:'+url);
+		var w = plus.nativeUI.showWaiting();
+		// 请求支付订单
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			switch(xhr.readyState) {
+				case 4:
+					w.close();
+					w = null;
+					if(xhr.status == 200) {
+//						console.log('请求订单成功');
+						console.log("111:"+xhr.responseText);
+						var order = xhr.responseText;
+						plus.payment.request(pays[pay_type], order, function(result) {
+							var channel = '';
+							if (mui.os.android) {
+								channel = result.channel.id;
+							} else {
+								channel = result.channel;
+							}
+							console.log('channel:'+channel);
+							if (channel == 'alipay') {
+								if(prv_id == 'm-order-list.html') {
+									mui.toast('订单支付成功');
+									var self = plus.webview.getWebviewById(prv_id);
+									mui.fire(self, 'pay_success_refrsh_list', {
+										order_id: item_id
+									});
+									mui.back();
+								} else if(prv_id == 'm-order-view.html') {
+									mui.toast('订单支付成功');
+									var self = plus.webview.getWebviewById(prv_id);
+									mui.fire(self, 'pay_success_refrsh_list', {
+										order_id: item_id
+									});
+									mui.back();
+								} else {
+									go_to_view('cart_pay_success.html', {
+										order_num: res.data.order_num,prv_id:prv_id
+									});
+								}
+							} else if (channel == 'wxpay') {
+								if(prv_id == 'm-order-list.html') {
+									mui.toast('订单支付成功');
+									var self = plus.webview.getWebviewById(prv_id);
+									mui.fire(self, 'pay_success_refrsh_list', {
+										order_id: item_id
+									});
+									mui.back();
+								} else if(prv_id == 'm-order-view.html') {
+									mui.toast('订单支付成功');
+									var self = plus.webview.getWebviewById(prv_id);
+									mui.fire(self, 'pay_success_refrsh_list', {
+										order_id: item_id
+									});
+									mui.back();
+								} else {
+									go_to_view('cart_pay_success.html', {
+										order_num: res.data.order_num,prv_id:prv_id
+									});
+								}
+							} else {
+								console.log('other');
+							}
+						}, function(e) {
+							console.log('支付失败：[' + e.code + ']：' + e.message);
+						});
+					} else {
+						console.log('获取订单信息失败！');
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		xhr.open('GET', url);
+		xhr.send();
+	}
+</script>

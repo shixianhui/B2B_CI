@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+		</style>
+	</head>
+	<body style="background:#fff;">
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">商品描述</h1>
+		</header>
+		<div class="mui-content no-bg commodity-description-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<div class="mui-input-row">
+				  <textarea id="textarea" name="" rows="" cols=""placeholder="请详细描述你要发布的商品，让商品看起来更诱人"onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';"></textarea>
+				</div>
+			</div>	
+		</div>
+		<div class="commodity-description-button">
+	    	<button onclick="complete()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">完 成</button>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/loading.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var textarea=document.getElementById('textarea');
+	textarea.style.minHeight=window.innerHeight-94+"px";
+
+	function complete() {
+		var content = $('#textarea').val();
+		var list = plus.webview.getWebviewById('b-spgl-add.html');
+		mui.fire(list, 'save_content', {
+			id: content
+		});
+		mui.back();
+	}
+</script>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">我的粉丝</h1>
+	        
+	    </header>
+	    <div class="mui-content asset follow mui-scroll-wrapper">
+	    	<div class="mui-scroll">
+		    	<ul id="content_list" class="mui-table-view ">
+	    	        
+	    	    </ul>
+	    	    <script id="tpl_content_list" type="text/html">
+	    	    	<%for(var i=0;i<data.item_list.length;i++){%>
+		    	        <li item_id="<%=data.item_list[i].id%>" user_id="<%=data.item_list[i].user_id%>" class="mui-table-view-cell">
+		    	            <a href="javascript:void(0);">
+		    	                <img src="<%=data.item_list[i].user_path%>"/>
+		    	                <%=data.item_list[i].nickname%>
+		    	                <span class="iconfont-supplement icon-huiyuandengji"></span>
+		    	                <!--<em class="active">已关注</em>-->
+		    	            </a>
+		    	        </li>
+	    	    	<%}%>
+	    	    </script>
+    	    </div>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+
+	window.onload = function() {
+		
+		data_init();
+	};
+	
+	function data_init() {
+		get_my_fans_list('0');
+	}
+	
+	
+	mui('.mui-scroll-wrapper').scroll();
+	
+	/*关注*/
+	var page=1;
+	
+	var self = mui('.mui-scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		get_my_fans_list('up');
+	}
+	
+	mui('#content_list').on('tap','li',function(){
+		var user_id=$(this).attr('user_id')
+		go_to_view('fans_follow_detail.html',{user_id:user_id})
+	})
+	
+	// 关注
+	function get_my_fans_list(type) {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_my_fans_list/0/0/20/'+page+'?sid=' + localStorage.getItem('global_sid');;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html = template('tpl_content_list', res);
+					if (type == 'up') {
+						var size = $("#content_list li[item_id]").size();
+						if (size > 0) {
+							$("#content_list li[item_id]:last").after(html);
+						} else {
+							$('#content_list').html(html);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content_list').html(no_data_html);
+                        }else{
+                        	
+							$('#content_list').html(html);
+                        }
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+
+
+</script>

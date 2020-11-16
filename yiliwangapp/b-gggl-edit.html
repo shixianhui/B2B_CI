@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+		<style type="text/css">
+			body{background:#fff;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar text-head">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">广告管理</h1>
+		    <a a_type="go_back" class="mui-pull-right" href="javascript:void(0);">完成</a>
+		</header>
+		<div class="edit-bottom">
+			<div class="mui-input-row mui-checkbox mui-left">
+				<label>全选</label>
+				<input name="checkbox1" type="checkbox" >
+			</div>
+			<button onclick="delete_ad()" type="button" class="mui-btn mui-btn-red bg-color">删 除</button>
+			<a type="button" class="mui-btn mui-btn-yellow" href="b-gggl-add.html">添加广告</a>
+		</div>
+		<div class="mui-content no-bg advertisement-edit-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+		    	<div class="substance">
+		    		<h5>首页轮播广告</h5>
+		    		<div>
+		    			<ul id="OA_task_1" class="mui-table-view">
+
+		    			</ul>
+		    			<script id="tpl_OA_task_1" type="text/html">
+		    				<%for (var i = 0, data = data.ad_store_list_1; i < data.length; i++) { %>
+			    		        <li class="mui-table-view-cell">
+									<div class="mui-input-row mui-checkbox mui-left">
+								  		<label><img src="<%=data[i].path%>" /></label>
+								  		<input ad_id="<%=data[i].id%>" class="check" name="ad" type="checkbox" >
+									</div>
+			    		        </li>
+			    		    <%}%>
+		    		    </script>  
+	    			</div>
+		    	</div>
+		    	<div class="substance">
+			    	<h5>页面底部广告</h5>
+			    	<div>
+			    		<ul id="OA_task_2" class="mui-table-view">
+
+			    		</ul>
+			    		<script id="tpl_OA_task_2" type="text/html">
+			    			<%for (var i = 0, data = data.ad_store_list_2; i < data.length; i++) { %>
+			    		        <li class="mui-table-view-cell">
+			    		            <div class="mui-input-row mui-checkbox mui-left">
+									  	<label><img src="<%=data[i].path%>" /></label>
+									  	<input ad_id="<%=data[i].id%>" class="check" name="ad" type="checkbox" >
+									</div>
+			    		        </li>
+			    		    <%}%>
+		    		   </script>
+		    		</div>
+		    	</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content{top: '+(immersed)+'px !important;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+
+	var array = new Array();
+
+	mui.init({
+		beforeback: function() {
+			if (mui.os.plus) {
+				var list = plus.webview.getWebviewById('b-gggl.html');
+        		mui.fire(list, 'change_ad_list');
+			}
+			return true;
+		}
+	});
+
+	window.addEventListener('change_ad', function(e) {
+		get_seller_ad_list();
+	});
+
+	mui('#header').on('tap', 'a', function() {
+		var a_type = this.getAttribute("a_type");
+		if (a_type == 'go_back') {
+			mui.back();
+		}
+	});
+
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false,
+	});
+
+	mui('.edit-bottom').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	// 全选
+	mui('.edit-bottom').on('tap', 'input', function() {
+		var classname = '.check';
+		var listBox = mui(classname);
+		if (this.checked) {
+            listBox.each(function() {
+                var ele = this;
+                ele.checked = false;
+            });
+        } else {
+            listBox.each(function() {
+                var ele = this;
+                ele.checked = true;
+            });
+        }
+	});
+
+	// 删除
+	function delete_ad() {
+		var str = '';
+		$("input[name='ad']:checked").each(function(i,n){
+			var ad_id = this.getAttribute("ad_id");
+			str += ad_id + ',';
+		});
+
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除广告？', '提醒', btnArray, function(e) {
+			if (e.index == 0) {
+				// 批量删除
+				str = str.substring(0, str.length - 1);
+				delete_seller_ad(str);
+			} else {
+				mui.toast("出现了一些小问题，稍后试试");
+			}
+		});
+		
+		array.length = 0;
+	}
+
+	function delete_seller_ad(ids) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_seller_ad?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				ids : ids
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) { 
+				if (res.success) {
+					mui.toast("删除成功");
+					get_seller_ad_list();
+				} else {
+					mui.toast(res.message);
+				}
+			}
+		});
+	}
+
+	window.addEventListener('go_to_parameter', function(e) {
+		get_seller_ad_list();
+	});
+
+	// 广告列表
+	function get_seller_ad_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_seller_ad_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html1 = template('tpl_OA_task_1', res);
+					$('#OA_task_1').html(html1);
+
+					var html2 = template('tpl_OA_task_2', res);
+					$('#OA_task_2').html(html2);
+				} else {
+					mui.toast(res.success);
+				}
+			}, error: error
+		});
+	}
+</script>

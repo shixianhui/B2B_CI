@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>直播</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/iconfont.css" />
+	<link rel="stylesheet" href="css/base.css" />
+</head>
+<style>
+	.mui-row.mui-fullscreen>[class*="mui-col-"] {
+		height: 100%;
+	}
+	
+	.mui-col-xs-3,
+	.mui-col-xs-9 {
+		overflow-y: auto;
+		height: 100%;
+	}
+	
+	.mui-segmented-control .mui-control-item {
+		line-height: 50px;
+		width: 100%;
+	}
+	
+	.mui-control-content {
+		display: block;
+	}
+	
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+		background-color: #fff;
+	}
+</style>
+<body>
+	<header id="header" class="type mui-bar mui-bar-nav">
+		<!-- <a class="mui-pull-left iconfont icon-saoma"></a> -->
+		<a href="m-wdxx.html" class="mui-pull-right iconfont icon-xiaoxi"><span></span></a>
+		<h1 class="mui-title topbar" style="margin-left:4px;">
+    	<a href="search.html">
+    		<div class="mui-input-row search_box">
+    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>
+    			11.11全球特价
+    		</div>
+    	</a>
+    </h1>
+	</header>
+	
+	<div class="mui-content">
+		<div class="nav">
+			<ul class="nav_list mui-clearfix">
+				<li style="width:33.333%;"><a href="#"><span>区域</span><i class="mui-icon mui-icon-arrowdown"></i></a></li>
+				<li style="width:33.333%;"><a href="#"><span>风格</span><i class="mui-icon mui-icon-arrowdown"></i></a></li>
+				<li style="width:33.333%;"><a href="#"><span>类型</span><i class="mui-icon mui-icon-arrowdown"></i></a></li>
+			</ul>
+			<div class="tab_box">
+				<ul>
+					<li>1<i class="mui-icon"></i></li>
+					<li>2<i class="mui-icon"></i></li>
+					<li>3<i class="mui-icon"></i></li>
+					<li>4<i class="mui-icon"></i></li>
+					<li>5<i class="mui-icon"></i></li>
+					<li>6<i class="mui-icon"></i></li>
+					<li>7<i class="mui-icon"></i></li>
+					<li>8<i class="mui-icon"></i></li>
+				</ul>
+				<div class="btn_group">
+					<a class="reset" href="javascript:;">重置</a>
+					<a class="sure" href="javascript:;">确定</a>
+				</div>
+			</div>
+			<div class="tab_box">
+				<ul>
+					<li>11<i class="mui-icon"></i></li>
+					<li>22<i class="mui-icon"></i></li>
+					<li>33<i class="mui-icon"></i></li>
+					<li>44<i class="mui-icon"></i></li>
+					<li>55<i class="mui-icon"></i></li>
+					<li>66<i class="mui-icon"></i></li>
+					<li>77<i class="mui-icon"></i></li>
+					<li>88<i class="mui-icon"></i></li>
+				</ul>
+				<div class="btn_group">
+					<a class="reset" href="javascript:;">重置</a>
+					<a class="sure" href="javascript:;">确定</a>
+				</div>
+			</div>
+			<div class="tab_box">
+				<ul>
+					<li>a<i class="mui-icon"></i></li>
+					<li>b<i class="mui-icon"></i></li>
+					<li>c<i class="mui-icon"></i></li>
+					<li>d<i class="mui-icon"></i></li>
+					<li>e<i class="mui-icon"></i></li>
+					<li>f<i class="mui-icon"></i></li>
+					<li>g<i class="mui-icon"></i></li>
+					<li>h<i class="mui-icon"></i></li>
+				</ul>
+				<div class="btn_group">
+					<a class="reset" href="javascript:;">重置</a>
+					<a class="sure" href="javascript:;">确定</a>
+				</div>
+			</div>
+		</div>
+		<div class="lives">
+			<ul>
+				<li class="content_list">
+					<h4>杭州林氏家具旗舰店<em class="mui-pull-right">9:00-16:00</em></h4>
+					<div class="lives_content">
+						<img src="img/lives_img1.jpg" alt="" />
+						<a href="">正在直播<i class="mui-icon mui-icon-arrowright"></i></a>
+					</div>
+				</li>
+				<li class="content_list">
+					<h4>杭州林氏家具旗舰店<em class="mui-pull-right">9:00-16:00</em></h4>
+					<div class="lives_content current">
+						<img src="img/lives_img2.jpg" alt="" />
+						<a href="">预约直播<i class="mui-icon mui-icon-arrowright"></i></a>
+					</div>
+				</li>
+				<li class="content_list">
+					<h4>杭州林氏家具旗舰店<em class="mui-pull-right">9:00-16:00</em></h4>
+					<div class="lives_content">
+						<img src="img/lives_img1.jpg" alt="" />
+						<a href="">正在直播<i class="mui-icon mui-icon-arrowright"></i></a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" typ="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.js"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content .nav{top: '+(immersed+44)+'px !important;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id == 'm-wdxx.html') {
+			go_to_view(id, {
+				item_id : "ok"
+			});
+		}
+	});
+
+	var navList = document.querySelector('.nav_list');
+	var navLi = navList.children;
+	var tabBox = document.querySelectorAll('.tab_box');
+	var mask = mui.createMask();
+
+	for (var i = 0; i < navLi.length; i++) {
+		navLi[i].index = i;
+		navLi[i].addEventListener('tap', function() {
+			for (var i = 0; i < navLi.length; i++) {
+				navLi[i].className = '';
+				tabBox[i].style.display = 'none';
+			}		
+			mask.show();
+			this.className = 'current';
+			tabBox[this.index].style.display = 'block';
+			
+			var tabLi = tabBox[this.index].getElementsByTagName('li');
+			for (var j = 0; j < tabLi.length; j++) {
+				tabLi[j].addEventListener('tap', function() {
+					for (var s = 0; s < tabLi.length; s++) {
+						tabLi[s].className = '';
+						tabLi[s].getElementsByTagName('i')[0].className = 'mui-icon';
+					}
+					this.className = 'active';
+					this.getElementsByTagName('i')[0].className = 'mui-icon mui-icon-checkmarkempty';
+				})
+			}
+		});	
+	}
+
+	for (var i = 0; i < tabBox.length; i++) {
+		var sureBtn = tabBox[i].querySelector('.sure');
+		sureBtn.index = i;
+		sureBtn.addEventListener('tap', function() {
+			var text = this.parentNode.parentNode.getElementsByClassName('active')[0].innerText;
+			navLi[this.index].getElementsByTagName('span')[0].innerText = text;
+			tabBox[this.index].style.display = 'none';
+			mask.close();
+			navLi[this.index].className = '';
+		});
+	}
+</script>

@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>购物车</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <style type="text/css">
+    	.head-bar.text-head a:last-of-type{margin-right:30px;}
+    	.bottom_menu1 .iconfont {
+			font-size: 20px;
+		}
+		
+		.mui-bar.bottom_menu1 .mui-active {
+			color: #c81624;
+		}
+		
+		.mui-bar.bottom_menu1 .icon-gouwuche {
+			font-size: 24px;
+		}
+		.mui-tab-item .live {
+			width: 45px;
+			margin: 2px auto;
+			font-size: 12px;
+			height: 45px;
+			border-radius: 50%;
+			background: #e75e91;
+			color: #fff;
+		}
+		
+		.mui-tab-item .live .icon-lives {
+			font-size: 20px;
+		}
+		.mui-icon-circle:before{content:'\e411';color:#666;}
+		.mui-icon-success:before{content:'\e442';color:#c01;}
+		.mui-input-row{min-width:32px;min-height:20px;padding:0;}
+		.mui-input-row>i{z-index:99;display:block;position:absolute;height:44px;line-height:44px;width:22px;text-align:center;top:50%;left:0;transform: translateY(-50%);-moz-transform:translateY(-50%);-webkit-transform:translateY(-50%);}
+   		.mui-input-row label{font-size:14px;line-height:26px;height:24px;}
+   		.mui-input-row label i{color:#666;font-size:14px;}
+   		.bottom1 .mui-input-row i{left:10px;}
+   		.bottom1 .mui-input-row label{line-height:52px;padding-top:0 !important;padding-right:0 !important;padding-bottom:0 !important;height:50px;}
+    	.bottom1 .delete_btn{z-index:99;position:absolute !important;float:left !important;margin:9px 0 9px -8.5%;border-radius:5px !important;width:auto !important;padding:0px 12px !important;line-height:34px;height:32px !important;}
+		.bottom1 .delete_btn:active{background:#fff;color:#333;}
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <h1 class="mui-title">购物车</h1>
+        <a class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right" href="m-wdxx.html"><i class="new-information"></i></a>
+    </header>
+    <div class="shopping-cart-bottom">
+	    	<div class="bottom1 mui-active">
+	    		<div id="cheek_all" class="mui-input-row mui-checkbox mui-left">
+				<label>全选</label>
+				<i class="check_btn mui-icon mui-icon-circle"></i>
+			</div>
+			<button id="del_cart" type="button" class="mui-btn delete_btn mui-btn-red bg-color">删除</button>
+			<button id="submit" type="button" class="mui-btn mui-btn-red bg-color">去结算</button>
+			<div id="sum" class="text-color price"><i>合计：</i><span>￥</span></div>
+	    	</div>
+    </div>
+	<div class="mui-content shopping-cart-content no-bg mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div id="content">
+				
+			</div>
+			<script id="tpl_content" type="text/html">
+				<%for (var i = 0, data_list = data.item_list; i < data_list.length; i++) {%>
+					<ul class="mui-table-view">
+				    		<li class="mui-table-view-cell">
+				    			<div class="mui-input-row mui-checkbox mui-left">
+				    			  <label><i class="iconfont icon-dianpu2"></i><%=data_list[i].store_name%></label>
+				    			  <i item_id="<%=data_list[i].store_id%>" type="store" class="check_btn mui-icon <%if (data_list[i].select=='circle') {%>mui-icon-circle<%} else {%>mui-icon-success<%}%>"></i>
+				    			</div>
+				    		</li>
+						<%for (var j = 0, cart_list = data_list[i].cart_list; j < cart_list.length; j++) {%>
+							<li class="mui-table-view-cell">
+					            	<div class="mui-input-row mui-checkbox mui-left">
+					            	  <i item_id="<%=cart_list[j].id%>" type="product" class="check_btn mui-icon <%if (cart_list[j].select=='circle') {%>mui-icon-circle<%} else {%>mui-icon-success<%}%>"></i>
+					            	</div>
+					    			<img src="<%=cart_list[j].path_thumb%>"/>
+						    		<div class="box1">
+						    			<h3 class="mui-ellipsis-2"><%=cart_list[j].title%></h3>
+						    			<%if (cart_list[j].color_size_open == '1') {%>
+						    				<p class="mui-ellipsis">
+						    					<%=cart_list[j].product_color_name%>：<%=cart_list[j].color_name%>   
+						    					<%=cart_list[j].product_size_name%>：<%=cart_list[j].size_name%>
+						    				</p>
+						    			<%}%>
+						    			<span class="text-color"><b>￥</b><%=cart_list[j].sell_price%></span>
+						    		</div>
+						    		<div class="mui-numbox" data-numbox-min='1' data-numbox-max='99'>
+									<a a_type="cur" item_id="<%=cart_list[j].id%>" href="javascript:;" class="mui-btn mui-btn-numbox-minus"><i>|</i></a>
+									<input class="mui-input-numbox" type="number" value="<%=cart_list[j].buy_number%>" />
+									<a  a_type="add" item_id="<%=cart_list[j].id%>" href="javascript:;" class="mui-btn mui-btn-numbox-plus"><i class="mui-icon mui-icon-plusempty" style="font-size:18px;"></i></a>
+								</div>
+						    </li>
+						<%}%>
+					</ul>
+				<%}%>
+			</script>
+	    </div>    
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var respone = new Object();
+
+	window.onload = function() {
+		$('#cheek_all').find('i').addClass('mui-icon-circle').removeClass('mui-icon-success');
+		$('#sum').html('<i>合计：</i><span>￥</span>0');
+		get_cart_list();
+	}
+	
+	window.addEventListener('page_init', function() {
+		$('#cheek_all').find('i').addClass('mui-icon-circle').removeClass('mui-icon-success');
+		$('#sum').html('<i>合计：</i><span>￥</span>0');
+		get_cart_list();
+	});
+	
+	// 提交订单
+	document.getElementById('submit').addEventListener('tap', function() {
+		var ids = '';
+		for (var i = 0; i < respone.length; i++) {
+	      for (var j = 0; j < respone[i].cart_list.length; j++) {
+	        if (respone[i].cart_list[j].select == "success") {
+	          ids += respone[i].cart_list[j].id + ',';
+	        }
+	      }
+	    }
+	    ids = ids.substring(0, ids.length - 1);
+	    if (ids) {
+	      go_to_view('cart_order_confirm.html', {item_id:ids});
+	    } else {
+	      mui.toast('请选择商品');
+	    }
+	});
+	
+	// 删除购物车
+	document.getElementById('del_cart').addEventListener('tap', function() {
+		var ids = '';
+	    for (var i = 0; i < respone.length; i++) {
+	      for (var j = 0; j < respone[i].cart_list.length; j++) {
+	        if (respone[i].cart_list[j].select == "success") {
+	          ids += respone[i].cart_list[j].id + ',';
+	        }
+	      }
+	    }
+	    ids = ids.substring(0, ids.length - 1);
+	    delete_cart_product(ids);
+	});
+	
+	// 全选
+	document.getElementById('cheek_all').addEventListener('tap', function() {
+		if (!$(this).find('i').hasClass('mui-icon-success')) {
+			$(this).find('i').addClass('mui-icon-success').removeClass('mui-icon-circle');
+			for (var i = 0; i < respone.length; i++) {
+				respone[i].select = 'success';
+				for (var j = 0; j < respone[i].cart_list.length; j++) {
+					respone[i].cart_list[j].select = 'success';
+				}
+			}
+		} else {
+			$(this).find('i').addClass('mui-icon-circle').removeClass('mui-icon-success');
+			for (var i = 0; i < respone.length; i++) {
+				respone[i].select = 'circle';
+				for (var j = 0; j < respone[i].cart_list.length; j++) {
+					respone[i].cart_list[j].select = 'circle';
+				}
+			}
+		}
+		var tmp_res = {"data": {"item_list": respone}};
+		var html = template('tpl_content', tmp_res);
+		$('#content').html(html);
+		count_price();
+	});
+	
+	// 单选
+	mui('#content').on('tap','i[item_id]', function() {
+		var id = this.getAttribute('item_id');
+		var type = this.getAttribute('type');
+		var select = 'success';
+		if (type == 'store') {
+			if ($(this).hasClass('mui-icon-success')) {
+				select = 'circle';
+			} else {
+				select = 'success';
+			}
+			for (var i = 0; i < respone.length; i++) {
+				if (respone[i].store_id == id) {
+	 				respone[i].select = select;
+					for (var j = 0; j < respone[i].cart_list.length; j++) {
+						respone[i].cart_list[j].select = select;
+					}
+				}
+			}
+		} else {
+			if ($(this).hasClass('mui-icon-success')) {
+				select = 'circle';
+			} else {
+				select = 'success';
+			}
+			for (var i = 0; i < respone.length; i++) {
+				for (var j = 0; j < respone[i].cart_list.length; j++) {
+					if (respone[i].cart_list[j].id == id) {
+						respone[i].cart_list[j].select = select;
+						break;
+					}
+				}
+			}
+		}
+		var all_count = 0;
+    		for (var i = 0; i < respone.length; i++) {
+      		var count = 0;
+      		for (var j = 0; j < respone[i].cart_list.length; j++) {
+        			if (respone[i].cart_list[j].select == 'success') {
+          			count++;
+        			}
+      		}
+      		if (count == respone[i].cart_list.length) {
+        			all_count++;
+        			respone[i].select = 'success';
+      		} else {
+        			respone[i].select = 'circle';
+      		}
+    		}
+    		if (all_count == respone.length) {
+    			$('#cheek_all').find('i').addClass('mui-icon-success').removeClass('mui-icon-circle');
+    		} else {
+    			$('#cheek_all').find('i').addClass('mui-icon-circle').removeClass('mui-icon-success');
+    		}
+    		var tmp_res = {"data": {"item_list": respone}};
+		var html = template('tpl_content', tmp_res);
+		$('#content').html(html);
+		count_price();
+	});
+	
+	// 计算价格
+	function count_price() {
+	    var sum = 0;
+	    for (var i = 0; i < respone.length; i++) {
+	      for (var j = 0; j < respone[i].cart_list.length; j++) {
+	        if (respone[i].cart_list[j].select == "success") {
+	          sum += parseFloat(respone[i].cart_list[j].buy_number) * parseFloat(respone[i].cart_list[j].sell_price);
+	        }
+	      }
+	    }
+	    $('#sum').html('<i>合计：</i><span>￥</span>' + sum);
+	}
+	
+	// 修改购买数量
+	mui('#content').on('tap', 'a[a_type]', function() {
+		var type = this.getAttribute('a_type');
+		var num = $(this).parent().find('input').val()
+		var cart_id = this.getAttribute('item_id');
+		if (type == 'add') {
+			if (num < 100) {
+		      num++;
+		      change_cart_buy_number(cart_id, num);
+		    } else {
+		      mui.toast('不能大于99件');
+		    }
+		} else if (type == 'cur') { 
+			if (num > 1) {
+		      num--;
+		      change_cart_buy_number(cart_id, num);
+		    } else {
+		      mui.toast('不能低于1件');
+		    }
+		}
+	});
+	
+	// 删除购物车
+	function delete_cart_product(ids) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_cart_product?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data:{
+				ids: ids
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					get_cart_list();
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}
+		});
+	}
+	
+	// 修改购买商品数量
+	function change_cart_buy_number(cart_id, buy_number) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/change_cart_buy_number?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data:{
+				buy_number: buy_number,
+				cart_id: cart_id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					for (var i = 0; i < respone.length; i++) {
+						for (var j = 0; j < respone[i].cart_list.length; j++) {
+							if (respone[i].cart_list[j].id == cart_id) {
+								respone[i].cart_list[j].buy_number = buy_number;
+								var tmp_res = {"data": {"item_list": respone}};
+								var html = template('tpl_content', tmp_res);
+								$('#content').html(html);
+								return;
+							}
+						}
+					}
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}
+		});
+	}
+
+	// 购物车列表
+	function get_cart_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_cart_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data:{},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					for (var i = 0; i < res.data.item_list.length; i++) {
+						res.data.item_list[i].select = "circle";
+						for (var j = 0; j < res.data.item_list[i].cart_list.length; j++) {
+							res.data.item_list[i].cart_list[j].select = 'circle';
+						}
+					}
+					respone = res.data.item_list;
+					var html = template('tpl_content', res);
+					$('#content').html(html);
+					
+					count_price();
+				} else {
+					mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}
+		});
+	}	
+</script>

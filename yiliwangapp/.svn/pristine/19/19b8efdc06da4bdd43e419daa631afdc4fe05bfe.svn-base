@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+	<title></title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<style type="text/css">
+	</style>
+	</head>
+	<body>
+	<header id="header" class="mui-bar mui-bar-nav top_bar">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">展示页面</h1>
+	</header>
+	<div class="mui-content">
+	</div>
+	</body>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">	
+	window.addEventListener('go_to_parameter',function (e) {
+		var url = e.detail.url;
+	    var ws = plus.webview.currentWebview();
+	    var embed = plus.webview.create(url, 'embed', {top:(immersed+44)+"px", bottom:"0"});
+	    ws.append(embed);
+	});
+	
+</script>
+</html>

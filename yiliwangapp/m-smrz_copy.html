@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">身份验证</h1>
+		</header>
+		<div class="mui-content no-bg identity-authentication-content mt30">
+		    <div class="shouji-validate">
+		    	<h5>请输入185*****8888收到的短信验证码</h5>
+		    	<div class="mui-input-row">
+		    		<label class="mui-pull-left">验证码</label>
+		    	    <input type="text" placeholder="请输入验证码">
+		    	    <label class="mui-pull-right" style="" id="code">重新获取(60s)</label>
+		    	</div>
+		    </div>
+		    <div class="pdlr20"><button onclick="next()" type="button" class="mui-btn mui-btn-red bg-color wrap-btn mui-btn-block">下一步</button></div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	function next() {
+		go_to_active("m-smrz2.html");
+	}
+</script>

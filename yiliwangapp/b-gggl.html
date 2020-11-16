@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+		<style type="text/css">
+			body{background:#fff;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar text-head">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">广告管理</h1>
+		    <a class="mui-pull-right" href="b-gggl-edit.html">编辑</a>
+		</header>
+		<div class="mui-content no-bg advertisement-management-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+			    <div class="substance">
+			    	<h5>首页轮播广告</h5>
+			    	<div>
+			    		<ul id="OA_task_1" class="mui-table-view">
+
+			    		</ul>
+			    		<script id="tpl_OA_task_1" type="text/html">
+			    			<%for (var i = 0, data = data.ad_store_list_1; i < data.length; i++) { %>
+				    			<li class="mui-table-view-cell">
+			    		            <div class="mui-slider-right mui-disabled">
+										<a ad_id="<%=data[i].id%>" class="mui-btn mui-btn-red bg-color">删除</a>
+									</div>
+									<div class="mui-slider-handle">
+										<img src="<%=data[i].path%>"/>
+									</div>
+			    		        </li>
+		    		        <%}%>
+			    		</script>
+			    	</div>
+			    </div>
+			    <div class="substance">
+			    	<h5>页面底部广告</h5>
+			    	<div>
+			    		<ul id="OA_task_2" class="mui-table-view">
+
+			    		</ul>
+			    		<script id="tpl_OA_task_2" type="text/html">
+			    			<%for (var i = 0, data = data.ad_store_list_2; i < data.length; i++) { %>
+			    		        <li class="mui-table-view-cell">
+			    		            <div class="mui-slider-right mui-disabled">
+										<a ad_id="<%=data[i].id%>" class="mui-btn mui-btn-red bg-color">删除</a>
+									</div>
+									<div class="mui-slider-handle">
+										<img src="<%=data[i].path%>" style="width:100%;"/>
+									</div>
+			    		        </li>
+			    		    <%}%>
+		    		   </script>
+			    	</div>
+			    </div>
+			</div>
+		</div>
+		<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell text-color">
+	            	<a href="#">拍照</a>
+	          	</li>
+	          	<li class="mui-table-view-cell">
+	            	<a href="#">我的相册</a>
+	        	</li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#sheet1">取消</a>
+				</li>
+	        </ul>
+    	</div>
+	</body>
+	
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false,
+	});
+
+	mui.init({
+		beforeback: function() {
+			if (mui.os.plus) {
+				var list = plus.webview.getWebviewById('b-gggl-add.html');
+        		mui.fire(list, 'change_add_ad_list');
+			}
+			return true;
+		}
+	});
+
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_view(id, {
+				item_id : "ok"
+			});
+		}
+	});
+
+	window.addEventListener('change_ad_list', function(e) {
+		get_seller_ad_list();
+	});
+
+	window.onload = function() {
+		get_seller_ad_list();
+	}
+
+	mui('#OA_task_1').on('tap', 'a', function() {
+		var ad_id = this.getAttribute("ad_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除该广告？', '提醒', btnArray, function(e) {
+			if (e.index == 0) {
+				delete_seller_ad(ad_id);
+			} else {
+				mui.toast("出现了一些小问题，稍后试试");
+			}
+		});
+	});
+
+	mui('#OA_task_2').on('tap', 'a', function() {
+		var ad_id = this.getAttribute("ad_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除该广告？', '提醒', btnArray, function(e) {
+			if (e.index == 0) {
+				delete_seller_ad(ad_id);
+			} else {
+				mui.toast("出现了一些小问题，稍后试试");
+			}
+		});
+	});
+
+	function delete_seller_ad(id) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/delete_seller_ad?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				ids : id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) { 
+				if (res.success) {
+					mui.toast("删除成功");
+					get_seller_ad_list();
+				} else {
+					mui.toast(res.message);
+				}
+			}
+		});
+	}
+
+	function get_seller_ad_list() {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_seller_ad_list?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					var html1 = template('tpl_OA_task_1', res);
+					$('#OA_task_1').html(html1);
+
+					var html2 = template('tpl_OA_task_2', res);
+					$('#OA_task_2').html(html2);
+				} else {
+					mui.toast(res.success);
+				}
+			}, error: error
+		});
+	}
+
+	// (function($) {
+	// 	$('#OA_task_1').on('tap', '.mui-btn', function(event) {
+	// 		var elem = this;
+	// 		var li = elem.parentNode.parentNode;
+	// 		mui.confirm('确认删除该条记录？', 'Hello MUI', btnArray, function(e) {
+	// 			if (e.index == 0) {
+	// 				li.parentNode.removeChild(li);
+	// 			} else {
+	// 				setTimeout(function() {
+	// 					$.swipeoutClose(li);
+	// 				}, 0);
+	// 			}
+	// 		});
+	// 	});
+	// 	var btnArray = ['确认', '取消'];
+	// 	$('#OA_task_2').on('tap', '.mui-btn', function(event) {
+	// 		var elem = this;
+	// 		var li = elem.parentNode.parentNode;
+	// 		mui.confirm('确认删除该条记录？', '提醒', btnArray, function(e) {
+	// 			if (e.index == 0) {
+	// 				li.parentNode.removeChild(li);
+	// 			} else {
+	// 				setTimeout(function() {
+	// 					$.swipeoutClose(li);
+	// 				}, 0);
+	// 			}
+	// 		});
+	// 	});
+	// 	var btnArray = ['确认', '取消'];
+	// })(mui);
+	</script>

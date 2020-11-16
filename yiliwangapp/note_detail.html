@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			.grey{border-color: #999999 !important;color: #999999 !important;}
+			.input_pop {background:#fff !important;bottom:0;height:50px;padding:5px 0 5px 10px;}
+			.input_pop input{width:80%;font-size:14px;margin-bottom:0;padding:5px 10px;height:32px;margin-top:4px;float:left;border:none;background:#f1f1f1;display:inline-block;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;}
+			.input_pop a{width:19%;text-align:center;float:right;line-height:40px;color:#1B9AF4;}
+			
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">心得详情</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper note_detail_list groups_view">
+			<div id="scroll" class="mui-scroll">
+				<ul id="note_info" class="list">
+					
+						<!--<div class="comment">
+							<p>共18条评论</p>
+							<div class="">
+								<img src="img/user.png"/>
+								<div>
+									<p class="name">YooyoYooyoYooyo</p>
+									<p><span class="iconfont-supplement icon-huiyuandengji"></span></p>
+								</div>
+								<div class="sub">
+									阿勒， 我第一个相应号召！太幸运了！阿勒， 我第一个相应号召！太幸运了！阿勒， 我第一个相应号召！太幸运了！阿勒， 我第一个相应号召！太幸运了！
+								</div>
+							</div>
+						</div>
+						<div class="add_comment">
+							+添加评论
+						</div>-->
+				</ul>
+				<script id="tpl_note_info" type="text/html">
+					<li>
+						<div class="user_info">
+							<img src="<%=data.item_info.user_path%>" alt="" />
+							<div>
+								<p class="name"><%=data.item_info.nickname%></p>
+								<p><span class="iconfont-supplement icon-dizhi"></span><%=data.item_info.location%></p>
+							</div>
+							<div class="btn_group">
+								<a href="javascript:void(0);">分享</a>
+								<%if(data.user_id!=data.item_info.user_id){%>
+								<a class="active <%if(data.item_info.is_follow != '0'){%>grey<%}%>"action="fnFollow" href="javascript:void(0);"><%if(data.item_info.is_follow != '0'){%>已关注<%}else{%>关注<%}%></a>
+								<%}%>
+							</div>
+						</div>
+						<div class="content_txt">
+							<div id="slider2" class="mui-slider" >
+							  	<div class="mui-slider-group mui-slider-loop">
+								    <div class="mui-slider-item mui-slider-item-duplicate">
+										<img src="<%=data.item_info.attachment_list[data.item_info.attachment_list.length-1].path%>">
+									</div>
+									<%for (var i = 0, image = data.item_info.attachment_list; i < image.length; i++) {%>
+										<div class="mui-slider-item">
+											<img src="<%=image[i].path%>" data-preview-src="<%=image[i].path%>" data-preview-group="1">
+										</div>
+									<%}%>
+									<div class="mui-slider-item mui-slider-item-duplicate">
+										<img src="<%=data.item_info.attachment_list[0].path%>">
+									</div>
+							  	</div>
+					  			<div class="mumber mui-slider-indicator">1/6</div>
+							</div>
+							<div class="classly_name blue">
+								<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+								<%=data.item_info.topic_name%>
+							</div>
+							<div class="txt">
+								<div class="active">
+									<%=data.item_info.content%>
+								</div>
+								<p>2018-11-11</p>
+								<a class="show" href="javascript:void(0);">展开</a>
+								<a class="hide active" href="javascript:void(0);">隐藏</a>
+							</div>
+							<div class="btn_group">
+								<a href="javascript:void(0);">
+									<span class="iconfont-supplement icon-share"></span>
+									分享(<%=data.item_info.share_num%>)
+								</a>
+								<a href="javascript:void(0);" action="fnFavorite">
+									<span class="iconfont-supplement icon-tuanduicankaoxian <%if(data.item_info.is_favorite != '0'){%>active<%}%>"></span>
+									收藏(<%=data.item_info.favorite_num%>)
+								</a>
+								<a href="javascript:void(0);" action="fnLikes">
+									<span class="iconfont-supplement icon-xin <%if(data.item_info.is_likes != '0'){%>active<%}%>"></span>
+									点赞(<%=data.item_info.likes_num%>)
+								</a>
+							</div>
+						</div>
+					</li>
+				</script>
+				<div class="discuss_list">
+					<div class="card_header mui-clearfix">
+						<h5 class="h5">当前参与<span>50人</span></h5>
+						<div id="add_comment" class="add_comment">
+							+添加评论
+						</div>
+					</div>
+					<ul id="comment_list" class="comment_box">
+						
+					</ul>
+					<script id="tpl_comment_list" type="text/html">
+						<%for(var i=0;i<item_list.length;i++){%>
+						<li item_id="<%=item_list[i].id%>" class="mui-clearfix">
+							<img src="<%=item_list[i].user_path%>"/>
+							<div class="reply">
+								<div class="user_info">
+									<p class="name">
+										<%=item_list[i].user_nickname%>
+										<span><i class="iconfont-supplement icon-huiyuandengji"></i>LV.8</span>
+									</p>
+									<p class="times"><%=item_list[i].add_time_format%></p>
+									<a item_id="<%=item_list[i].id%>" reply_type="0" href="javascript:void(0);">回复</a>
+								</div>
+								<div class="sub mui-col-xs-12">
+									<%if(item_list[i].content!=''){%>
+										<%=item_list[i].content%>
+									<%}else{%>
+										该信息已删除
+									<%}%>
+								</div>
+								<div class="comment">
+									<%for(var j=0,reply_comment_list=item_list[i].reply_comment_list;j<reply_comment_list.length;j++){%>
+									<div class="list">
+										<div class="comment_user_info mui-clearfix">
+											<img src="<%=reply_comment_list[j].user_path%>"/>
+											<div class="mui-pull-left">
+												<p class="name"><%=reply_comment_list[j].user_nickname%></p>
+												<p class="times"><%=reply_comment_list[j].add_time_format%></p>
+											</div>
+											<a item_id="<%=reply_comment_list[j].id%>" reply_type="1" href="javascript:void(0);">回复</a>
+										</div>
+										<div class="sub mui-col-xs-12">
+											<font>回复　</font><span>@<%=reply_comment_list[j].to_user_nickname%>：</span>
+											<%if(reply_comment_list[j].content!=''){%>
+												<%=reply_comment_list[j].content%>
+											<%}else{%>
+												该信息已删除
+											<%}%>
+										</div>
+									</div>
+									<%}%>
+								</div>
+							</div>
+						</li>
+						<%}%>
+					</script>
+					<script id="tpl_comment_add" type="text/html">
+						<li item_id="<%=data.id%>" class="mui-clearfix">
+							<img src="<%=data.user_path%>"/>
+							<div class="reply">
+								<div class="user_info">
+									<p class="name">
+										<%=data.user_nickname%>
+										<span><i class="iconfont-supplement icon-huiyuandengji"></i>LV.8</span>
+									</p>
+									<p class="times"><%=data.add_time_format%></p>
+									<a item_id="<%=data.id%>" reply_type="0" href="javascript:void(0);">回复</a>
+								</div>
+								<div class="sub mui-col-xs-12">
+									<%=data.content%>
+								</div>
+								<div class="comment">
+									
+								</div>
+							</div>
+						</li>
+					</script>
+					<script id="tpl_reply_add" type="text/html">
+						<div class="list">
+							<div class="comment_user_info mui-clearfix">
+								<img src="<%=data.user_path%>"/>
+								<div class="mui-pull-left">
+									<p class="name"><%=data.user_nickname%></p>
+									<p class="times"><%=data.add_time_format%></p>
+								</div>
+								<a item_id="<%=data.id%>" reply_type="1" href="javascript:void(0);">回复</a>
+							</div>
+							<div class="sub mui-col-xs-12">
+								<font>回复　</font><span>@<%=data.to_user_nickname%>：</span><%=data.content%>
+							</div>
+						</div>
+					</script>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div id="send_box" class="mui-popover mui-popover-bottom mui-popover-action input_pop">
+		    <input id="inputText" type="text" name="" value="" />
+		    <a id="send_out" href="javascript:void(0);">发送</a>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-popover').css('position','absolute');
+			$('.mui-backdrop').css('position','absolute');
+			
+		}
+	});
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+			$('.mui-popover').css('position','fixed');
+			$('.mui-backdrop').css('position','fixed');
+		}
+	});
+
+	
+	
+	function afterload(){
+		mui('.content_txt').on('tap','a',function(){
+			$(this).addClass('active').siblings('a').removeClass('active');
+			if($(this).hasClass('active')&&$(this).hasClass('show')){
+				$(this).siblings('div').removeClass('active');
+			}else if($(this).hasClass('active')&&$(this).hasClass('hide')){
+				$(this).siblings('div').addClass('active');
+			}
+		});
+		mui('.mui-slider').slider({
+			interval:3000
+		});
+		if (respon.data.item_info.attachment_list.length>0) {
+		console.log('11')
+			$("#slider2 .mumber").html(mui("#slider2").slider().getSlideNumber()+1  +'/'+($("#slider2 .mui-slider-group").children().length-2));
+			document.getElementById('slider2').addEventListener('slide', function(event) {
+			  //注意slideNumber是从0开始的；
+			  $("#slider2 .mumber").html(mui("#slider2").slider().getSlideNumber()+1+'/'+($("#slider2 .mui-slider-group").children().length-2));
+			});
+		}
+		
+		mui('.btn_group').on('tap','a[action]',function(){
+			action=this.getAttribute('action');
+			console.log(action)
+			if (action=='fnLikes') {
+				fnLikes()
+			} else if(action=='fnFavorite'){
+				fnFavorite()
+			}else{
+				fnFollow()
+			}
+		})
+	}
+	var item_id='';
+	var page=1;
+	var respon='';
+	document.addEventListener('go_to_parameter',function(e){
+		item_id=e.detail.item_id
+		get_notes_detail()
+	});
+	
+	function get_notes_detail() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_notes_detail/'+item_id+'?sid='+localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					
+					var html = template('tpl_note_info', res);
+					$('#note_info').html(html);
+					respon=res;
+					respon.data.item_list= res.data.comment_list
+					var html3 = template('tpl_comment_list', respon.data);
+					$('#comment_list').html(html3);
+					$('.discuss_list h5.h5 span').html(res.data.item_info.comment_count+'人')
+					if(res.data.item_info.is_next_comment==1 && localStorage.getItem('global_sid')!='undefined') {
+						page=page+1;
+						console.log(page)
+						self.endPullUpToRefresh(false);
+						self.refresh(true);
+					} else {
+						self.endPullUpToRefresh(true);
+					}
+//					var html1 = template('tpl_group_purchase1', res);
+//					var html2 = template('tpl_group_purchase2', res);
+					console.log(JSON.stringify(res))
+					
+				} else {
+					mui.toast(res.message);
+				}
+				afterload();
+			},
+			error: error
+		});
+	}
+	
+	mui('.mui-scroll-wrapper').scroll();
+	var self = mui('#scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		get_gp_comment_list('up',item_id);
+	}
+	
+	function get_gp_comment_list(type,id) {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_gp_comment_list/'+id+'/1/0/0/10/' + page +'?sid='+ localStorage.getItem('global_sid');
+		console.log(url)
+		mui.ajax(url, {
+			data: {
+				
+			},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+//				console.log('ceshi'+JSON.stringify(res))
+				if (res.success) {
+					var html = template('tpl_comment_list', res.data);
+					if (type == 'up') {
+						var size = $("#comment_list li").size();
+						if (size > 0) {
+								$("#comment_list li:last").after(html);
+						} else {
+							$('#comment_list').html(html);
+						}
+						if(res.data.is_next_page !=0) {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+							self.endPullUpToRefresh(true);
+						}
+			 		} 
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	//发布/回复
+  	var content='';
+  	var reply_type='';
+  	var comment_id='';
+  	document.getElementById('add_comment').addEventListener('tap',function(){
+  		reply_type=-1
+  		mui('#send_box').popover('show')
+  	});
+  	mui('#comment_list').on('tap','a[reply_type]',function(){
+  		reply_type=$(this).attr('reply_type');
+  		comment_id=$(this).attr('item_id');
+  		mui('#send_box').popover('show')
+  		
+  	});
+  	document.getElementById('send_out').addEventListener('tap',function(){
+//		console.log(reply_type)
+		content=$('#inputText').val();
+		if (reply_type==-1) {
+			add_comment()
+		} else{
+			reply_comment()
+		}
+	});
+	
+	function add_comment() {
+		
+		if(content==''){
+			mui.toast('发送内容不能为空')
+			return
+		}
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/add_comment/?sid='+ localStorage.getItem('global_sid');
+      	mui.ajax(url, {
+	        data: {
+	          	item_id: item_id,
+	          	item_type: 1,
+	          	content:content
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+//	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		$('#inputText').val('');
+	          		var html = template('tpl_comment_add', res);
+					var size = $("#comment_list li").size();
+					if (size > 0) {
+						$("#comment_list li:first").before(html);
+					} else {
+						$('#comment_list').html(html);
+					}
+					
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+	
+	function reply_comment() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/reply_comment/?sid='+ localStorage.getItem('global_sid');
+      	mui.ajax(url, {
+	        data: {
+	          	comment_id: comment_id,
+	          	reply_type:reply_type,
+	          	content:content,
+	          	item_id: item_id,
+	          	item_type:1
+	          	
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+//	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		$('#inputText').val('');
+	          		var html = template('tpl_reply_add', res);
+					var size = $("#comment_list li[item_id="+res.data.comment_id+"] .comment").size();
+					console.log(size)
+					if (size > 0) {
+						$("#comment_list li[item_id="+res.data.comment_id+"] .comment .list:first").before(html);
+					} else {
+						$("#comment_list li[item_id="+res.data.comment_id+"] .comment").html(html);
+					}
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+	
+	
+	
+	
+	
+	
+	
+	//点赞-取消点赞
+  	function fnLikes() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/save_likes/?sid='+ localStorage.getItem('global_sid');
+  		console.log(item_id)
+      	mui.ajax(url, {
+	        data: {
+	          	type: 'notes',
+	          	item_id: item_id
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+//	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		var action = res.data.action;
+	          		console.log()
+				    var likes_number = respon.data.item_info.likes_num;
+				    var html='';
+	          		if(action == 'add'){
+				        likes_number++;
+				        respon.data.item_info.likes_num=likes_number
+				        html='<span class="iconfont-supplement icon-xin active"></span>点赞('+likes_number+')';
+				    }else if(action == 'delete'){
+				        likes_number--;
+				        respon.data.item_info.likes_num=likes_number
+				        html='<span class="iconfont-supplement icon-xin"></span>点赞('+likes_number+')';
+				    }
+				    $('a[action="fnLikes"]').html(html);
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+  //收藏-取消收藏 
+    function fnFavorite() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/save_favorite/?sid='+ localStorage.getItem('global_sid');
+      	mui.ajax(url, {
+	        data: {
+	          	type: 'notes',
+	          	item_id: item_id
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+//	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		var action = res.data.action;
+	          		var favorite_number = respon.data.item_info.favorite_num;
+	          		 var html='';
+	          		if(action == 'add'){
+				        favorite_number++;
+				        respon.data.item_info.favorite_num=favorite_number
+				        html='<span class="iconfont-supplement icon-tuanduicankaoxian active"></span>收藏('+favorite_number+')';
+				    }else if(action == 'delete'){
+				        favorite_number--;
+				        respon.data.item_info.favorite_num=favorite_number
+				        html='<span class="iconfont-supplement icon-tuanduicankaoxian"></span>收藏('+favorite_number+')';
+				    }
+				    $('a[action="fnFavorite"]').html(html);
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+    
+    //关注-取消关注
+  	function fnFollow() {
+		if (!is_network(false)) {return;}
+  		url = base_url + 'napi/save_follow/?sid='+ localStorage.getItem('global_sid');
+  		console.log(item_id)
+      	mui.ajax(url, {
+	        data: {
+	          	user_id: respon.data.item_info.user_id
+	        },
+	        type: "post",
+			dataType: "json",
+			timeout: 10000,
+	        success: function (res) {
+//	        	console.log(JSON.stringify(res))
+	          	if (res.success) {
+	          		var action = res.data.action;
+	          		console.log()
+				    var html='';
+	          		if(action == 'add'){
+				        html='已关注';
+				        $('a[action="fnFollow"]').addClass('grey');
+				    }else if(action == 'delete'){
+				        html='关注';
+				        $('a[action="fnFollow"]').removeClass('grey');
+				    }
+				    $('a[action="fnFollow"]').html(html);
+	          	} else {
+					mui.toast(res.message);
+				}
+	        },
+			error: error
+      	});
+    }
+</script>

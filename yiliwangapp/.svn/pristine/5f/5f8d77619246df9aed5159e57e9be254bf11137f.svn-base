@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的余额</h1>
+        <a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+    <div id="balance" class="mui-content my-balance-content">
+
+    </div>
+    <script id="tpl_balance" type="text/html">
+        <div>
+            <p>可用余额</p>
+            <span class="text-color">￥<%=data.total%></span>
+        </div>
+    </script>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    mui('#header').on('tap', 'a', function() {
+        var id = this.getAttribute('href');
+        if (id == 'm-wdxx.html') {
+            go_to_view(id, {
+                item_id : "ok"
+            });
+        }
+    });
+
+    mui.plusReady(function() {
+        get_financial_list(0, 10, 10, 1);
+    });
+	window.addEventListener('page_init',function(){
+        get_financial_list(0, 10, 10, 1);
+	})
+    function get_financial_list(max_id, since_id, per_page, page) {
+		if (!is_network(false)) {return;}
+    	
+        var url = base_url + 'napi/get_financial_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {},
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            success: function(res) {
+                // mui.alert(JSON.stringify(res));
+                if (res.success) {
+                    var details_html = template('tpl_balance', res);
+                    $('#balance').html(details_html);
+                }
+            }
+        })
+    }
+</script>

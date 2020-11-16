@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.min.css">
+    <link rel="stylesheet" type="text/css" href="css/base.min.css">
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css">
+    <style type="text/css">
+        .mui-bar~.mui-content .mui-fullscreen {
+                top: 44px;
+                height: auto;
+            }
+            .mui-pull-top-tips {
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                margin-left: -25px;
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                z-index: 9;
+            }
+            .mui-bar~.mui-pull-top-tips {
+                top: 24px;
+            }
+            .mui-pull-top-wrapper {
+                width: 42px;
+                height: 42px;
+                display: block;
+                text-align: center;
+                background-color: #efeff4;
+                border: 1px solid #ddd;
+                border-radius: 25px;
+                background-clip: padding-box;
+                box-shadow: 0 4px 10px #bbb;
+                overflow: hidden;
+            }
+            .mui-pull-top-tips.mui-transitioning {
+                -webkit-transition-duration: 200ms;
+                transition-duration: 200ms;
+            }
+            .mui-pull-top-tips .mui-pull-loading {
+                margin: 0;
+            }
+            .mui-pull-top-wrapper .mui-icon,
+            .mui-pull-top-wrapper .mui-spinner {
+                margin-top: 7px;
+            }
+            .mui-pull-bottom-tips {
+                text-align: center;
+                background-color: #efeff4;
+                font-size: 15px;
+                line-height: 40px;
+                color: #777;
+            }
+            .mui-pull-top-canvas {
+                overflow: hidden;
+                background-color: #fafafa;
+                border-radius: 40px;
+                box-shadow: 0 4px 10px #bbb;
+                width: 40px;
+                height: 40px;
+                margin: 0 auto;
+            }
+            .mui-pull-top-canvas canvas {
+                width: 40px;
+            }
+            .m-order-tab a{position: relative;}
+            .m-order-tab a.mui-control-item i{color: #F0F0F0;position:absolute;top:2px;font-size:12px;background:#F02D8C;display:block;border-radius:100%;line-height:1em;padding:2px 4px;right:0px;}
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav my-order-head header">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的订单</h1>
+        <!--<a id="message" href="javascript:;" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>-->
+    </header>
+    <div class="navbar page-section-spacing">
+	    <span status="all" class="item">全部</span>
+	    <span status="a" class="item">待付款</span>
+	    <span status="b" class="item">待发货</span>
+	    <span status="c" class="item">待收货</span>
+	    <span status="d" class="item">待评价</span>
+	</div>
+	<div class="mui-content after-delivery-content mui-scroll-wrapper">
+		<div id="pullrefresh" class="mui-scroll">
+			<ul id="content" class="mui-table-view">
+				
+			</ul>
+		</div>
+	</div>
+	<script id="tpl_content" type="text/html">
+		<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+        <li id="list_item_<%=data[i].id%>" class="mui-table-view-cell">
+            <div class="box1"><h4 store_id="<%=data[i].store_id%>" class="mui-pull-left"><i class="iconfont icon-dianpu2"></i><%=data[i].store_name%></h4><h5 class="text-color mui-pull-right"><%=#data[i].status_format%><i class="iconfont icon-32pxlajitong notdelete"></i></h5></div>
+            <%for (var j = 0, data_info = data[i].orderdetailList; j < data_info.length; j++) {%>
+                <div order_id="<%=data[i].id%>" class="box2">
+                    <img src="<%=data_info[j].path_thumb%>" />
+                    <div class="product_text">
+                        <h5>
+                        		<p class="mui-ellipsis-2 tit"><%=data_info[j].product_title%></p>
+                        		<span class="mui-pull-right">¥<%=data_info[j].buy_price%></span>
+                        </h5>
+                        <h6>
+                        <%if (data_info[j].color_size_open != '0') {%>
+                            <span><%=data_info[j].product_color_name%>：<%=data_info[j].color_name%>
+                            <%=data_info[j].product_size_name%>：<%=data_info[j].size_name%></span>
+                        <%}%>  
+                        <em>x<%=data_info[j].buy_number%></em>
+                        </h6>
+                    </div>
+                </div>
+            <%}%>
+            <div  class="box3">共<%=data[i].orderdetailList[0].buy_number%>件商品　付款：<p class="text-color">￥<%=(data[i].total)%><span></span></p></div>
+            <%if (data[i].status == 0) {%>
+            		<div  class="box4">
+            			<button item_id="<%=data[i].id%>" total="<%=data[i].total%>" prv_id="m-order-list.html" order_num="<%=data[i].order_num%>" btn_type="pay" type="button" class="mui-btn mui-btn-red mui-btn-outlined">去支付</button>
+            			<!--<button item_id="<%=data[i].id%>" btn_type="cancel" type="button" class="mui-btn mui-btn-grey mui-btn-outlined">取消订单</button>-->
+            		</div>
+            <%} else if (data[i].status == 1) {%>
+                <div  class="box4">
+                	<!--<button item_id="<%=data[i].id%>" btn_type="remindGoods" type="button"< class="mui-btn mui-btn-red mui-btn-outlined">提醒发货/button>-->
+                </div>
+            <%} else if (data[i].status == 2) {%>
+                <div  class="box4">
+                	<button item_id="<%=data[i].id%>" btn_type="confirmGoods" type="button" class="mui-btn mui-btn-red mui-btn-outlined">确认收货</button>
+                </div>
+            <%} else if (data[i].status == 3) {%>
+            	<%if (data[i].is_comment_to_seller == 0) {%>
+        		<div class="box4">
+                	<!--<button item_id="<%=data[i].id%>" btn_type="confirmGoods" type="button" class="mui-btn mui-btn-red mui-btn-outlined">再次购买</button>-->
+                
+        			<button item_id="<%=data[i].id%>" btn_type="evaluate" type="button" class="mui-btn mui-btn-red mui-btn-outlined">评价晒单</button>
+        		
+        		</div>
+        		<%}%>
+            <%}else if(data[i].status == 4){%>
+            	<!--<div  class="box4">
+                	<button item_id="<%=data[i].id%>" btn_type="confirmGoods" type="button" class="mui-btn mui-btn-red mui-btn-outlined">再次购买</button>
+                </div>-->
+            <%}%>
+        </li>
+        <%}%>
+    </script>
+	<input type="hidden" id="max_id" value="0" />
+	<input type="hidden" id="since_id" value="0" />
+	<input type="hidden" id="per_page" value="10" />
+	<input type="hidden" id="page" value="1" />
+	<input type="hidden" id="status" value="all" /> 
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.navbar{top: ' + (immersed + 44) + 'px !important;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var respone = new Object();
+	
+    window.addEventListener('go_to_parameter', function(e) {
+    		$('#status').val(e.detail.status);
+    		$('.navbar span[status='+e.detail.status+']').addClass('active').siblings().removeClass('active');
+        init();
+    });
+
+//	document.getElementById('message').addEventListener('tap', function() {
+//      go_to_active("m-wdxx.html");
+//  });
+
+	window.addEventListener('back', function(msg) {
+		init();
+	});
+	window.addEventListener('refresh_data', function() {
+		init();
+	});
+	window.addEventListener('pay_success_refrsh_list', function(e) {
+		init();
+	});
+	
+	function init() {
+	    	$('#max_id').val('0');
+	    	$('#since_id').val('0');
+	    	$('#page').val('1');
+	    	var per_page = $('#per_page').val();
+	    	var status = $('#status').val();
+	    	get_order_list(0, status, 0, 0, per_page, 1);
+    }
+	
+	// 点击事件
+    mui('#content').on('tap', 'button[item_id]', function() {
+    		var order_id = this.getAttribute("item_id");
+        var btn_type = this.getAttribute("btn_type");
+        if (btn_type == 'pay') { // 支付
+    		var total = this.getAttribute("total");
+    		var prv_id = this.getAttribute("prv_id");
+    		var order_num = this.getAttribute("order_num");
+        	go_to_view("cart-pay.html", {
+    			item_id: order_id,total:total,prv_id:prv_id,order_num:order_num
+    		});
+        } else if (btn_type == 'press') { // 催单
+            mui.toast("已通知商家");
+        } else if (btn_type == 'confirmGoods') { // 确认收货
+            var msg = '你确认已收到货？没有收到货不要进行此操作。';
+            var btnArr = ['取消', '确认'];
+            mui.confirm(msg, '提示:', btnArr, function(e) {
+                if (e.index == 1) {
+                    order_receipt(order_id);
+              	}
+            });
+        } else if (btn_type == 'evaluate') { // 评价
+            go_to_view("m-order-pjsd.html", {
+                item_id: order_id
+            });
+        }
+    });
+    
+    // 确认收货
+    function order_receipt(id) {
+        if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/order_receipt?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				order_id: id
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+                    for (var i = 0; i < respone.length; i++) {
+                    		if (id == respone[i].id) {
+                    			respone.splice(i, 1);
+							$('#list_item_' + id).remove();
+							break;
+                    		}
+                    }
+                    	if (!respone.length) {
+                    		var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                        no_data_html += '<div id="no_data" class="mo_data">暂无数据，点击刷新</div>';
+                        no_data_html += '</div>';
+                        $('#content').html(no_data_html);
+                    }
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			},
+			error: error
+ 		});
+	}
+
+	var self = mui('#pullrefresh').pullToRefresh({
+        down: {
+            callback: function() {
+                pulldownRefresh(this);
+            }
+        },
+        up: {
+            callback: function() {
+                pullupRefresh(this);
+            }
+        }
+  });
+
+    function pulldownRefresh(obj) {
+	    	var since_id = $('#since_id').val();
+	    	var status = $('#status').val();
+	    	get_order_list('down', status, 0, since_id, 100, 1);
+    }
+
+    function pullupRefresh(obj) {
+	    	var max_id = $('#max_id').val();
+	    	var per_page = $('#per_page').val();
+	    	var page = $('#page').val();
+	    	var status = $('#status').val();
+	    	get_order_list('up', status, max_id, 0, per_page, page);
+    }
+
+	function get_order_list(type, status, max_id, since_id, per_page, page) {
+        if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_order_list/' + status + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page + ' ?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log(JSON.stringify(res.data))
+                    var html = template('tpl_content', res);
+                    if (type == 'down') {
+                    		if (res.data.item_list.length > 0) {
+							mui.toast('更新了'+res.data.item_list.length+'条数据');
+							$('#since_id').val(res.data.max_id);
+							var size = $("#content li[id]").size();
+							if (size > 0) {
+								$("#content li[id]:first").before(html);
+							} else {
+								$('#content').html(html);
+							}
+						} else {
+							mui.toast('没有新的订单');
+						}
+						self.endPullDownToRefresh();
+						if(res.data.item_list.length > 0) {
+							respone = respone.concat(res.data.item_list);
+						}
+                    } else if (type == 'up') {
+                    		var size = $("#content li[id]").size();
+						if (size > 0) {
+							$("#content li[id]:last").after(html);
+						} else {
+							$('#content').html(html);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+						if(res.data.item_list.length > 0) {
+							respone = respone.concat(res.data.item_list);
+						}
+                    } else {
+                        respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#content').html(html);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+                        if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="mo_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content').html(no_data_html);
+                        }
+                    }
+				} else {
+					mui.toast(res.message);
+					if(res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			},
+			error: error
+ 		});
+	}
+
+	// 订单切换
+    mui('.navbar').on('tap', 'span[status]', function() {
+	    	$(this).addClass('active').siblings().removeClass('active');
+	    	$('#max_id').val('0');
+	    	$('#since_id').val('0');
+	    	$('#page').val('1');
+	    	var per_page = $('#per_page').val();
+	    	var status = this.getAttribute('status');
+	    	$('#status').val(status);
+	    	get_order_list(0, status, 0, 0, per_page, 1);
+    });
+
+    // 订单详情
+    mui('#content').on('tap', 'div[order_id]', function() {
+        var order_id = this.getAttribute("order_id");
+        var data_info = this.getAttribute("data_info");
+        if (order_id) {
+            go_to_view("m-order-view.html", {item_id : order_id});
+        }
+    });
+</script>

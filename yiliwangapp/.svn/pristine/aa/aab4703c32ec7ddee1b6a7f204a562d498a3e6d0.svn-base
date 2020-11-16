@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    <style type="text/css">
+    	textarea{width:calc(100% - 65px);}
+    	.mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{font-size:24px;}
+    	.mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio] {left: 8px;top:50%; transform:translateY(-50%);-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);}
+    	.mui-input-row {clear: none;}
+    	.mui-checkbox.mui-left label, .mui-radio.mui-left label {padding-right: 10px;padding-left: 38px;line-height:21px;}
+    	.star .mui-table-view-cell:after{height:0;}
+    </style>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">评价晒单</h1>
+        <a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+    <div class="bottom-bar">
+    	<button type="button" class="mui-btn mui-btn-red mui-pull-right">发表评价</button>
+    </div>
+    <div class="mui-content no-bg evaluate-order-content mui-scroll-wrapper">
+    	<div class="mui-scroll">
+    		<div>
+		    	<ul class="mui-table-view" style="margin-top:0;">
+			        <li class="mui-table-view-cell">
+			            <img src="img/pictrue1.png"/>
+			            <textarea id="textarea" type="text" placeholder="亲！写下您的购买体会和使用感受吧~" onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';"></textarea>
+			        </li>
+			        <li class="mui-table-view-cell picture">
+			        	<div>
+					        <a href="#photograph" class="iconfont icon-xiangji"></a>
+					        <img src="img/pictrue1.png"/>
+			        	</div>
+					</li>
+					<li class="mui-clearfix">
+						<div class="mui-input-row mui-radio mui-left mui-pull-left">
+						    <label><img src="img/flower1.png"/></label>
+						    <input name="radio" type="radio" checked>
+						</div>
+						<div class="mui-input-row mui-radio mui-left mui-pull-left">
+						    <label><img src="img/flower2.png"/></label>
+						    <input name="radio" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left mui-pull-left">
+						    <label><img src="img/flower3.png"/></label>
+						    <input name="radio" type="radio">
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left checkbox mui-pull-right">
+							<input name="checkbox1" type="checkbox" checked>
+							<label>匿名评价</label>
+				    	</div>
+					</li>
+			    </ul>
+			    
+		    </div>
+	    	<ul class="mui-table-view star">
+		        <li class="mui-table-view-cell">
+		       		店铺评分
+		        </li>
+		        
+		        <li class="mui-table-view-cell">
+				 	<div class="mui-input-row">
+			            <label>描述相符</label>
+			            <div class="text-color icons">
+			            	<i data-index="1" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="2" class="iconfont icon-wujiaoxing2"></i>
+			            	<i data-index="3" class="iconfont icon-wujiaoxing2"></i>
+			            	<i data-index="4" class="iconfont icon-wujiaoxing2"></i>
+			            	<i data-index="5" class="iconfont icon-wujiaoxing2"></i>
+			            </div>
+			        </div>
+		        </li>
+		        <li class="mui-table-view-cell">
+		            <div class="mui-input-row">
+			            <label>物流服务</label>
+			            <div class="text-color icons">
+			            	<i data-index="1" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="2" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="3" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="4" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="5" class="iconfont icon-wujiaoxing"></i>
+			            </div>
+			        </div>
+		        </li>
+		        <li class="mui-table-view-cell">
+		            <div class="mui-input-row">
+			            <label>服务态度</label>
+			            <div class="text-color icons">
+			            	<i data-index="1" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="2" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="3" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="4" class="iconfont icon-wujiaoxing"></i>
+			            	<i data-index="5" class="iconfont icon-wujiaoxing"></i>
+			            </div>
+			        </div>
+			        
+		        </li>
+		    </ul> 
+	    </div>
+    </div>
+
+	<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	    <!-- 可选择菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="#">拍照</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a href="#">从相册中选择</a>
+			</li>
+	    </ul>
+	    <!-- 取消菜单 -->
+	    <ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="">取消</a>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('.mui-scroll-wrapper').scroll();
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id == 'm-wdxx.html') {
+			go_to_view(id, {
+				item_id : "ok"
+			});
+		}
+	});
+	
+	// 评价晒单
+	function order_comment_save() {
+		var url = base_url + 'napi/order_comment_save/$order_id?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				des_grade : des_grade,
+				express_grade : express_grade,
+				serve_grade : serve_grade
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				go_to_active('m-order-pjcg.html');
+			},
+			error: error
+		});
+
+	}
+	(function() {
+		var starIndex = 0;
+		
+		mui('.icons').on('tap','i',function() {
+	  		var index = parseInt(this.getAttribute("data-index"));
+	  		var parent = this.parentNode;
+	  		var children = parent.children;
+		  	if (this.classList.contains("icon-wujiaoxing2")) {
+		  		for (var i = 0; i < index; i++) {
+					children[i].classList.remove('icon-wujiaoxing2');
+					children[i].classList.add('icon-wujiaoxing');
+		  		}
+		  	} else {
+		  		for (var i = index; i < 5; i++) {
+		  			children[i].classList.add('icon-wujiaoxing2');
+		  			children[i].classList.remove('icon-wujiaoxing');
+		  		}
+		  	}
+		  	starIndex = index;
+		});
+	})();
+
+	mui('.bottom-bar').on('tap', 'button', function() {
+		order_comment_save();
+	});
+</script>

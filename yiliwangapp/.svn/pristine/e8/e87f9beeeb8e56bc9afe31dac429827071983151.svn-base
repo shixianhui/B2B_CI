@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">发布商品</h1>
+		</header>
+		<div class="deliver-commodity-button">
+			<button onclick="publish_product()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">立即发布</button>
+		</div>
+		<div class="mui-content no-bg deliver-commodity-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+			   	<div class="picture">
+			   		<a href="#photograph"><i class="iconfont-supplement icon-xiangji"></i></a>
+			   	</div>
+			   	<ul id="product_sort" class="mui-table-view">
+		   	        <li class="mui-table-view-cell">
+		   	            <textarea id="title" name="" rows="" cols="" placeholder="请输入商品标题" maxlength="30"></textarea>
+		   	            <span>0/30</span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	            <a a_type="product_sort" class="mui-navigate-right">
+							商品分类<span class="mui-pull-right"></span>
+		   	            </a>
+		   	        </li> 
+		   	        <li class="mui-table-view-cell">
+		   	        	<a a_type="store_sort" class="mui-navigate-right">
+							本店分类<span class="mui-pull-right"></span>
+		   	            </a>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	        	<a a_type="style" class="mui-navigate-right">
+							风格<span class="mui-pull-right"></span>
+		   	            </a>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	        	<a a_type="material" class="mui-navigate-right">
+							材质<span class="mui-pull-right"></span>
+		   	            </a>
+		   	        </li>
+		   	    </ul>
+			   	<ul class="mui-table-view spent-amount">
+		   	        <li class="mui-table-view-cell">
+		   	         	 品牌<span class="mui-pull-right"><input type="text" name="" id="brand_name" value="" /></span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	           	 价格<span class="mui-pull-right"><input type="number" name="" id="sell_price" value="" />￥</span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	         	  数量<span class="mui-pull-right"><input type="number" name="" id="stock" value="" /></span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	         	  运费<span class="mui-pull-right"><input type="number" name="" id="freight" value="" />￥</span>
+		   	        </li>
+			   	    </ul>
+			   	<ul class="mui-table-view">
+		   	        <li class="mui-table-view-cell">
+		   	            <a href="b-spms.html" class="mui-navigate-right">
+		   	               	 商品描述
+		   	            </a>
+		   	        </li>
+		   	    </ul>
+			</div>
+		</div>
+
+		<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell text-color">
+	            	<a onclick="getImage()" href="javascript:void(0);">拍照</a>
+	          	</li>
+	          	<li class="mui-table-view-cell">
+					<a onclick="chooseImgFromAlbums()" href="javascript:void(0);">我的相册</a>
+	          	</li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+	          	<li class="mui-table-view-cell">
+	            	<a href="#photograph">取消</a>
+	          	</li>
+	        </ul>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+
+	var content = '';
+	var path_url = '';
+	var product_sort_id = '';
+	var store_sort_id = '';
+	var style_name = '';
+	var material_name = '';
+
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		var a_type = this.getAttribute('a_type');
+		var item_id = 'product';
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		} else {
+			var url = '';
+			if (a_type == 'store_sort') {
+				item_id = 'store';
+				url = "b-flgl.html";
+			} else if (a_type == 'product_sort') {
+				item_id = 'product';
+				url = "b-flgl.html";
+			} else if (a_type == 'style') {
+				item_id = 'style';
+				url = "b-spgl-choose.html";
+			} else if (a_type == 'mar') {} {
+				item_id = 'material';
+				url = "b-spgl-choose.html";
+			}
+			go_to_view(url, {
+				item_id : item_id
+			});
+		}
+	});
+
+	window.addEventListener('save_content', function(e) {
+		content = e.detail.id;
+	});
+
+	window.addEventListener('choose_product_sort', function(e) {
+		product_sort_id = e.detail.item_id;
+	});
+
+	window.addEventListener('choose_store_sort', function(e) {
+		store_sort_id = e.detail.item_id;
+	});
+
+	window.addEventListener('choose_style_name', function(e) {
+		style_name = e.detail.item_id;
+	}) ;
+
+	window.addEventListener('choose_material_name', function(e) {
+		material_name = e.detail.item_id;
+	}) ;
+
+	// 发布
+	function publish_product() {
+		var title = $('#title').val();
+		var brand_name = $('#brand_name').val();
+		var sell_price = $('#sell_price').val();
+		var stock = $('#stock').val();
+		var freight = $('#freight').val();
+
+		if (!title) {
+			mui.toast("请输入商品标题");
+			return;
+		}
+
+		if (!product_sort_id) {
+			mui.toast("请选择商品分类");
+			return;
+		}
+
+		if (!store_sort_id) {
+			mui.toast("请选择本店分类");
+			return;
+		}
+
+		if (!style_name) {
+			mui.toast("请选择风格");
+			return;
+		}
+
+		if (!material_name) {
+			mui.toast("请选择材质");
+			return;
+		}
+
+		if (!brand_name) {
+			mui.toast("请输入品牌");
+			return;
+		}
+
+		if (!sell_price) {
+			mui.toast("请输入价格");
+			return;
+		}
+
+		if (!stock) {
+			mui.toast("请输入数量");
+			return;
+		}
+
+		if (!freight) {
+			mui.toast("请输入运费");
+			return;
+		}
+
+		if (!content) {
+			mui.toast("请填写描述");
+			return;
+		}
+
+		if (!path_url) {
+			mui.toast("请上传商品图片");
+			return;
+		}
+
+		save_seller_product(product_sort_id, store_sort_id, title, brand_name, style_name, material_name, path_url, sell_price, stock, content);
+	}
+
+	// 商品发布
+	function save_seller_product(category_ids, product_category_id, title, brand_name, style_name, material_name, path, sell_price, stock, content) {
+		
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/save_seller_product/?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				category_ids : category_ids,
+				product_category_id : product_category_id,
+				title : title,
+				brand_name : brand_name,
+				style_name : style_name,
+				material_name : material_name,
+				path : path,
+				sell_price : sell_price,
+				stock : stock,
+				content : content
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000, 
+			success: function(res) {
+				if (res.success) {
+					mui.toast("添加成功");
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		});
+	}
+
+	// 创建上传任务
+	var wt = null;
+
+	function plusReady() {
+		// 用户侧滑返回时关闭显示的图片
+		// plus.webView.currentWebview().addEventListener("popGesture", function(e) {
+		// 	if (e.type == "start") {
+		// 		closeImg();
+		// 	}
+		// }, false);
+	}
+
+	if (window.plus) {
+		plusReady();
+	} else {
+		document.addEventListener("plusready", plusReady, false);
+	}
+
+	// 拍照
+	function getImage() {
+		var cmr = plus.camera.getCamera();
+		cmr.captureImage(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消拍照:" + e.message);
+		}, {filename:"_doc/gallery/", index:1});
+	}
+
+	// 相册中选择照片 
+	function chooseImgFromAlbums() {
+		plus.gallery.pick(function(path) {
+			createUpload(path);
+		}, function(e) {
+			console.log("取消选择图片:" + e.message);
+		}, {
+			filter:"image",
+			multiple: false
+		});
+	}
+
+	// 上传广告
+	function createUpload(path) {
+		wt = plus.nativeUI.showWaiting();
+		var url = base_url + 'nupload/uploadImage?sid=' + localStorage.getItem('global_sid');
+		var task = plus.uploader.createUpload(url,
+			{ method:"POST"},
+			function(t, status) {
+				wt.close();
+				// 上传完成
+				if (status == 200) {
+					var json = eval("(" + t.responseText + ")");
+					if (json.success) {
+						mui('#photograph').popover('hide');
+						path_url = json.data.path_url;
+					} else {
+						mui.toast(json.message);
+					}
+				} else {
+					mui.toast(t);
+					if(json.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			}
+		);
+		task.addFile(path, {key:"field"});
+		task.addData( "timestamp", "1471838886" );
+		task.addData( "token", "3abaf957cc1d002f9e86de431c3aa02a" );
+		task.addData( "model", 'product');
+		task.start();
+	}
+
+	function closeImg() {
+		plus.uploader.clear();
+		if (wt) {
+			wt.close();
+		}
+	}
+</script>

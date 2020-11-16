@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+	</head>
+	<style type="text/css">
+		.mui-content>.mui-table-view:first-child{margin-top: 1px;}
+		
+	</style>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">设置</h1>
+	        
+	    </header>
+	    <div class="mui-content">
+	    	<ul class="mui-table-view m2-set-list">
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-zhaq.html">
+						账号管理
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m2_data.html">
+						个人资料
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m2_apply.html">
+						专业蚁客申请
+    	            </a>
+    	        </li>
+    	    </ul>
+    	    <ul class="mui-table-view m2-set-list" style="margin-top: 10px;">
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m-gywm.html">
+						关于蚁立
+    	            </a>
+    	        </li>
+    	        <li class="mui-table-view-cell">
+    	            <a class="mui-navigate-right" href="m2_feedback.html">
+						意见反馈
+    	            </a>
+    	        </li>
+    	    </ul>
+    	    <div class="m2-set-btn">
+    	    	<a id="exit_app" href="javascript:void(0);">登出账户</a>
+    	    </div>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(".m2-nav ul li").click(function(){
+		var index = $(this).index();
+		$(this).addClass("active").siblings().removeClass("active");
+		$(".m2-content").eq(index).show().siblings().hide();
+	})
+	mui.init({
+		beforeback:function () {
+			var self = plus.webview.getWebviewById('member2.html');
+			mui.fire(self,'init_data',{id:'0'});
+		}
+	});
+	
+	
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id =="m-zhaq.html"||id =="m-gywm.html") {
+			mui.toast('建设中...')
+		} else{
+			if (id && ~id.indexOf('.html')) {
+				go_to_active(id);
+			}
+		}
+		
+	});
+
+	window.onload = function() {
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+
+		} else {
+			mui.back();
+		}
+	}
+
+	//退出登录
+	document.getElementById('exit_app').addEventListener('tap', function() {
+		var btnArray = ['确认', '取消'];
+		mui.confirm('您确定要退出登录？', '提示：', btnArray, function(e) {
+			if(e.index == 0) {
+				if (!is_network(false)) {return;}
+				var url = base_url + 'napi/logout?sid='+localStorage.getItem('global_sid');
+				mui.ajax(url, {
+					data: {},
+					dataType: "json",
+					type: "get",
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(res) {
+						if(res.success) {
+							localStorage.removeItem("global_id");
+							localStorage.removeItem("global_sex");
+							localStorage.removeItem("global_nickname");
+							localStorage.removeItem("global_nickname");
+							localStorage.removeItem("global_path");
+							localStorage.removeItem("global_path_thumb");
+							localStorage.removeItem("global_sex");
+							localStorage.removeItem("global_total");
+							localStorage.removeItem("global_score");
+							localStorage.removeItem("global_sid");
+							mui.toast('请登录');
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: error
+				});
+			}
+		});
+	});
+</script>

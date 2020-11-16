@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			body{background:#efeff4 !important;}
+			.info .icon-xin1 {
+				background: none; 
+			}
+			
+			.product_list .list li .title div img{width:13px !important;height:13px !important;min-height:0 !important;display: inline-block;}
+			
+			.note_data{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);-moz-transform:translateX(-50%);-webkit-transform:translateX(-50%);}
+			.note_data img{width:180px;}
+			.note_data p{width:180px;text-align:center;margin-top:-40px;margin-bottom:30px;}
+		</style>
+	</head>
+	<body>
+		
+	    <aside class="mui-off-canvas-left" id="offCanvasSide">
+		    <div class="mui-scroll-wrapper">
+		      <div class="mui-scroll left_nav">
+		        <!-- 菜单具体展示内容 -->
+		        <h2>更多</h2>
+		        <ul class="mui-table-view">
+	                <!--<li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="business.html">
+	                        <span class="">商</span>
+	                    	<font>我是商家</font>
+	                    </a>
+	                </li>-->
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="my_release_list.html">
+	                    	<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+	                    	<font>我的发布</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="follow.html">
+	                    	<span class="iconfont-supplement icon-guanzhu"></span>
+	                    	<font>我的关注</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="fans.html">
+	                    	<span class="iconfont-supplement icon-guanzhu"></span>
+	                    	<font>我的粉丝</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right"  href="collection.html">
+	                    	<span class="iconfont-supplement icon-tuanduicankaoxian"></span>
+	                    	<font>我的收藏</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m-order-list.html">
+	                    	<span class="iconfont-supplement icon-dingdan"></span>
+	                    	<font>我的订单</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="pt_order_list.html">
+	                    	<span class="iconfont-supplement icon-dingdan"></span>
+	                    	<font>拼团预购</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="asset.html">
+	                    	<span class="iconfont-supplement icon-qianbao"></span>
+	                    	<font>我的资产</font>
+	                    </a>
+	                </li>
+	            </ul>
+		        <ul class="mui-table-view">
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m2_set.html">
+	                    	<span class="iconfont icon-shezhi"></span>
+	                    	<font>设置</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m-kffw.html">
+	                    	<span class="iconfont-supplement icon-kefu"></span>
+	                    	<font>客服服务</font>
+	                    </a>
+	                </li>
+	            </ul>
+		      </div>
+		    </div>
+		</aside>
+		<div class="mui-off-canvas-backdrop"></div>
+	    <header id="header" class="mui-bar mui-bar-nav header">
+	      	<a id="nav_btn" class="mui-icon iconfont-supplement icon-iconfontcaidan mui-pull-left" href="javascript:void(0);"></a>
+	      	<h1 class="mui-title">我的</h1>
+	    </header>
+	    <nav id="nav_tab" class="mui-bar mui-bar-tab bottom_menu1">
+			<a href="index.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-shouye"></span>-->
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a href="nearby.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-fujin1"></span>-->
+				<span class="mui-tab-label">附近</span>
+			</a>
+			<a href="release.html" class="mui-tab-item">
+				<span class="mui-icon iconfont-supplement icon-icon-test"></span>
+				<!--<span class="mui-tab-label">发布</span>-->
+			</a>
+			<a href="info.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-xiaoxi"></span>-->
+				<span class="mui-tab-label">消息</span>
+				<i style="display:none;">3</i>
+			</a>
+			<a href="member2.html" class="mui-tab-item mui-active">
+				<!--<span class="mui-icon iconfont-supplement icon-wode"></span>-->
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+	    <div class="mui-content">
+	    	<div class="m2-top">
+	    		<div class="m2-top-fl">
+	    			<img id="user_image_path" src="img/tx.jpg"/>
+	    		</div>
+	    		<div id="user_login" class="m2-top-fr">
+	    			<ul class="number_list">
+		    			<li>
+		    				<a href="follow.html">
+		    					<p id="follow_count">2</p>
+		    					<p>关注</p>
+		    				</a>
+		    			</li>
+		    			<li>
+		    				<a href="fans.html">
+		    					<p id="fans_count">2</p>
+		    					<p>粉丝</p>
+		    				</a>
+		    			</li>
+		    			<li>
+		    				<a href="my_release_list.html">
+		    					<p id="group_purchase_count">0</p>
+		    					<p>拼团</p>
+		    				</a>
+		    			</li>
+		    			<li>
+		    				<a href="javascript:void(0);">
+		    					<p id="be_praised_num">1</p>
+		    					<p>点赞/收藏</p>
+		    				</a>
+		    			</li>
+		    		</ul>
+	    			<ul class="user-info">
+						<li class="user_info2">
+							<a href="m2_data.html">个人资料</a>
+							<a class="iconfont-supplement icon-icon-test1" href="m2_set.html"></a>
+						</li>
+						
+					</ul>
+	    		</div>
+	    		<div id="user_not_login" class="m2-top-fr">
+	    			<ul class="user-info">
+	    				<li class="login">
+	    					<a href="login.html">立即登录</a>
+	    				</li>
+	    			</ul>
+	    		</div>
+	    		
+	    	</div>
+    		<ul id="user_login2" class="user-info user_info_box">
+    			<li class="user-name">
+					<a id="sex" class="iconfont-supplement icon-nan" href="javascript:void(0);"></a>
+					<div class="user-hx"><img src="img/m2-hx.jpg"/></div>
+					<span id="user_address">Yooyo</span>
+					
+				</li>
+				<li class="user_info1">
+					<div class="user-grade">
+						<span>蚁客等级:</span>
+						<img src="img/m2-icon3.jpg"/>
+					</div>
+					<div class="user-unlock">
+						<a class="iconfont-supplement icon-mimajiesuo01" href="javascript:void(0);"></a>
+						<span>解锁等级 ></span>
+					</div>
+				</li>
+				
+			</ul>
+	    	<div id="slogan" class="slogan">
+	    		sadasdas
+	    	</div>
+	    	<div class="m2-nav">
+	    		<ul>
+	    			<li class="active"><a href="javascript:void(0);">
+	    				<p>心得</p>
+	    				<em></em>
+	    			</a></li>
+	    			<li><a href="javascript:void(0);">
+	    				<p>拼团</p>
+	    				<em></em>
+	    			</a></li>
+	    			<li><a href="javascript:void(0);">
+	    				<p>更多</p>
+	    				<em></em>
+	    			</a></li>
+	    		</ul>
+	    	</div>
+		    <div id="pintuan" class="" style="display:none;">
+				<div class="product_list">
+					<div class="list">
+						<ul id="group_purchase1" class="list_box">
+							
+							
+						</ul>
+						<ul id="group_purchase2" class="list_box">
+						</ul>
+						
+						<div id="note_pintuan" class="note_data">
+							<img src="img/icon-center-3.png"/>
+							<p>发布你的第一篇拼团</p>
+						</div>
+						<script id="tpl_group_purchase1" type="text/html">
+							<%for(var i =0;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title"><%=data.item_list[i].title%></div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+										<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+						
+						<script id="tpl_group_purchase2" type="text/html">
+							<%for(var i =1;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title"><%=data.item_list[i].title%></div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+										<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+					</div>
+					
+				</div> 
+			</div>
+			<div id="yike" class="yike">
+				<div class="product_list">
+					<div class="list yike_list">
+						<ul id="biji_list1" class="list_box">
+						</ul>
+						
+						<ul id="biji_list2" class="list_box">
+						</ul>
+						<div id="note_biji" class="note_data">
+							<img src="img/icon-center-3.png"/>
+							<p>发布你的第一篇心得</p>
+						</div>
+						<script id="tpl_biji_list1" type="text/html">
+							<%for(var i =0;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+							
+							
+						</script>
+						<script id="tpl_biji_list2" type="text/html">
+							<%for(var i =1;i<data.item_list.length;i+=2){%>
+							<li item_id="<%=data.item_list[i].id%>">
+								<img src="<%=data.item_list[i].path_thumb%>"/>
+								<div class="title">
+									<%if(data.item_list[i].category_info!=''){%>
+									<div style="color:<%=data.item_list[i].category_info.color%>;">
+										<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+										<%=data.item_list[i].category_info.name%>
+									</div>
+									<%}%>
+									<%=data.item_list[i].content%>
+								</div>
+								<div class="info">
+									<div class="store">
+										<img src="<%=data.item_list[i].user_path%>"/>
+										<p><%=data.item_list[i].nickname%></p>
+									</div>
+									<div class="collection_number">
+										<span class="iconfont-supplement icon-shoucang"></span>
+										<span class="number"><%=data.item_list[i].favorite_num%></span>
+									</div>
+								</div>
+							</li>
+							<%}%>
+						</script>
+					
+				</div>
+				
+			</div>
+			<div class="mui-clearfix"></div>
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.init({
+	  gestureConfig:{
+	   longtap: true
+	  }
+	});
+	
+	mui(".m2-nav").on('tap','li',function(){
+		var index = $(this).index();
+//		console.log(index)
+		if($(this).index()==1){
+		$(this).addClass("active").siblings().removeClass("active");
+			$('#pintuan').attr('style','display:block;');
+			$('#yike').attr('style','display:none;');
+			get_my_group_purchase_list();
+		}else if($(this).index()==0){
+			$(this).addClass("active").siblings().removeClass("active");
+			$('#pintuan').attr('style','display:none;');
+			$('#yike').attr('style','display:block;');
+			get_my_notes_list();
+		}else{
+			go_to_view('my_release_list.html',{user_id:localStorage.getItem('global_id')})
+		}
+	});
+	
+	
+	
+	
+	/*左菜单*/
+	document.getElementById('nav_btn').addEventListener('tap',function(){
+		$('.mui-off-canvas-backdrop').addClass('mui-active');
+		$('.mui-off-canvas-left').addClass('mui-active');
+	})
+	document.querySelector('.mui-off-canvas-backdrop').addEventListener('tap',function(){
+		$('.mui-off-canvas-backdrop').removeClass('mui-active');
+		$('.mui-off-canvas-left').removeClass('mui-active');
+	})
+	/*左菜单结束*/
+
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=='my_release_list.html') {
+				go_to_view('my_release_list.html',{user_id:localStorage.getItem('global_id')})
+			} else{
+				go_to_active(id);
+			}
+		}
+	});
+	
+	window.addEventListener('init_data', function(e) {
+		init_data();
+	});
+
+	window.addEventListener('changeHeadImage', function(mes) {
+		init_data();
+	});
+
+	window.onload = function() {
+		init_data();
+	}
+
+	window.addEventListener('page_init', function(e) {
+		init_data();
+	});
+	
+	function init_data() {
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+			$('#user_login').show();
+			$('#user_not_login').hide();
+			get_user_info();
+			get_my_group_purchase_list();
+			get_my_notes_list();
+		
+			clearTimeout(stars);
+			get_message_count();
+		} else {
+			$('#user_not_login').show();
+			$('#user_login').hide();
+		}
+
+	}
+
+
+	function get_user_info() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_user_info?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+		 	type: "get",
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res))
+				if (res.success) {
+					store_id = res.data.store_id;
+					store_display=res.data.store_display;
+			 		localStorage.setItem("global_id", res.data.id);
+					localStorage.setItem("global_username", res.data.username);
+					localStorage.setItem("global_nickname", res.data.nickname);
+					localStorage.setItem("global_real_name", res.data.real_name);
+					localStorage.setItem("global_path", res.data.path);
+					localStorage.setItem("global_path_thumb", res.data.path_thumb);
+					localStorage.setItem("global_sex", res.data.sex);
+					localStorage.setItem("global_total", res.data.total);
+					localStorage.setItem("global_score", res.data.score);
+					localStorage.setItem("global_mobile", res.data.mobile);
+					localStorage.setItem("global_is_id_card_auth", res.data.is_id_card_auth);
+					localStorage.setItem("global_txt_address", res.data.txt_address);
+					localStorage.setItem("global_follow_count", res.data.follow_count);
+					localStorage.setItem("global_fans_count", res.data.fans_count);
+					localStorage.setItem("global_group_purchase_count", res.data.group_purchase_count);
+					localStorage.setItem("global_be_praised_num", res.data.be_praised_num);
+					localStorage.setItem("global_slogan", res.data.slogan);
+			       	if (localStorage.getItem("global_txt_address") && localStorage.getItem("global_txt_address") != 'undefined') {
+			        	$('#user_address').html(localStorage.getItem('global_txt_address'));
+			       	}else{
+			    	     $('#user_address').html('地址');
+			        }
+			       	if (localStorage.getItem("global_path_thumb") && localStorage.getItem("global_path_thumb") != 'undefined') {
+			             $('#user_image_path').attr('src', localStorage.getItem('global_path_thumb'));
+			        }else{
+			    	     $('#user_image_path').attr('src', " img/tx.jpg");
+			        }
+			        
+			        if (localStorage.getItem("global_sex")== '0') {
+			            $('#sex').removeClass('icon-zuihoudinggao');
+			            $('#sex').removeClass('icon-nan');
+			            $('#sex').html('保密');
+			        }else if (localStorage.getItem("global_sex")== '1'){
+			    	    $('#sex').removeClass('icon-zuihoudinggao');
+			            $('#sex').addClass('icon-nan');
+			            $('#sex').html('');
+			        }else{
+			        	$('#sex').addClass('icon-zuihoudinggao');
+			            $('#sex').removeClass('icon-nan');
+			            $('#sex').html('');
+			        }
+			        
+					if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+						$('#user_login').show();
+						$('#user_not_login').hide();
+						$('#user_login2').show();
+					} else {
+						$('#user_not_login').show();
+						$('#user_login').hide();
+						$('#user_login2').hide();
+					}
+			        $('#member_score').html(localStorage.getItem('global_score'));
+			        $('#member_balance').html(localStorage.getItem('global_total'));
+			        $('#follow_count').html(localStorage.getItem('global_follow_count'));
+			        $('#fans_count').html(localStorage.getItem('global_fans_count'));
+			        $('#group_purchase_count').html(localStorage.getItem('global_group_purchase_count'));
+			        $('#be_praised_num').html(localStorage.getItem('global_be_praised_num'));
+			        $('#slogan').html(localStorage.getItem('global_slogan'));
+			      
+			 	} else {
+			 		localStorage.removeItem("global_id");
+					localStorage.removeItem("global_username");
+					localStorage.removeItem("global_nickname");
+					localStorage.removeItem("global_real_name");
+					localStorage.removeItem("global_path");
+					localStorage.removeItem("global_path_thumb");
+					localStorage.removeItem("global_sex");
+					localStorage.removeItem("global_total");
+					localStorage.removeItem("global_score");
+					localStorage.removeItem("global_mobile");
+					localStorage.removeItem("global_txt_address");
+					localStorage.removeItem("global_follow_count");
+					localStorage.removeItem("global_fans_count");
+					localStorage.removeItem("global_group_purchase_count");
+					localStorage.removeItem("global_be_praised_num");
+					localStorage.removeItem("global_slogan");
+					mui.toast("请登录");
+					go_to_active('login.html');
+			 	}
+			 }, error: error
+		});
+	}
+
+
+	
+	
+	
+	
+	// 拼团
+	function get_my_group_purchase_list() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_my_group_purchase_list/0/0/20/1?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				user_id:localStorage.getItem("global_id")
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html1 = template('tpl_group_purchase1', res);
+					var html2 = template('tpl_group_purchase2', res);
+
+					if (!res.data.item_list.length) {
+                       $('#note_pintuan').css('display','block');
+						$('#group_purchase1').html('');
+						$('#group_purchase2').html('');
+                   }else{
+                       	$('#note_pintuan').css('display','none');
+						$('#group_purchase1').html(html1);
+						$('#group_purchase2').html(html2);
+                    }
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+
+	// 蚁客
+	function get_my_notes_list() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_my_notes_list/0/0/20/1?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				user_id:localStorage.getItem("global_id")
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html1 = template('tpl_biji_list1', res);
+					var html2 = template('tpl_biji_list2', res);
+					
+					if (!res.data.item_list.length) {
+                       	$('#note_biji').css('display','block');
+                       	$('#biji_list1').html('');
+						$('#biji_list2').html('');
+                    }else{
+                       	$('#note_biji').css('display','none');
+						$('#biji_list1').html(html1);
+						$('#biji_list2').html(html2);
+                    }
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	mui('#pintuan').on('tap', 'li', function() {
+		var product_id = this.getAttribute("item_id");
+		go_to_view("groups_view.html", {
+			item_id : product_id
+		});
+	});
+	
+	mui('#yike').on('tap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		go_to_view("note_detail.html", {
+			item_id : item_id
+		});
+	});
+	
+	mui('#pintuan').on('longtap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除这篇拼团？', '提示', btnArray, function(e) {
+			if (e.index == 0) {
+				if (!is_network(false)) {return;}
+				var url = base_url + 'napi/delete_my_group_purchase/'+item_id+'?sid=' + localStorage.getItem('global_sid');
+				mui.ajax(url, {
+					data: {},
+					dataType: "json",
+					type: "get",
+					timeout: 10000,
+					success: function(res) {
+							console.log('delete/'+JSON.stringify(res))
+						if (res.success) {
+//							$('li[item_id='+item_id+']').remove();
+							get_my_group_purchase_list();
+							mui.toast(res.message)
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: error
+				});
+			}
+		})
+	});
+	
+	mui('#yike').on('longtap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		var btnArray = ['确认', '取消'];
+		mui.confirm('确认删除这篇心得？', '提示', btnArray, function(e) {
+			if (e.index == 0) {
+				if (!is_network(false)) {return;}
+				var url = base_url + 'napi/delete_my_note/'+item_id+'?sid=' + localStorage.getItem('global_sid');
+				mui.ajax(url, {
+					data: {},
+					dataType: "json",
+					type: "get",
+					timeout: 10000,
+					success: function(res) {
+							console.log('delete/'+JSON.stringify(res))
+						if (res.success) {
+//							$('li[item_id='+item_id+']').remove();
+							get_my_notes_list();
+							mui.toast(res.message)
+						} else {
+							mui.toast(res.message);
+						}
+					},
+					error: error
+				});
+			}
+		})
+		
+	});
+	
+	
+	
+	var stars='';
+	
+	function get_message_count() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_message_count?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					if(res.data.message_count > 0){
+						$('#nav_tab i').html(res.data.message_count);
+						$('#nav_tab i').css('display','block');
+					}else{
+						
+						$('#nav_tab i').css('display','none');
+					}
+				} else {
+					mui.toast(res.message);
+				}
+				stars=setTimeout(function(){
+					get_message_count();
+				},60000)
+			},
+			error: error
+		});
+	}
+	
+	
+	mui('#offCanvasSide').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if(id=='m-order-list.html'){
+			go_to_view(id, {status: 'all'});
+		}else{
+			go_to_active(id);
+		}
+	});
+	/*底部菜单*/
+	mui('#nav_tab').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if(id=='release.html'){
+			go_to_active(id);
+		}else{
+			go_to_active_unani(id);
+		}
+		setTimeout(function(){
+			$('.mui-tab-item[href="member2.html"]').addClass('mui-active').siblings().removeClass('mui-active');
+		},200)
+	});
+</script>

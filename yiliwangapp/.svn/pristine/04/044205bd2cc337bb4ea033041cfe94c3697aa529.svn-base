@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />
+	</head>
+
+	<body style="height:100%;">
+		<header class="mui-bar mui-bar-nav" style="background-color:rgba(255,255,255,0);">
+			<span class="mui-icon iconfont icon-fenxiang1 mui-pull-right"></span>
+		</header>
+		
+		<div class="mui-content" style="padding-top:0;height:100%;">
+			<div class="live_bg">
+				<h2 class="hd_pic">
+					<a href=""><img src="img/hd_pic.png"/></a>
+				</h2>
+				<div class="else">
+					<h3>直播已结束</h3>
+					<p class="live_time">直播时长<span>1:25:30</span></p>
+					<div class="no mui-clearfix">
+						<div class="look_no mui-pull-left">
+							<span>1211</span>
+							<p>观看人数</p>
+						</div>
+						<div class="like_no mui-pull-left">
+							<em>100</em>
+							<p>喜欢</p>
+						</div>
+					</div>
+					<a href="" class="live_sure">确定</a>
+				</div>				
+			</div>
+			
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+
+		mui('.mui-scroll-wrapper').scroll({
+			deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+		});
+		
+		var gallery = mui('.mui-slider');
+		gallery.slider({
+			interval: 5000
+		});
+	</script>
+
+</html>

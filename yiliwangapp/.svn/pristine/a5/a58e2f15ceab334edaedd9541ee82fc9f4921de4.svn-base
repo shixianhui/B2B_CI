@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>店铺介绍</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">店铺介绍</h1>
+    </header>
+    <div class="mui-content no-bg shop-introduction-content">
+        <div class="mui-input-row">
+            <textarea id="textarea" type="text" placeholder="店铺描述"></textarea>
+        </div>
+        <div class="pdlr20 pdt15"><button onClick="save_description()" type="button" class="mui-btn mui-btn-red mui-btn-block wrap-btn bg-color">保存</button></div>
+    </div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    // 保存
+    function save_description() {
+        var store_name = $('#textarea').val();
+        change_store_info(store_name);
+    }
+
+    window.addEventListener('go_to_parameter', function(e) {
+        $('#textarea').val(e.detail.item_id);
+    });
+
+
+    function change_store_info(description) {
+		if (!is_network(false)) {return;}
+
+        var url = base_url + 'napi/change_store_info?sid=' + localStorage.getItem('global_sid');
+        mui.ajax(url, {
+            data: {
+                stroe_name: '',
+                description: description
+
+            },
+            dataType: 'json',
+            type: 'post',
+            timeout: 10000,
+            success: function(res) {
+                if (res.success) {
+                    mui.toast("修改成功");
+                    $('#textarea').val('');
+
+                    var list = plus.webview.getWebviewById('b-dpsz.html');
+                    mui.fire(list, 'change_store_info');
+                    
+                    mui.back();
+                } else {
+                    mui.toast(res.message);
+                }
+            },
+            error: error
+        });
+    }
+</script>

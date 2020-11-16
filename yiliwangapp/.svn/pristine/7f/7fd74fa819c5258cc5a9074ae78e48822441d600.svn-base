@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css"/>
+		<style type="text/css">
+			.new-consignee-content li:last-of-type{padding-top:15px;padding-bottom:15px;}
+			.localarea{padding:11px 0 !important;}
+			.mui-table-view-cell a{padding:0px 0 !important;margin:0 !important;}
+			.mui-table-view-cell a.mui-active{background:#fff !important;}
+			.mui-table-view-cell a:after{right:8px !important;}
+			.mui-table-view-cell a label{padding:0 15px;}
+			.mui-table-view-cell a label~span{float:left;padding:0 25px 0 0;width:65%;overflow: hidden; white-space:nowrap;text-overflow:ellipsis;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">收货地址</h1>
+		</header>
+		<div class="mui-content no-bg new-consignee-content">
+		    <ul class="mui-table-view" style="margin-top:0;">
+	            <li class="mui-table-view-cell nopd">
+	                <div class="mui-input-row">
+	                    <label>收货人</label>
+	                    <input id="buyer_name" type="text" placeholder="输入收货人姓名">
+	                </div>
+	            </li>
+	            <li class="mui-table-view-cell nopd">
+	                <div class="mui-input-row">
+	                    <label>联系方式</label>
+	                    <input id="mobile" type="text" placeholder="输入手机号码">
+	                </div>
+	            </li>
+	            <li class="mui-table-view-cell localarea">
+	                <a class="mui-navigate-right" id="localarea">
+	                    <label style="width:35%;float:left;">所在地区</label><span></span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell nopd">
+	                <div class="mui-input-row">
+	                    <label>详细地址</label>
+	                    <textarea id="address" type="text" placeholder="街道、楼牌号等" onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';"></textarea>
+	                </div>
+	            </li>
+	            <li class="mui-table-view-cell">
+			            <label style="width:60%;">是否设置为默认地址:</label>
+			            <div id="address_switch" class="mui-switch mui-switch-mini">
+			                <div class="mui-switch-handle"></div>
+			            </div>
+	            </li>
+	        </ul>
+	        
+		    <div class="button"><button onclick="save_address()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color wrap-btn">保存</button></div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	(function($, doc) {
+		$.init();
+		$.ready(function() {
+			//普通示例
+			var cityPicker3 = new $.PopPicker({
+			layer: 3
+		});
+		cityPicker3.setData(cityData3);
+		var localarea = doc.getElementById('localarea');
+		var cityResult3 = doc.getElementById('cityResult3');
+		localarea.addEventListener('tap', function(event) {
+			cityPicker3.show(function(items) {
+				doc.querySelector('#localarea span').innerText=(items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+				province_id = (items[0] || {}).value;
+				city_id = (items[1] || {}).value;
+				area_id = (items[2] || {}).value;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+				});
+			}, false);
+		}); 
+	})(mui, document);
+	mui.init({
+		beforeback: function() {
+			if (mui.os.plus) {
+				//获得列表界面的webview
+				var list = plus.webview.getWebviewById('m-address-list.html');
+				//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+				mui.fire(list, 'address_refresh');
+				//返回true，继续页面关闭逻辑
+			}
+			return true;
+		}
+	});
+
+	var address_id = 0;
+	var province_id = '';
+	var city_id = '';
+	var area_id = '';
+	if (mui.os.plus == true) {
+
+	} else {
+		var request = new Object();
+		request = get_request();
+
+		address_id = request['id'];
+		var buyer_name = request['buyer_name'];
+		var mobile = request['mobile'];
+		var address = request['address'];
+		var is_default = request['is_default'];
+		var txt_address = request['txt_address'];
+		province_id = request['province_id'];
+		city_id = request['city_id'];
+		area_id = request['area_id'];
+
+		if (address_id == '0') {
+			$('#buyer_name').val('');
+			$('#mobile').val('');
+			$('#localarea span').html('');
+			$('#address').val('');
+			$('#address_switch').removeClass('mui-active');
+		} else {
+			$('#buyer_name').val(buyer_name);
+			$('#mobile').val(mobile);
+			$('#localarea span').val(txt_address);
+			$('#address').val(address);
+			if (is_default == 0) {
+				$('#address_switch').removeClass('mui-active');
+			} else {
+				$('#address_switch').addClass('mui-active');
+			}
+		}
+	}
+
+	window.addEventListener('go_to_parameter', function(e) {
+		address_id = e.detail.id;
+		var buyer_name = e.detail.buyer_name;
+		var mobile = e.detail.mobile;
+		var txt_address = e.detail.txt_address;
+		var address = e.detail.address;
+		var is_default = e.detail.is_default;
+		province_id = e.detail.province_id;
+		city_id = e.detail.city_id;
+		area_id = e.detail.area_id;
+
+		if (address_id == '0') {
+			$('#buyer_name').val('');
+			$('#mobile').val('');
+			$('#localarea span').html('');
+			$('#address').val('');
+			$('#address_switch').removeClass('mui-active');
+		} else {
+			$('#buyer_name').val(buyer_name);
+			$('#mobile').val(mobile);
+			$('#localarea span').html(txt_address);
+			$('#address').val(address);
+			if (is_default == 0) {
+				$('#address_switch').removeClass('mui-active');
+			} else {
+				$('#address_switch').addClass('mui-active');
+			}
+		}
+	});
+
+	// 添加或修改地址
+	function add_user_address(id, buyer_name, mobile, zip, province_id, city_id, area_id, address, is_default) {
+		var url = base_url + 'napi/add_user_address/' + id + '?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				buyer_name : buyer_name,
+				mobile : mobile,
+				zip : zip,
+				province_id : province_id,
+				city_id : city_id,
+				area_id : area_id,
+				address : address,
+				is_default : is_default
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					if (address_id == 0) {
+						mui.toast("添加成功");
+					} else {
+						mui.toast("修改成功");
+					}
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		});
+	}
+
+	// 保存地址
+	function save_address() {
+		var buyer_name = $('#buyer_name').val();
+		var mobile = $('#mobile').val();
+		var address = $('#address').val();
+		var isActive = document.getElementById("address_switch").classList.contains("mui-active");
+		var is_default = 0;
+
+		if (isActive) {
+			is_default = 1;
+		} else {
+			is_default = 0;
+		}
+
+		if (!buyer_name) {
+			mui.toast("请输入收货人姓名");
+			return;
+		}
+
+		if (!mobile) {
+			mui.toast('请输入联系方式');
+			return;
+		}
+
+		var reg = /^((\(\d{2,3}\))|(\d{3}\-))?(13|14|15|16|17|18|19)\d{9}$/;
+		if (!reg.test(mobile)) {
+			mui.toast('请输入正确手机号');
+			return;
+		}
+
+		if (!address) {
+			mui.toast("请输入详细地址");
+			return;
+		}
+
+		
+		if (!is_network(false)) {return;}
+
+		add_user_address(address_id, buyer_name, mobile, null, province_id, city_id, area_id, address, is_default);
+	}
+</script>

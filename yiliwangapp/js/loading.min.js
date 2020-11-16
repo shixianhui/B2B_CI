@@ -1,0 +1,1 @@
+mui('.mui-scroll-wrapper').scroll({indicators:true,deceleration:0.0005});

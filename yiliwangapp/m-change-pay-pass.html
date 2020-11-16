@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+		<style type="text/css">
+			.mui-content.payment-password-content .shouji-validate .mui-input-row{margin-top:15px;}
+			.mui-content.payment-password-content .shouji-validate .mui-input-row.verification-code input{float:left;width:70%; padding-left:15px;border:none;margin-left:0;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">设置支付密码</h1>
+		</header>
+		<div class="mui-content no-bg payment-password-content ">
+		    <div class="shouji-validate mt30">
+		    	<h5 id="send_mobile">请输入185*****8888收到的短信验证码</h5>
+		    	<div class="mui-input-row verification-code">
+			        <input id="imageNum" type="text" placeholder="请输入图片验证码">
+			        <img id="yan" onclick="change()" src="" height="27" style="width:30%;margin-top: 10px;" />
+			    </div>
+		    	<div class="mui-input-row">
+		    		<label class="mui-pull-left">验证码</label>
+		    	    <input id="smscode" type="text" placeholder="请输入验证码">
+		    	    <label onclick="get_code()" class="mui-pull-right" style="" id="code">获取验证</label>
+		    	</div>
+		    </div>
+		    <div class="payment-password mt25">
+		    	<h5>支付密码由6~20位字母、数字、符号任意组合</h5>
+			    <div class="mui-input-row pwdtext mui-password">
+			        <label>设置密码</label>
+			        <input id="password" type="password" placeholder="由6-20位字母、数字结合" class="mui-input-password">
+			    </div>
+			</div>    
+		    <div class="pdlr20 pdt15"><button onclick="commit()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color wrap-btn">确 认</button></div> 
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	// 定时器
+	var timer = null;
+	var wait = 60;
+	var flag = 0;
+	var code = $('#code');
+
+	window.onload = function() {
+		init();
+	};
+
+	function init() {
+		$('#send_mobile').html('请输入' + localStorage.getItem("global_mobile") + '收到的短信验证码');
+		$('#imageNum').val('');
+		$('#smscode').val('');
+		$('#password').val('');
+		change();
+	}
+
+	// 获取图片验证
+	function change() {
+		var url = base_url + 'verifycode/index/' + Math.floor(Math.random() * 1000 + 1);
+		document.getElementById("yan").src = url;
+	}
+
+	// 短信验证倒计时
+	function time(btn) {
+		if (wait == 0) {
+			flag = 0;
+			// btn.removeAttribute("disabled");
+			btn.html("获取验证");
+			wait = 60;
+		} else {
+			flag = 1;
+			// btn.setAttribute("disabled", true);
+			btn.html("(" + wait + ")重新获取");
+			wait--;
+			timer = setTimeout(function() {
+				time(btn);
+			}, 1000)
+		}
+	}
+
+	function get_code() {
+		var imageNum = $('#imageNum').val();
+		if (!imageNum) {
+			mui.toast("请输入图片验证码");
+			return;
+		}
+		if (!flag) {
+			sendMsg(imageNum);
+		}
+	} 
+
+	// 确认按钮
+	function commit() {
+		var smscode = $('#smscode').val();
+		var new_password = $('#password').val();
+		if (!smscode) {
+			mui.toast("请输入短信验证码");
+			return;
+		}
+
+		if (!new_password) {
+			mui.toast("请输入支付密码");
+			return;
+		}
+
+		
+		if (!is_network(false)) {return;}
+
+		change_pay_pass(smscode, new_password, new_password);
+	}
+
+	// 修改支付密码
+	function change_pay_pass(smscode, new_password, con_password) {
+		var url = base_url + 'napi/change_pay_pass?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {
+				smscode : smscode,
+				new_password : new_password,
+				con_password : con_password
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("设置成功");
+					init();
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 发送短信验证码
+	function sendMsg(code) {
+		var url = base_url + 'napi/get_reg_sms_code';
+		mui.ajax(url, {
+			data: {
+				username : localStorage.getItem("global_mobile"),
+				code : code,
+				type : 'change_pay_pass'
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					time(code);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

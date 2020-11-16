@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">账户安全</h1>
+		</header>
+		<div class="mui-content account-security-content no-bg">
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                   	账户名<p id="username" class="mui-pull-right">180****0000</p>
+	            </li>
+	            <li class="mui-table-view-cell verify-phone">
+	                <a href="m-yzsj.html" class="mui-navigate-right">
+	                	验证手机<p id="mobile" class="mui-pull-right">180****0000</p>
+	                </a>
+	            </li>
+	            
+	        </ul>
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a href="m-change-pass.html" class="mui-navigate-right">
+	                	修改登录密码
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="m-change-pay-pass.html" class="mui-navigate-right">
+	                	设置支付密码
+	                </a>
+	            </li>
+	        </ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	window.addEventListener('changeMobile', function(mes) {
+		init();
+	});
+	window.addEventListener('page_init', function() {
+		init();
+	});
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	window.onload = function() {
+		init();
+	}
+
+	function init() {
+		$('#username').html(localStorage.getItem("global_username"));
+		$('#mobile').html(localStorage.getItem("global_mobile"));
+	}
+</script>

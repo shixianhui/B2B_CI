@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.min.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">商品信息</h1>
+		</header>
+		<div class="commodity-information-button">
+			<button type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">确认修改</button>
+		</div>
+		<div class="mui-content no-bg commodity-information-content">
+		   	<div class="picture">
+		   		<img src="img/goods6.png"/>
+		   		<a href="#photograph"><i class="iconfont-supplement icon-xiangji"></i></a>
+		   	</div>
+		   	<ul class="mui-table-view">
+		   	        <li class="mui-table-view-cell">
+		   	            <textarea name="" rows="" cols="" placeholder="请输入商品标题" maxlength="30">kaimeng 皮床 时尚榻榻米 储物软床皮床双人床 简约皮床婚床</textarea>
+		   	            <span>0/30</span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	            <a class="mui-navigate-right">
+							商品分类<span class="mui-pull-right">双人床</span>
+		   	            </a>
+		   	        </li>
+		   	        
+		   	    </ul>
+		   	<ul class="mui-table-view spent-amount">
+		   	        <li class="mui-table-view-cell">
+		   	         	 品牌<span class="mui-pull-right"><input type="text" name="" id="" value="红星美凯龙" /></span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	           	 价格<span class="mui-pull-right"><input type="number" name="" id="" value="1200.00" />￥</span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	         	  数量<span class="mui-pull-right"><input type="number" name="" id="" value="120" /></span>
+		   	        </li>
+		   	        <li class="mui-table-view-cell">
+		   	         	  运费<span class="mui-pull-right"><input type="number" name="" id="" value="12.0" />￥</span>
+		   	        </li>
+		   	    </ul>
+		   	<ul class="mui-table-view">
+		   	        <li class="mui-table-view-cell">
+		   	            <a class="mui-navigate-right">
+		   	               	 商品描述
+		   	            </a>
+		   	        </li>
+		   	    </ul>
+		</div>
+		<div id="photograph" class="mui-popover mui-popover-bottom mui-popover-action photograph">
+	        <!-- 可选择菜单 -->
+	        <ul class="mui-table-view">
+	          <li class="mui-table-view-cell text-color">
+	            <a href="#">拍照</a>
+	          </li>
+	          <li class="mui-table-view-cell">
+	            <a href="#">我的相册</a>
+	          </li>
+	        </ul>
+	        <!-- 取消菜单 -->
+	        <ul class="mui-table-view">
+	          <li class="mui-table-view-cell">
+	            <a href="#sheet1">取消</a>
+	          </li>
+	        </ul>
+    </div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>

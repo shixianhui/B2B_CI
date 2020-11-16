@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title>商品详情</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav top_bar">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">评价</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper">
+		    <div class="feel mui-scroll">
+		    	<ul id="comment_list">
+				</ul>
+				<script id="tpl_comment_list" type="text/html">
+						<%for (var i = 0, comment = data.item_list; i < comment.length; i++) {%>
+							<li id="item_<%=comment[i].id%>" class="feel_item">
+								<div class="feel_content">
+									<h5 class="feel_title">
+										<a href="javascript:void(0);" class="mui-pull-left" style="background: <%=comment[i].path_thumb%> no-repeat"></a>
+										<%=comment[i].username%>
+										<em class="mui-pull-right"><%=comment[i].add_time%></em>
+									</h5>
+									<p><%=comment[i].content%></p>
+									<div class="feel_img"></div>
+									<div class="feel_msg">
+										<i class="iconfont icon-icons64x6401"></i>0
+									</div>
+								</div>
+							</li>
+						<%}%>
+				</script>
+			</div>
+		</div>
+	</body>
+</html>
+<input type="hidden" id="max_id" value="0" />
+<input type="hidden" id="since_id" value="0" />
+<input type="hidden" id="per_page" value="20" />
+<input type="hidden" id="page" value="1" />
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script type="text/javascript">
+	
+	var product_id="";
+	var store_id="";
+	window.addEventListener('go_to_parameter',function(e){
+		product_id=e.detail.product_id;
+		store_id=e.detail.store_id;
+		init()
+	});
+	function init(){
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		$('#page').val('1');
+		var per_page = $('#per_page').val();
+		get_comment_list(0, 0, 0, per_page, 1);
+	}
+	var self = mui('.mui-scroll').pullToRefresh({
+		down : {
+			callback : function() {
+				down_refresh(this);
+			}
+		},
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function down_refresh(obj) {
+		var per_page = $('#per_page').val();
+		var since_id = $('#since_id').val();
+		get_comment_list('down', 0, since_id, per_page, 1);
+	}
+
+	function up_refresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var papesss = $('#page').val();
+		get_comment_list('up', max_id, 0, per_page, papesss);
+	}
+
+	function get_comment_list(type, max_id, since_id, per_page, page) {
+		
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_comment_list/'+product_id+'/'+store_id+'/' + max_id + '/' + since_id + '/' + per_page + '/' + page;
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			beforeSend: function(xhr, setting) {
+				if (type == 0) {
+					var	html = '<div class="parent_no_data">';
+						html += '<div class="no_data">数据加载中...</div>';
+						html += '</div>';
+					$('#comment_list').html(html);
+				}
+			},
+			success: function(res) {
+				if (res.success) {
+					console.log(JSON.stringify(res))
+					var html = template('tpl_comment_list', res);
+					if (type == 'down') { // 下拉刷新 - down
+						$('#since_id').val(res.data.max_id);
+						$('#comment_list li[id]:first').before(html);
+						self.endPullDownToRefresh();
+					} else if (type == 'up') { // 上拉加载 - up
+						$("#comment_list li[id]:last").after(html);
+						if (res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+					} else { // 第一次加载
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#comment_list').html(html);
+						if(res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if(!res.data.item_list.length) {
+							var no_data_html = '<li class="feel_item parent_no_data"><div id ="no_data" class="feel_content"><p></p><p>还没有人评论，快来说说你的感受吧！！！</p></div></li>';
+							$('#comment_list').html(no_data_html);
+							document.getElementById('no_data').addEventListener('tap', function() {
+								init();
+							});
+						}
+					}
+				} else {
+					mui.toast(res.message);
+					self.endPullupToRefresh(false);
+					self.endPullDownToRefresh();
+					if (res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			},
+			error: error
+		});
+	}
+
+</script>

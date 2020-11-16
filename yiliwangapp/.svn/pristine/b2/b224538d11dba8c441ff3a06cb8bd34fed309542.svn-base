@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.css" />
+	</head>
+	<style>
+		.mui-bar{
+			-webkit-box-shadow: 0 0 0 rgba(0, 0, 0, .0);
+			box-shadow: 0 0 0px rgba(0, 0, 0, .0);
+		}
+		.mui-bar-tab{bottom:12px;}
+		.mui-bar .icon-fenxiang1{right:2px;}
+	</style>
+	<body class="customer_body">
+		<header class="mui-bar mui-bar-nav" style="background-color:rgba(255,255,255,0);">
+				<div id="sliderSegmentedControl" style="top:0;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="ellipse">
+				        	<i class="circle mui-pull-left">
+				        		<img src="img/circle.png"/>
+				        	</i>
+				        	<div class="text mui-pull-left">
+				        		<p>杭州林氏旗舰店</p>
+				        		<span>1211</span>
+				        	</div>
+			       		</a>
+						<a class="focus">
+				        	<i class="iconfont icon-guanzhu"></i>
+				        	关注
+			        	</a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+			        	<a class="person" href="javascript:;"><img src="img/circle.png"/></a>
+					</div>
+				</div>
+		</header>
+		<nav class="mui-bar mui-bar-tab" style="background:rgba(0,0,0,0)">
+		    <a class="icon1" href=""><i class="iconfont icon-iconfontlttb"></i></a>
+		    <a class="icon2" href="#share"><i class="iconfont icon-fenxiang1"></i></a>
+		    <a class="icon3" href="">
+		    	<i class="iconfont icon-guanzhu"></i>
+		    	<span>13.14万</span>
+		    </a>
+		    <a class="icon4" href=""><i class="mui-icon mui-icon-closeempty"></i></a>
+		</nav>
+		<div class="mui-content" style="padding-top:0;height:100%;padding-bottom:0;">
+			<div class="customer">
+				<ul class="chat">
+					<li><span>水里的鱼：</span>床垫款式不错！</li>
+					<li><span>水里的鱼：</span>床垫款式不错！</li>
+					<li><span>水里的鱼：</span>床垫款式不错！</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="alert">
+			<i class="mui-icon mui-icon-closeempty"></i>
+			<a href="" class="use_hd">
+				<img src="img/control_hd.png"/>
+			</a>
+			<p class="nick">懵懂的心<i class="sex_sel"><img src="img/sex.png"/></i></p>
+			<div class="person_no mui-clearfix">
+				<em class="mui-pull-left">关注：<span>12</span></em>
+				<em class="mui-pull-right">粉丝：<span>1.2万</span></em>
+			</div>
+			<a href="" class="focus">关注TA</a>
+		</div>
+		
+		<div id="share" class="mui-popover mui-popover-action mui-popover-bottom down_box">
+			<ul class="alert_ul">
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon1.png"/></p>
+						<span>微信好友</span>
+					</a>
+				</li>
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon2.png"/></p>
+						<span>朋友圈</span>
+					</a>
+				</li>
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon3.png"/></p>
+						<span>新浪微博</span>
+					</a>
+				</li>
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon4.png" class="spel"/></p>
+						<span>QQ好友</span>
+					</a>
+				</li>
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon5.png"/></p>
+						<span>QQ空间</span>
+					</a>
+				</li>
+				<li class="alert_item">
+					<a href="">
+						<p><img src="img/share_icon6.png" class="spel"/></p>
+						<span>复制链接</span>
+					</a>
+				</li>
+			</ul>
+			<div class="cancel">
+				<a href="" class="cancel_btn">取消</a>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		mui.init();
+		var person=document.querySelectorAll('.person');
+		var alertB=document.querySelector('.alert');
+		var close=document.querySelectorAll('.mui-icon-closeempty')[1];
+		for(var i=0;i<person.length;i++){
+			person[i].addEventListener('tap',function(event){
+				alertB.style.display='block';
+			})	
+		}
+		close.addEventListener('tap',function(){
+			alertB.style.display='none';
+		})
+	</script>
+
+</html>

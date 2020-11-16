@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css" />	
+		<style type="text/css">
+			.mui-table-view-cell:after{left:0;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav top_bar" style="background-color:rgba(204,0,17,1);">
+			<a class="mui-action-back mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span></a>
+			<h1 id="title" class="mui-title"></h1>
+			<!--<a class="mui-pull-right"><span class="mui-icon mui-icon-more"></span><i class="circle"></i></a>-->
+		</header>
+		
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul id="content" class="mui-table-view" style="margin-top:10px;">
+					
+		       </ul>
+		       <script id="tpl_content" type="text/html">
+		       		<%for (var i = 0, data = data.category_list; i < data.length; i++) {%>
+				       <li class="mui-table-view-cell">
+				            <a item_id="<%=data[i].id%>" name="<%=data[i].product_category_name%>" href="javascript:;" class="mui-navigate-right"><%=data[i].product_category_name%></a>
+				        </li>
+					<%}%>
+				</script>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/index.min.js"></script>
+<script type="text/javascript" src="js/a_link.min.js"></script>
+<script type="text/javascript" src="js/immersed.min.js"></script>
+<script type="text/javascript" src="js/template-native.min.js"></script>
+<script type="text/javascript">
+	var item_id = '';
+	var parent_id = '';
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		item_id = e.detail.item_id;
+		parent_id = e.detail.parent_id;
+		$('#title').html(e.detail.name);
+		get_store_product_select_list();
+	});
+	
+	mui('#content').on('tap', 'a[item_id]', function() {
+		var category_id = this.getAttribute('item_id');
+		var name = this.getAttribute('name');
+		go_to_view('store_product_list.html', {item_id:item_id, parent_id:parent_id, category_id:category_id, name:name});
+	});
+	
+	function get_store_product_select_list() {
+		if (!is_network(false)) {return;}
+		
+		 var url = base_url + 'napi/get_store_product_select_list/' + parent_id + '/' + item_id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_content', res);
+					$('#content').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

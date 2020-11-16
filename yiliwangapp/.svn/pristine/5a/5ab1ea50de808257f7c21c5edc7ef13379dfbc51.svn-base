@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">修改登录密码</h1>
+		</header>
+		<div class="mui-content no-bg change-password-content">
+		    <ul class="mui-table-view">
+		            <li class="mui-table-view-cell">
+		                <div class="mui-input-row">
+		                    <label>登录密码</label>
+		                    <input id="old_password" type="text" placeholder="填写当前登录密码">
+		                </div>
+		                
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <div class="mui-input-row">
+		                    <label>设置新密码</label>
+		                    <input id="new_password" type="text" placeholder="设置新密码">
+		                </div>
+		            </li>
+		            <li class="mui-table-view-cell">
+		                <div class="mui-input-row">
+		                    <label>确认密码</label>
+		                    <input id="con_password" type="text" placeholder="确认密码">
+		                </div>
+		            </li>
+		        </ul>
+		    <p>密码由6~20位英文字母、数字或符号组成</p>
+		    <div class="button"><button onclick="save()" type="button" class="mui-btn mui-btn-red mui-btn-block bg-color">确认</button></div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	function save() {
+		var old_password = $('#old_password').val();
+		var new_password = $('#new_password').val();
+		var con_password = $('#con_password').val();
+
+		
+		if (!is_network(false)) {return;}
+
+		if (!old_password) {
+			mui.toast("请输入原密码");
+			return;
+		}
+
+		if (!new_password) {
+			mui.toast("请输入新密码");
+			return;
+		}
+
+		if (!con_password) {
+			mui.toast("请再次输入密码");
+			return;
+		}
+
+		if (new_password !== con_password) {
+			mui.toast("两次密码输入不一致");
+			return;
+		}
+
+		var url = base_url + 'napi/change_pass?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				old_password : old_password,
+				new_password : new_password,
+				con_password : con_password
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				// mui.alert(JSON.stringify(res));
+				if (res.success) {
+					mui.toast("修改成功");
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			}, error: error
+		});
+	}
+</script>

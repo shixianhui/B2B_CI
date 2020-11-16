@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/base.css" />
+		<style type="text/css">
+			.mui-bar~.mui-content .mui-fullscreen {top: 44px; height: auto;}
+			.mui-pull-top-tips {position: absolute; top: 84px; left: 50%; margin-left: -25px; width: 40px; height: 40px; border-radius: 100%; z-index: 1;}
+			.mui-bar~.mui-pull-top-tips {top: 24px;}
+			.mui-pull-top-wrapper {width: 42px;height: 42px;display: block;text-align: center;background-color: #efeff4;border: 1px solid #ddd;border-radius: 25px;background-clip: padding-box;box-shadow: 0 4px 10px #bbb;overflow: hidden;}
+			.mui-pull-top-tips.mui-transitioning {-webkit-transition-duration: 200ms;transition-duration: 200ms;}
+			.mui-pull-top-tips .mui-pull-loading {margin: 0;}
+			.mui-pull-top-wrapper .mui-icon, .mui-pull-top-wrapper .mui-spinner {margin-top: 7px;}
+			.mui-pull-bottom-tips {text-align: center; background-color: #efeff4; font-size: 15px; line-height: 40px; color: #777;}
+			.mui-pull-top-canvas { overflow: hidden; background-color: #fafafa; border-radius: 40px; box-shadow: 0 4px 10px #bbb; width: 40px; height: 40px; margin: 0 auto;}
+			.mui-pull-top-canvas canvas {width: 40px;}
+			
+			.mui-card-content .product{width:100%; background:#fff;float:left;padding:0 12px;margin-top:12px;}
+			.mui-card-content .product li{float:left;width:48.5%;text-align:left;}
+			.mui-card-content .product li:nth-of-type(even){float:right;}
+			.mui-card-content .product li img{width:100%;}
+			.mui-card-content .product li p{color:#333;font-size:13px;margin:0;}
+			.mui-card-content .product li span{font-size:14px;text-align:left;font-weight:400;color:#f02d8c;display:block;margin-bottom:5px;line-height:22px;}
+			.mui-card-content .product li span i{font-size:13px;}
+			.mui-card-content .product li span em{font-weight:normal;color:#333;}
+			.mui-card-content .product li span em.active{color:#f02d8c;}
+			.mui-card-content .product li span .mui-icon-extra.mui-icon-extra-heart-filled{color:#ffdded;font-size:18px;}
+			.mui-card-content .product li span .mui-icon-extra.mui-icon-extra-heart{vertical-align:middle;margin-right:12px;font-weight:bold;font-size:18px;color:#333;}
+			.mui-card-content .product li span em{margin-right:12px;}
+			.mui-icon-extra{line-height: inherit;}
+
+			.same p{width:100%;float:left;}
+			.same ul{float:left;}
+			.same ul li{margin-bottom:5px;float:left;width:31%;}
+			.product_box{height:auto;background:none !important;}
+			.recommend ul{background:none !important;}
+			.recommend ul li{background:#fff;margin-top:10px;margin-bottom:0 !important;}
+			.recommend ul li p{padding:0 5px;}
+			.recommend ul li em{padding:0 5px;}
+			.brand ul li img{opacity: 0.5;}
+			.brand ul li.current img{opacity: 1;}
+		</style>
+	</head>
+	<body>
+		<div id="menu" class="mui-off-canvas-wrap mui-draggable mui-slide-in">
+		  	<aside class="mui-off-canvas-right" id="offCanvasSide">
+			    	<div id="offCanvasSideScroll" class="mui-scroll-wrapper" style="margin-bottom:50px;">
+			    		<div class="mui-scroll">
+						<div class="price_range">
+							<h3>价格区间</h3>
+							<input id="low_price" type="text" placeholder="最低价" />
+							<span>-</span>
+							<input id="high_price" type="text" placeholder="最高价" />
+						</div>
+						<div class="line"></div>
+						<div id="side_menu" class="all_type">
+						</div>
+				    </div>
+			    	</div>
+			    	<nav id="choose_product" class="mui-bar mui-bar-tab" style="height:45px;">
+				    	<ul>
+						<li class="mui-pull-left mui-col-xs-6">
+							<a click_type="reset" href="javascript:;" style="font-size:15px;color:#323232;display:inline-block;width:100%;text-align:center;background:#fff;line-height:44px;border-top:1px solid #ccc;">重置</a>
+						</li>
+						<li class="mui-pull-left mui-col-xs-6">
+							<a click_type="submit" href="javascript:;" style="font-size:15px;color:#fff;display:inline-block;width:100%;text-align:center;background:#C81624;line-height:44px;border-top:1px solid #ccc;">确定</a>
+						</li>
+					</ul>
+				</nav>
+		  	</aside>
+		  	<script id="tpl_side_menu" type="text/html">
+				<ul>
+					<%if (data.brand_list.length > 0) {%>
+					<li class="brand">
+						<p><strong>品牌</strong></p>
+						<ul id="brand_list">
+							<%for (var i = 0, brand_data = data.brand_list; i < brand_data.length; i++) {%>
+								<li product_style="brand" brand_name="<%=brand_data[i].brand_name%>"><a href="javascript:;"><img src="<%=brand_data[i].path_thumb%>"/></a></li>
+							<%}%>
+						</ul>
+					</li>
+					<%}%>
+					<%if (data.category_list.length > 0) {%>
+					<li class="same">
+						<p><strong>类别</strong></p>
+						<ul id="category_list" class="same_list">
+							<%for (var i = 0, category_data = data.category_list; i < category_data.length; i++) {%>
+								<li product_style="category" category_id_2="<%=category_data[i].id%>"><a href="javascript:;"><%=category_data[i].product_category_name%></a></li>
+							<%}%>
+						</ul>
+					</li>
+					<%}%>
+					<%if (data.style_list.length > 0) {%>
+					<li class="same">
+						<p><strong>风格</strong></p>
+						<ul id="style_list" class="same_list">
+							<%for (var i = 0, style_data = data.style_list; i < style_data.length; i++) {%>
+								<li product_style="style" style_name="<%=style_data[i].style_name%>"><a href="javascript:;"><%=style_data[i].style_name%></a></li>
+							<%}%>
+						</ul>
+					</li>
+					<%}%>
+					<%if (data.material_list.length > 0) {%>
+					<li class="same">
+						<p><strong>材质</strong></p>
+						<ul id="material_list" class="same_list">
+							<%for (var i = 0, material_data = data.material_list; i < material_data.length; i++) {%>
+								<li product_style="material" material_name="<%=material_data[i].material_name%>"><a href="javascript:;"><%=material_data[i].material_name%></a></li>
+							<%}%>
+						</ul>
+					</li>	
+					<%}%>
+				</ul>
+		  	</script>
+		  	
+		  	<div class="mui-inner-wrap">
+		    	<header id="header" class="type mui-bar mui-bar-nav top_bar">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<a id="handover" a_type="handover" href="javascript:void(0)" class="mui-icon mui-pull-right iconfont icon-caidanguanli"><span></span></a>
+					<h1 class="mui-title topbar">
+				    		<a id="search" href="javascript:;">
+				    			<div class="mui-input-row search_box">
+				    				<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>
+				    				<span class="text">输入搜索的关键字</span>
+				    			</div>
+				    		</a>
+			    		</h1>
+				</header>
+				<div class="nav" style="z-index:10;">
+					<ul id="sort_product" class="nav_list mui-clearfix">
+						<li type="synthesis" class="item"><a href="javascript:;">综合</i></a></li>
+						<li type="sales" class="item"><a href="javascript:;">销量<i class="triangle_d active"></i><i class="triangle_u"></i></a></li>
+						<li type="price" class="item"><a href="javascript:;">价格<i class="triangle_d"></i><i class="triangle_u"></i></a></li>
+						<li class="item"><a href="#offCanvasSide">筛选<i class="mui-icon iconfont icon-shaixuan"></i></a></li>
+					</ul>
+				</div>
+		    		<div class="mui-content mui-scroll-wrapper">
+		      		<div id="product_style" class="mui-scroll">
+			        		<div id="product_list1" class="recommend" style="display: none;">
+							<ul id="product_style1" class="mui-clearfix">
+
+							</ul>
+							<script id="tpl_product_style1" type="text/html">
+								<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+									<li id="list_item_<%=data[i].id%>" data-id="<%=data[i].id%>" class="recommend_item">
+										<a item_id="<%=data[i].id%>" href="javascript:void(0);">
+											<img src="<%=data[i].path_thumb%>"/>
+											<p class="mui-ellipsis-2"><%=data[i].title%></p>
+											<em><span>￥</span><%=data[i].sell_price%></em>
+										</a>
+									</li>
+								<%}%>
+							</script>
+						</div>
+						<div id="product_list2" class="product_box">
+							<ul id="product_style2" class="mui-table-view">
+
+							</ul>
+							<script id="tpl_product_style2" type="text/html">
+								<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+								    <li id="list_item_<%=data[i].id%>" data-id="<%=data[i].id%>" class="mui-table-view-cell mui-media">
+								        <a item_id="<%=data[i].id%>" href="javascript:void(0);">
+								            <img class="mui-media-object mui-pull-left" src="<%=data[i].path_thumb%>">
+								            <div class="mui-media-body">
+								                <h4 class="mui-ellipsis"><%=data[i].title%></h4>
+								            	<span>销量 <%=data[i].sales%>件</span><span><%=data[i].store_name%></span> 
+								            	<p>￥<%=data[i].sell_price%></p>
+								            </div>
+								        </a>
+								    </li>
+							    <%}%>
+							</script>
+						</div>
+			      	</div>
+			    </div>  
+			    <div class="mui-off-canvas-backdrop"></div>
+		  	</div>
+		</div>
+		<input type="hidden" id="max_id" value="0" />
+		<input type="hidden" id="since_id" value="0" />
+		<input type="hidden" id="per_page" value="20" />
+		<input type="hidden" id="page" value="1" />
+	</body>			
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-inner-wrap .nav{top:'+ (immersed + 44) + 'px !important;}.mui-pull-top-tips{top:'+(64+immersed)+'px;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+	var parent_id = '';
+	var category_id_1 = ''; 
+	var category_id_2 = '';
+	var store_id = '';
+	var brand_name = '';
+	var category_name = '';
+	var style_name = '';
+	var material_name = '';
+	var low_price = '';
+	var high_price = '';
+	var keyword = '';
+	var order = 'desc';
+	var by = 'id';
+
+	mui('#offCanvasSideScroll').scroll({
+		scrollY: true
+	});
+	mui('.mui-content.mui-scroll-wrapper').scroll({
+		scrollY: true
+	});
+	var sameList = document.querySelectorAll('.same_list');
+	for (var i = 0; i < sameList.length; i++) {
+		var Li = sameList[i].children;
+		for (var j = 0; j < Li.length; j++) {
+			Li[j].index = j;
+			Li[j].addEventListener('tap',function() {
+				this.className = 'current';
+			});
+		}
+	}
+	
+	window.addEventListener('go_to_parameter', function(e) {
+		if (e.detail.parent_id) {
+			category_id_1 = e.detail.parent_id;
+		} else {
+			category_id_1 = '';
+		}
+		if (e.detail.item_id) {
+			category_id_2 = e.detail.item_id;
+		} else {
+			category_id_2 = '';
+		}
+		if (e.detail.keyword) {
+			keyword = e.detail.keyword;
+			$('.text').text(keyword);
+		} else {
+			keyword = '';
+			$('.text').text('输入搜索的关键字');
+		}
+		store_id = '';
+		brand_name = '';
+		style_name = '';
+		material_name = '';
+		low_price = '';
+		high_price = '';
+	    order = 'desc';
+		by = 'id';
+		
+		$('#low_price').val('');
+		$('#high_price').val('');
+		
+		$('#sort_product li').removeClass('active');
+		$('#sort_product li').eq(0).addClass('active');
+
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+
+		get_product_select_list(category_id_1);
+		get_product_list(0, 'id', 'desc', 0, 0, per_page, 1);
+	});
+
+	// 商品详情
+	mui('#product_style').on('tap', 'a[item_id]', function() {
+		var item_id = this.getAttribute('item_id');
+		go_to_view('product-view.html', {item_id:item_id});
+	});
+
+	// 筛选
+	mui('#choose_product').on('tap', 'a[click_type]', function() {
+		var per_page = $('#per_page').val();
+		var click_type = this.getAttribute('click_type');
+		if (click_type == 'reset') { // 重置
+			high_price = '';
+			$('#high_price').val('');
+			low_price = '';
+			$('#low_price').val('');
+			brand_name = '';
+			$('#brand_list li').removeClass('current');
+			$('#category_list li').removeClass('current');
+			style_name = '';
+			$('#style_list li').removeClass('current');
+			material_name = '';
+			$('#material_list li').removeClass('current');
+			$('#max_id').val('0');
+			$('#since_id').val('0');
+			var per_page = $('#per_page').val();
+			$('#page').val('1');
+			get_product_list(0, by, order, 0, 0, per_page, 1);
+		} else { // 确定
+			high_price = $('#high_price').val();
+			low_price = $('#low_price').val();
+			mui('#menu').offCanvas('close');
+			$('#max_id').val('0');
+			$('#since_id').val('0');
+			var per_page = $('#per_page').val();
+			$('#page').val('1');
+			get_product_list(0, by, order, 0, 0, per_page, 1);
+		}
+	});
+
+	// 筛选品牌，风格，材质，类别
+	mui('#side_menu').on('tap', 'li[product_style]', function() {
+		var product_style = this.getAttribute('product_style');
+		if (product_style == 'brand') { // 品牌
+			brand_name = this.getAttribute('brand_name');
+			$('#brand_list li').removeClass('current');
+			$(this).addClass('current');
+		} else if (product_style == 'category') { // 类别
+		  	category_id_2 = this.getAttribute('category_id_2');
+			$('#category_list li').removeClass('current');
+			$(this).addClass('current');
+		} else if (product_style == 'style') { // 风格
+			style_name = this.getAttribute('style_name');
+			$('#style_list li').removeClass('current');
+			$(this).addClass('current');
+		} else { // 材质
+			material_name = this.getAttribute('material_name');
+			$('#material_list li').removeClass('current');
+			$(this).addClass('current');
+		}
+
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		get_product_list(0, 'id', 'desc', 0, 0, per_page, 1);
+	});
+	
+	// 排序、销量、价格
+	mui('#sort_product').on('tap', 'li[type]', function() {
+		var type = this.getAttribute("type");
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		if (type == 'synthesis') { // 综合排序
+			by = 'id';
+			order = 'desc';
+		} else if (type == 'sales') { // 销量
+			if (by == 'sales') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sales';
+				order = 'desc';
+			}
+		} else if (type == 'price') { // 价格
+			if (by == 'sell_price') {
+				order = order == 'desc' ? 'asc' : 'desc';
+			} else {
+				by = 'sell_price';
+				order = 'desc';
+			}
+		}
+		$(this).addClass('active').siblings().removeClass('active');
+		if (by != 'id') {
+			if(order == 'desc') {
+				$(this).children().children('.triangle_d').addClass('active').siblings().removeClass('active');
+			} else {
+				$(this).children().children('.triangle_u').addClass('active').siblings().removeClass('active');
+			}
+		}
+		get_product_list(0, by, order, 0, 0, per_page, 1);
+	});
+	
+	// 切换风格
+	document.getElementById('handover').addEventListener('tap', function(e) {
+		if ($('#product_list1').css("display") == 'none') {
+			$('#product_list1').css("display", "block");
+			$('#product_list2').css("display", "none");
+			$('#handover').removeClass('icon-caidanguanli'); 
+			$('#handover').removeClass('iconfont');
+			$('#handover').addClass('mui-icon-list');
+			$('#handover').addClass('mui-icon');
+		} else {
+			$('#product_list1').css("display", "none");
+			$('#product_list2').css("display", "block");
+			$('#handover').addClass('icon-caidanguanli');
+			$('#handover').addClass('iconfont');
+			$('#handover').removeClass('mui-icon-list');
+		}
+	});
+
+	// 刷新列表
+	var self = mui('#product_style').pullToRefresh({
+		down: {
+			callback: function() {
+				pulldownRefresh(this);
+			}
+		},
+		up: {
+			callback: function() {
+				pullupRefresh(this);
+			}
+		}
+	});
+
+	function pulldownRefresh(obj) {
+		var since_id = $('#since_id').val();
+		get_product_list('down', by, order, 0, since_id, 100, 1);
+	}
+
+	function pullupRefresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var page = $('#page').val();
+		get_product_list('up', by, order, 0, 0, per_page, page);
+	}
+
+	function get_product_list(type, by, order, max_id, since_id, per_page, page) {
+		if (!is_network(false)) {return;}
+		
+		var url = base_url + 'napi/get_product_list/' + by + '/' + order + '/' + max_id + '/' + since_id + '/' + per_page + '/' + page;
+		mui.ajax(url, {
+			data: {
+				store_id : store_id,
+				category_id_1 : category_id_1,
+				category_id_2 : category_id_2,
+				brand_name : brand_name,
+				style_name : style_name,
+				material_name : material_name,
+				low_price : low_price,
+				high_price : high_price,
+				keyword : keyword
+			},
+			dataType: 'json',
+			type: 'post',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html1 = template('tpl_product_style1', res);
+			 		var html2 = template('tpl_product_style2', res);
+			 		if (type == 'down') {
+			 			if (res.data.item_list.length > 0) {
+							mui.toast('更新了' + res.data.item_list.length + '条数据');
+							$('#since_id').val(res.data.max_id);
+							var size = $("#product_style1 li[id]").size();
+							if (size > 0) {
+								$('#product_style1 li[id]:first').before(html1);
+								$('#product_style2 li[id]:first').before(html2);
+							} else {
+								$('#product_style1').html(html1);
+								$('#product_style2').html(html2);
+							}
+						} else {
+							mui.toast('没有新的商品');
+						}
+						self.endPullDownToRefresh();
+			 		} else if (type == 'up') {
+						var size = $("#product_style1 li[id]").size();
+						if (size > 0) {
+							$("#product_style1 li[id]:last").after(html1);
+							$("#product_style2 li[id]:last").after(html2);
+						} else {
+							$('#product_style1').html(html1);
+							$('#product_style2').html(html2);
+						}
+						if(res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+			 			respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#product_style1').html(html1);
+						$('#product_style2').html(html2);
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#product_style1').html(no_data_html);
+                            $('#product_style2').html(no_data_html);
+                        }
+			 		}
+			 	} 
+			 	else {
+		 			mui.toast(res.message);
+		 			if(res.field == 'login') {
+						if (mui.os.plus) {
+							mui.plusReady(function() {
+								go_to_active('login.html');
+							});
+						} else {
+							go_to_active('login.html');
+						}
+					}
+				}
+			}, error: error
+		});
+	}
+
+	// 产品筛选接口
+	function get_product_select_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_product_select_list/' + category_id_1;
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_side_menu', res);
+					$('#side_menu').html(html);
+				}
+			}, error: error
+		});
+	}
+	
+	mui('#header').on('tap','#search',function(){
+		go_to_view('search.html',{flag:'product2'})
+	});
+	
+	window.addEventListener('search_result',function(e){
+		if (e.detail.keyword) {
+			keyword = e.detail.keyword;
+			$('.text').text(keyword);
+		} else {
+			keyword = '';
+			$('.text').text('输入搜索的关键字');
+		}
+		
+	   	$('#max_id').val('0');
+		$('#since_id').val('0');
+		var per_page = $('#per_page').val();
+		$('#page').val('1');
+		get_product_list(0, 'id', 'desc', 0, 0, per_page, 1);
+	});
+</script>	

@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.child{display:none;}
+			.child.active{display:block;}
+			.success{text-align:center;color:#c01;font-weight:bold;font-size:40px;background:#fff;padding:40px;vertical-align:middle;line-height:3em;}
+			.success i{color:#c01;font-weight:normal;font-size:80px;background:#fff;vertical-align:middle;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">身份验证</h1>
+		</header>
+		<div class="mui-content no-bg identity-authentication-content">
+			<div id="no_check" class="child">
+				<ul class="mui-table-view">
+			        <li class="mui-table-view-cell">
+			            <div class="mui-input-row">
+			                <label>姓名</label>
+			                <input id="real_name" type="text" placeholder="请输入真实姓名">
+			            </div>
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <div class="mui-input-row">
+			                <label>身份证号</label>
+			                <input id="id_card" type="text" placeholder="15或18位身份证号码">
+			            </div>
+			            
+			        </li>
+			    </ul>
+			    <p>实名认证成功后不可修改，请谨慎填写。</p>
+			    <div class="pdlr20 button"><button type="button" id="check_btn" class="mui-btn mui-btn-red mui-btn-block bg-color">确 认</button></div>
+			</div>
+			<div id="check" class="child">
+				<div class="success">
+				    <i class="mui-icon mui-icon-checkbox-filled"></i>
+				    <span>已认证</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		if (localStorage.getItem("global_is_id_card_auth")==1) {
+			$('#check').addClass('active').siblings().removeClass('active');
+		} else{
+			$('#no_check').addClass('active').siblings().removeClass('active');
+		}
+	}
+	window.addEventListener('page_init', function() {
+		if (localStorage.getItem("global_is_id_card_auth")==1) {
+			$('#check').addClass('active').siblings().removeClass('active');
+		} else{
+			$('#no_check').addClass('active').siblings().removeClass('active');
+		}
+	});
+	
+	document.getElementById('check_btn').addEventListener('tap',function(){
+		user_auth();
+	});
+	
+	function user_auth() {
+		var real_name = $('#real_name').val();
+		var id_card = $('#id_card').val();
+		
+		if (!is_network(false)) {return;}
+		
+		if (!id_card) {
+			mui.toast("请输入身份证号");
+			return;
+		}
+		
+		var isIDCard = /(^\d{15}$)|(^\d{17}[0-9Xx]$)/;
+		if (!isIDCard.test(id_card)) {
+			mui.toast("请输入正确身份证号");
+			return;
+		}
+
+		if (!real_name) {
+			mui.toast('请输入真实姓名');
+			return;
+		}
+		var url = base_url + 'napi/user_auth?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {
+				real_name : real_name,
+				id_card : id_card
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					mui.toast("验证成功");
+					localStorage.setItem("global_is_id_card_auth", '1');
+					var list = plus.webview.getWebviewById('m-zhgl.html');
+					mui.fire(list,'authentication');
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+</script>

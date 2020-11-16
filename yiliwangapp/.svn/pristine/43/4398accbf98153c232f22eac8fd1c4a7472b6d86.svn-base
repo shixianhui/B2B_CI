@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/base.min.css"/>
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.picker.min.css"/>
+	    <link rel="stylesheet" type="text/css" href="css/mui.poppicker.min.css"/>
+		<style type="text/css">
+			html, body {
+			    height: 100%;
+			    margin: 0px;
+			    padding: 0px;
+			    overflow: hidden;
+			    -webkit-touch-callout: none;
+			    -webkit-user-select: none;
+			}
+			
+			.mui-content {
+			    height: 100%;
+			    overflow: auto; 
+			}
+			
+			.enroll .top_nav {border:none;padding:0 30px;}
+			.enroll .top_nav .mui-control-item{color:#4c4c4c;border:none;font-size:15px;}
+			.enroll .top_nav .mui-control-item span{display:inline-block;line-height:34px;padding:0 10px;}
+			.enroll .top_nav .mui-control-item span i{font-size:10px;vertical-align:top;}
+			.enroll .top_nav .mui-control-item.mui-active{color:#C81624;background:none;}
+			.enroll .top_nav .mui-control-item.mui-active span{border-bottom:2px solid #C81624;}
+			.enroll .tips{color:#ce1b1b;font-size:11px;padding:12px;background:#fff;}
+			.enroll font{color:#C81624;vertical-align:middle;margin-right:2px;padding-top:2px;height:1em;display:inline-block;}
+			.enroll label font{padding-top:4px;vertical-align:top;}
+			.enroll h4{font-size:13px;color:#4C4C4C;margin-bottom:8px;}
+			.enroll .input_box{background:#fff;position:relative;padding:0 12px;}
+			.enroll .mui-input-row{border-bottom:1px solid #f1f1f1;}
+			.enroll .input_box label{font-size:13px;color:#4C4C4C;padding:10px 0 10px 12px;line-height:20px;}
+			.enroll .input_box p{width:65%;font-size:13px;color:#9f9f9f;line-height:20px;padding:10px 30px 10px 0;float:right;}
+			.enroll .input_box input{font-size:13px;line-height:;line-height:20px;}
+			.enroll .input_box span{position:absolute;right:10px;top:50%;;font-size:16px;color:#999;transform:translateY(-50%);-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);}
+			.enroll .waiting_time_box{background:#fff;padding:10px 12px 0;}
+			.enroll .waiting_time_box{border-bottom:1px solid #f1f1f1;}
+			.enroll .waiting_time_box:last-of-type{border-bottom:none;}
+			.enroll .waiting_time_box .mui-input-row{border-bottom:none;}
+			.enroll .waiting_time_box .waiting_time >div{display:inline-block;}
+			.enroll .waiting_time_box .waiting_time >div input{height:24px;widows:24px;left:0;top:50%;transform:translateY(-50%);-webkit-transform:translateY(-50%);-moz-transform:translateY(-50%);}
+			.enroll .waiting_time_box .waiting_time >div input:before{font-size:24px;}
+			.enroll .waiting_time_box .waiting_time >div label{color:#4c4c4c;padding:10px 20px 10px 30px;line-height:24px;}
+			.enroll .not_necessary{margin-top:10px;}
+			.enroll .not_necessary label{color:#666;}
+			.enroll .not_necessary h5{font-size: 12px;color:#999;margin:10px 5px 5px;}
+			.enroll .not_necessary .waiting_time >div label{color:#999;font-size:12px;padding:5px 20px 5px 30px;}
+			.enroll .not_necessary em{vertical-align:top;display:inline-block;font-size:11px;margin-right:3px;}
+			.enroll .abstract{padding:10px 20px 30px;background:#fff;}
+			.enroll .abstract textarea{margin:0;height:125px;padding:12px;font-size:11px;border-radius:0;}
+			
+			.enroll .btn_box{padding:10px 20px;}
+			.enroll .btn_box button{border-radius:50px;margin-top:20px;margin-bottom:20px;padding:0;line-height:44px;}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">意向报名</h1>
+		</header>
+		<div class="mui-content enroll">
+			<div class="mui-segmented-control top_nav" style="display:none;">
+	        	<a class="mui-control-item mui-active" href="javascript:void(0);"><span>家居类</span></a>
+	        	<a class="mui-control-item" href="javascript:void(0);"><span>厨具类</span></a>
+	        	<a class="mui-control-item" href="javascript:void(0);"><span>其他类别</span></a>
+		 	</div>
+		 	<p class="tips">仅用于更好的评估建议服务，不向任何第三方泄露个人资料，确保保密</p>
+			<div class="input_box must_fill">
+				<div class="mui-input-row">
+				    <label><font>*</font>姓名</label>
+				    <input id="username" type="text" placeholder="请使用真实姓名">
+				</div>
+				<div class="mui-input-row">
+				    <label><font>*</font>手机号码</label>
+				    <input id="mobile" type="text" placeholder="请输入您的手机号码">
+				</div>
+				<div class="mui-input-row" id="address">
+				    <label><font>*</font>所在地区</label>
+				    <p>浙江省 杭州市 江干区 </p>
+				    <span class="mui-icon iconfont-supplement icon-dizhi"></span>
+				</div>
+				<div class="waiting_time_box">
+					<h4><font>*</font>户型面积</h4>
+					<div id="apartment_area" class="apartment_area waiting_time">
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>90㎡以下</label>
+						    <input name="radio2" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>90~130㎡</label>
+						    <input name="radio2" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>130㎡以上</label>
+						    <input name="radio2" type="radio">
+						</div>
+					</div>
+				</div>
+				<div class="waiting_time_box">
+					<h4><font>*</font>期望到货时间</h4>
+					<div id="waiting_time" class="waiting_time ">
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio1" type="radio">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="input_box not_necessary">
+				
+				<div class="mui-input-row">
+				    <label><em>|</em>款号/型号</label>
+				    <input id="model" type="text" placeholder="请输入意向拼购商品的款号/型号">
+				</div>
+				<div class="mui-input-row">
+				    <label><em>|</em>规格/颜色</label>
+				    <input id="color" type="text" placeholder="请输入意向拼购商品的规格/颜色">
+				</div>
+				<div class="waiting_time_box">
+					<h4><em>|</em>风格趋向</h4>
+					<div id="enroll_options" class="waiting_time ">
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio3" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio3" type="radio">
+						</div>
+						<div class="mui-input-row mui-radio mui-left">
+						    <label>1~2个月</label>
+						    <input name="radio3" type="radio">
+						</div>
+					</div>
+				</div>
+				<div id="options_str" class="waiting_time_box">
+					<h4><em>|</em>其它拼购意向(多选)</h4>
+					<h5>空间选项</h5>
+					<div class="waiting_time ">
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>客厅家具</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>餐厅家具</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>卧房/客房</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>书房</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>儿童房</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+					</div>
+					<h5>电器类</h5>
+					<div class="waiting_time ">
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>冰箱</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>电视</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>洗衣机</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>热水器</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+						<div class="mui-input-row mui-checkbox mui-left">
+						  <label>空调</label>
+						  <input name="checkbox1" type="checkbox" >
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="abstract">
+				<textarea id="remark" placeholder="您还可以提交更多个性需求，我们竭诚为您提供服务！"></textarea>
+			</div>
+			<div class="btn_box">
+				<button id="submit_btn" type="button" class="mui-btn mui-btn-red mui-btn-block">提交意向</button>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.poppicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/city.data-3.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	document.addEventListener('plusready', function(){
+		plus.webview.currentWebview().setStyle({
+		    softinputMode: "adjustResize"  // 弹出软键盘时自动改变webview的高度
+		});
+		if(mui.os.android){
+		    $("html").css("height","auto");
+		    $("body").css("height","auto");
+		}
+	});
+	$('input').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	$('input').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	$('textarea').focus(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='absolute';
+			$('.mui-poppicker').remove();
+			$('.mui-dtpicker').remove();
+			
+		}
+	});
+	
+	$('textarea').blur(function(){
+		if (mui.os.ios) {
+			document.querySelector('header').style.position='fixed';
+		}
+	});
+	
+	
+
+	var item_id='';
+	var username='';
+	var mobile='';
+	var province_id='';
+	var city_id='';
+	var area_id='';
+	var apartment='';
+	var arrival_time='';
+	var model='';
+	var color='';
+	var form_style='';
+	var options_str='';
+	var remark='';
+	document.addEventListener('go_to_parameter',function(e){
+//		console.log('11')
+		item_id=e.detail.item_id;
+//		$('.pintuan').attr('style','display:block;');
+//		$('.biji').attr('style','display:none;');
+		get_arrival_time();
+		get_enroll_options_list();
+	});
+	/*切换*/
+//	mui('.radio_nav').on('tap','.mui-radio',function(){
+//		console.log($(this).attr('value'))
+//		if ($(this).attr('value')=='to_pintuan') {
+//			$('.pintuan').attr('style','display:block;');
+//			$('.biji').attr('style','display:none;');
+//		} else{
+//			$('.pintuan').attr('style','display:none;');
+//			$('.biji').attr('style','display:block;');
+//		}
+//	});
+	/*切换结束*/
+
+	document.getElementById('address').addEventListener('tap', function(event) {
+		var cityPicker3 = new mui.PopPicker({
+			layer: 3
+		});
+		cityPicker3.setData(cityData3);
+		$('.mui-content input').blur()
+		$('.mui-content textarea').blur()
+		cityPicker3.show(function(items) {
+			document.querySelector('#address p').innerText=(items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+			province_id = (items[0] || {}).value;
+			city_id = (items[1] || {}).value;
+			area_id = (items[2] || {}).value;
+			//返回 false 可以阻止选择框的关闭
+			//return false;
+		});
+	}, false);
+	
+	function get_arrival_time(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_arrival_time';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log(JSON.stringify(res))
+					var html=''
+					for(var i =0;i<res.data.item_list.length ;i++){
+						html+='<div class="mui-input-row mui-radio mui-left">'+
+						    '<label>'+res.data.item_list[i]+'</label>'
+						    +'<input name="radio1" type="radio" value="'+res.data.item_list[i]+'">'
+						+'</div>'
+					}
+					$('#waiting_time').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	function get_enroll_options_list(){
+		if (!is_network(false)) {return;}
+		var url =  base_url + 'napi/get_enroll_options_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log(JSON.stringify(res))
+					var html='';
+					for(var i =0;i<res.data.style_list.length ;i++){
+						html+='<div class="mui-input-row mui-radio mui-left">'+
+						    '<label>'+res.data.style_list[i].style_name+'</label>'
+						    +'<input item_id="'+res.data.style_list[i].id+'" name="radio3" type="radio" value="'+res.data.style_list[i].style_name+'">'
+						+'</div>'
+					}
+					$('#enroll_options').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	document.getElementById('submit_btn').addEventListener('tap',function(){
+		enroll_group_purchase()
+	})
+	function enroll_group_purchase(){
+		username=$('#username').val();
+		mobile=$('#mobile').val();
+		arrival_time=$('input[name=radio1]:checked').siblings('label').html();
+		apartment=$('input[name=radio2]:checked').siblings('label').html();
+		form_style=$('input[name=radio3]:checked').siblings('label').html();
+		options_str=''
+		for(var i=0;i<$('input[name=checkbox1]:checked').length;i++){
+			options_str+=$('input[name=checkbox1]:checked').siblings('label').html()+' ';
+		}
+		
+		model=$('#model').val();
+		color=$('#color').val();
+		remark=$('#remark').val();
+		
+		if (!is_network(false)) {return;}
+		
+		if (username=='') {
+			mui.toast('请输入姓名')
+			return;
+		}
+		if (mobile=='') {
+			mui.toast('请输入手机号码')
+			return;
+		}
+		if (province_id=='') {
+			mui.toast('请选择所在小区')
+			return;
+		}
+		if (apartment=='') {
+			mui.toast('请选择户型面积')
+			return;
+		}
+		if (arrival_time=='') {
+			mui.toast('请选择期望产品期望到货')
+			return;
+		}
+		if (model=='') {
+			mui.toast('请输入意向产品款号/型号')
+			return;
+		}
+		if (color=='') {
+			mui.toast('请输入意向产品规格/颜色')
+			return;
+		}
+		if (form_style=='') {
+			mui.toast('请选择产品风格趋向')
+			return;
+		}
+//		if (options_str=='') {
+//			mui.toast('请选择其他拼购意向')
+//			return;
+//		}
+//		
+		var url =  base_url + 'napi/enroll_group_purchase/'+item_id+'?sid='+localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {
+				username: username,
+		        mobile: mobile,
+		        province_id: province_id,
+		        city_id: city_id,
+		        area_id: area_id,
+		        apartment: apartment,
+		        arrival_time: arrival_time,
+		        model: model,
+		        color: color,
+		        style: form_style,
+		        options_str: options_str,
+		        remark: remark
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					
+					mui.toast(res.message);
+
+					mui.back();
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+
+	
+</script>

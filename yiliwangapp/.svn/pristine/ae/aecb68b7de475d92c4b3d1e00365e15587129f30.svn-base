@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.min.css"/>
+</head>
+<body>
+    <header id="header" class="mui-bar mui-bar-nav head-bar">
+        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+        <h1 class="mui-title">我的优惠券</h1>
+        <a href="m-wdxx.html" class="mui-icon iconfont icon-iconfontzhizuobiaozhun17 mui-pull-right"><i class="new-information"></i></a>
+    </header>
+	<div class="mui-content my-coupons-content no-bg">
+	    <div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1" style="">未使用 (2)</a>
+					<a class="mui-control-item" href="#item2">已使用 (2)</a>
+					<a class="mui-control-item" href="#item3">已过期 (2)</a>
+		</div>
+		<div id="item1" class="mui-control-content coupons-wsy mui-active">
+			<ul class="mui-table-view">
+		        <li class="mui-table-view-cell">
+		            <div class="left-box">
+		            	<h1><span>￥</span>100</h1>
+		            	<p>满2000.0元可用</p>
+		            </div>
+		            <div class="right-box">
+		            	<h4>全品类（特定商品除外）</h4>
+		            	<p>2016.11.11-2016.11.18<button type="button" class="mui-btn mui-btn-red mui-btn-outlined mui-pull-right">立即使用</button></p>
+		            	
+		            </div>
+		        </li>
+		        <li class="mui-table-view-cell">
+		            <div class="left-box">
+		            	<h1><span>￥</span>100</h1>
+		            	<p>满2000.0元可用</p>
+		            </div>
+		            <div class="right-box">
+		            	<h4>仅可购买床、沙发类指定家具</h4>
+		            	<p>2016.11.11-2016.11.18<button type="button" class="mui-btn mui-btn-red mui-btn-outlined mui-pull-right">立即使用</button></p>
+		            </div>
+		        </li>
+		    </ul>
+	    </div>
+		<div id="item2" class="mui-control-content coupons-ysy">
+			<ul class="mui-table-view">
+		        <li class="mui-table-view-cell">
+		            <div class="left-box">
+		            	<h1><span>￥</span>100</h1>
+		            	<p>满2000.0元可用</p>
+		            </div>
+		            <div class="right-box">
+		            	<h4>全品类（特定商品除外）</h4>
+		            	<p>2016.11.11-2016.11.18</p>
+		            	<img src="img/yhj-ysy.png"/>
+		            </div>
+		        </li>
+		        <li class="mui-table-view-cell">
+		            <div class="left-box">
+		            	<h1><span>￥</span>100</h1>
+		            	<p>满2000.0元可用</p>
+		            </div>
+		            <div class="right-box">
+		            	<h4>仅可购买床、沙发类指定家具</h4>
+		            	<p>2016.11.11-2016.11.18</p>
+		            	<img src="img/yhj-ysy.png"/>
+		            </div>
+		        </li>
+		    </ul>
+		</div>
+		<div id="item3" class="mui-control-content coupons-ygq">
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell">
+			        <div class="left-box">
+			     	  	<h1><span>￥</span>100</h1>
+			           	<p>满2000.0元可用</p>
+			        </div>
+			        <div class="right-box">
+			          	<h4>全品类（特定商品除外）</h4>
+			           	<p>2016.11.11-2016.11.18</p>
+			            	
+			        </div>
+			    </li>
+			    <li class="mui-table-view-cell">
+			        <div class="left-box">
+			            <h1><span>￥</span>100</h1>
+			            <p>满2000.0元可用</p>
+			        </div>
+			        <div class="right-box">
+			            <h4>仅可购买床、沙发类指定家具</h4>
+			            <p>2016.11.11-2016.11.18</p>
+			            	
+			        </div>
+			    </li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui('#header').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id == 'm-wdxx.html') {
+			go_to_view(id, {
+				item_id : "ok"
+			});
+		}
+	});
+</script>

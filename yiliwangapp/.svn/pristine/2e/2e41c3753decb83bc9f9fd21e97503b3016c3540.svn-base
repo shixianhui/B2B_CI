@@ -1,0 +1,374 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />	
+		<style type="text/css">
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 10;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">蚁立会员</h1>
+		</header>
+		<div class="mui-content ant-members-content no-bg">
+	    	<div id="segmentedControl" class="mui-segmented-control">
+				<a val="0" class="mui-control-item mui-active" href="javascript:void(0);" style="">商品收藏</a>
+				<span>|</span>
+				<a val="1" class="mui-control-item" href="javascript:void(0);">店铺收藏</a>
+				<span>|</span>
+				<a val="2" class="mui-control-item" href="javascript:void(0);">浏览记录</a>
+			</div>
+			<div class="mui-scroll-wrapper scroll-wrap mui-slider-group">
+				<div class="mui-scroll">
+					<ul id="favorite_list" class="mui-table-view goods-collection">
+	
+					</ul>
+				</div>
+			</div>	    
+		</div>
+		<script id="tpl_favorite_list" type="text/html">
+			<%for (var i = 0, data = data.item_list; i < data.length; i++) {%>
+	        	<%if (data[i].type == 'product') {%>
+		        	<li id="list_item_<%=data[i].id%>" class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a favorite_id="<%=data[i].id%>" favorite_type="product" class="mui-btn mui-btn-red bg-color">删除</a>
+						</div>
+						<div class="mui-slider-handle" favorite_type="product" favorite_id="<%=data[i].item_id%>">
+							<img src="<%=data[i].path_thumb%>"/>
+							<div class="mui-inline">
+								<h4 class="mui-pull-left mui-ellipsis"><%=data[i].title%></h4><span class="text-color mui-pull-right" style="">￥<%=data[i].sell_price%></span>
+								<p class="mui-clear">&nbsp;</p>
+								<button type="button" class="mui-btn mui-btn-red mui-btn-outlined">加入购物车</button>
+							</div>
+						</div>
+					</li>
+				<%} else if (data[i].type == 'store') {%>
+					<li favorite_id="<%=data[i].item_id%>" favorite_type="store" id="list_item_<%=data[i].id%>" class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a favorite_id="<%=data[i].id%>" favorite_type="store" class="mui-btn mui-btn-red bg-color">取消关注</a>
+						</div>
+						<div class="mui-slider-handle">
+							<img src="<%=data[i].path_thumb%>"/>
+							<div class="mui-inline">
+								<h4><%=data[i].store_name%></h4>
+								<p>综合评分：<span class="text-color"><%=(data[i].des_grade+data[i].serve_grade+data[i].express_grade)/3%></span></p>
+							</div>
+						</div>
+					</li>
+				<%} else {%>
+					<li favorite_id="<%=data[i].item_id%>" favorite_type="cookies"  id="list_item_<%=data[i].id%>" class="mui-pull-left">
+		    			<img src="<%=data[i].path_thumb%>"/>
+		    			<div>
+			    			<h4><%=data[i].title%></h4>
+			    			<span class="text-color">￥<%=data[i].sell_price%></span>
+		    			</div>
+		    		</li>
+		    	<%}%>
+			<%}%>
+		</script>
+		<input type="hidden" id="max_id" value="0" />
+		<input type="hidden" id="since_id" value="0" />
+		<input type="hidden" id="per_page" value="10" />
+		<input type="hidden" id="page" value="1" />
+		<input type="hidden" id="status" value="0" /> 
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script> 
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.js"></script>
+<script src="js/loading.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js"></script>
+<script src="js/mui.pullToRefresh.material.min.js"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content .mui-scroll-wrapper{top: '+(immersed)+'px !important;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript">
+	mui.init({
+		beforeback: function() {
+			$('#status').val('0');
+			$('#segmentedControl').find('a.mui-control-item').removeClass('mui-active');
+			$('#segmentedControl').find('a.mui-control-item').eq(0).addClass('mui-active');
+			init();
+			return true;
+		}
+	});
+
+	window.addEventListener('refresh_favorite', function(e) {
+		init();
+	});
+
+	window.addEventListener('back', function(mesg) {
+		init();
+	});
+
+	var self = mui('.mui-scroll').pullToRefresh({
+		down : {
+			callback : function() {
+				down_refresh(this);
+			}
+		},
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+
+	var respone = new Object();
+
+	mui('.mui-scroll-wrapper').scroll({
+		indicators: false,
+		bounce: false,
+	});
+
+	mui.plusReady(function() {
+		init();
+	});
+
+	// 初始化
+	function init() {
+		$('#max_id').val('0');
+		$('#since_id').val('0');
+		$('#page').val('1');
+		var per_page = $('#per_page').val();
+		var status = $('#status').val();
+		self.refresh(true);
+		get_favorite_list(status, 0, 0, 0, per_page, 1);
+	}
+
+	mui('#segmentedControl').on('tap', 'a', function() {
+		var status = this.getAttribute('val');
+		$('#status').val(status);
+		init();
+	});
+
+	function down_refresh(obj) {
+		var per_page = $('#per_page').val();
+		var since_id = $('#since_id').val();
+		var status = $('#status').val();
+		get_favorite_list(status, 'down', 0, since_id, per_page, 1);
+	}
+
+	function up_refresh(obj) {
+		var max_id = $('#max_id').val();
+		var per_page = $('#per_page').val();
+		var papesss = $('#page').val();
+		var status = $('#status').val();
+		get_favorite_list(status, 'up', max_id, 0, per_page, papesss);
+	}
+
+	function get_favorite_list(status, type, max_id, since_id, per_page, page) {
+		
+		if (!is_network(false)) {return;}
+		var url = '';
+		if (status == '0') {
+			url = base_url + 'napi/get_product_favorite_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+		} else if (status == '1') {
+			url = base_url + 'napi/get_store_favorite_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+		} else {
+			url = base_url + 'napi/get_browse_product_list/' + max_id + '/' + since_id + '/' + per_page + '/' + page + '?sid=' + localStorage.getItem('global_sid');
+		}
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			success: function(res) {
+				console.log(JSON.stringify(res));
+				if (res.success) {
+					var html = template('tpl_favorite_list', res);
+					
+					if (type == 'down') { // 下拉刷新 - down
+						$('#since_id').val(res.data.max_id);
+						$('#favorite_list li[id]:first').before(html);
+						self.endPullDownToRefresh();
+						if (res.data.item_list.length > 0) {
+							respone = respone.concat(res.data.item_list);
+						}
+					} else if (type == 'up') { // 上拉加载 - up
+						$("#favorite_list li[id]:last").after(html);
+						if (res.data.is_next_page) {
+							$('#page').val(parseInt(parseInt(page) + 1));
+							self.endPullUpToRefresh(false);
+						} else {
+							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+						if(res.data.item_list.length > 0) {
+							respone = respone.concat(res.data.item_list);
+						}
+					} else { // 第一次加载
+						respone = res.data.item_list;
+						$('#page').val(parseInt(parseInt(page) + 1));
+						$('#max_id').val(res.data.max_id);
+						$('#since_id').val(res.data.max_id);
+						$('#favorite_list').html(html);
+						if(res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+						}
+						if(!res.data.item_list.length) {
+							var no_data_html = '<div class="parent_no_data">';
+							no_data_html += '<div id="no_data">暂无数据，点击刷新</div>';
+							no_data_html += '</div>';
+							$('#favorite_list').html(no_data_html);
+							document.getElementById('no_data').addEventListener('tap', function() {
+								init();
+							});
+						}
+					}
+				} else {
+					mui.toast(res.message);
+					self.endPullupToRefresh(false);
+					self.endPullDownToRefresh();
+					if (res.field == 'login') {
+						mui.plusReady(function() {
+							go_to_active('login.html');
+						});
+					}
+				}
+			},
+			error: function(err) {
+				self.endPullupToRefresh(false);
+				self.endPulldownToRefresh();
+			}
+		});
+	}
+
+	// 删除收藏
+	mui('#favorite_list').on('tap', 'a', function() {
+		var favorite_id = this.getAttribute("favorite_id");
+		var favorite_type = this.getAttribute("favorite_type");
+		if (favorite_id && favorite_id) {
+			delete_favorite(favorite_type, favorite_id);
+		}
+	});
+
+	// 查看收藏商品
+	mui('#favorite_list').on('tap', 'div', function() {
+		var favorite_id = this.getAttribute('favorite_id');
+		var favorite_type = this.getAttribute('favorite_type');
+		if (favorite_type == 'product') {
+			go_to_view('product-view.html', {
+				item_id : favorite_id
+			});
+		} 
+	});
+
+	// 点击进入店铺/查看浏览记录中的商品
+	mui('#favorite_list').on('tap', 'li', function() {
+		var favorite_id = this.getAttribute('favorite_id');
+		var favorite_type = this.getAttribute('favorite_type');
+		if (favorite_type == 'cookies') {
+			go_to_view('product-view.html', {
+				item_id : favorite_id
+			});
+		} else if (favorite_type == 'store') {
+			go_to_view('store-home-s1.html', {
+				item_id : favorite_id
+			});
+		}
+	});
+
+	function delete_favorite(type, id) {
+		var url = base_url + 'napi/delete_favorite/' + type + '/' + id + '?sid=' + localStorage.getItem("global_sid");
+		mui.ajax(url, {
+			data: {},
+			dataType: 'json',
+			type: 'get',
+			timeout: 10000,
+			success: function(res) {
+				// console.log(JSON.stringify(res));
+				if (res.success) {
+					mui.toast("删除收藏");
+					init();
+				} else {
+					mui.toast(res.message);
+				}
+			}, 
+			error: error
+		});
+	}
+</script>

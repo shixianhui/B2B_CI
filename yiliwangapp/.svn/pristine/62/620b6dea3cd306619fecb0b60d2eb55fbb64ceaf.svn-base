@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover">
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.min.css" />
+		<link rel="stylesheet" href="css/iconfont-supplement.min.css" />
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/pop.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+		<style type="text/css">
+			#pintuan{padding-bottom:50px;}
+			#yike{padding-bottom:50px;}
+			
+			/*#pintuan .product_classly{background:#fff;}*/
+			.product_list .list li .title div img{width:13px !important;height:13px !important;min-height:0 !important;display: inline-block;}
+		</style>
+	</head>
+	<body>
+		<aside class="mui-off-canvas-left" id="offCanvasSide">
+		    <div class="mui-scroll-wrapper">
+		      <div class="mui-scroll left_nav">
+		        <!-- 菜单具体展示内容 -->
+		        <h2>更多</h2>
+		        <ul class="mui-table-view">
+	                <!--<li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="business.html">
+	                        <span class="">商</span>
+	                    	<font>我是商家</font>
+	                    </a>
+	                </li>-->
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="my_release_list.html">
+	                    	<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+	                    	<font>我的发布</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="follow.html">
+	                    	<span class="iconfont-supplement icon-guanzhu"></span>
+	                    	<font>我的关注</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="fans.html">
+	                    	<span class="iconfont-supplement icon-guanzhu"></span>
+	                    	<font>我的粉丝</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right"  href="collection.html">
+	                    	<span class="iconfont-supplement icon-tuanduicankaoxian"></span>
+	                    	<font>我的收藏</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m-order-list.html">
+	                    	<span class="iconfont-supplement icon-dingdan"></span>
+	                    	<font>我的订单</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="pt_order_list.html">
+	                    	<span class="iconfont-supplement icon-dingdan"></span>
+	                    	<font>拼团预购</font>
+	                    </a>
+	                </li> 
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="asset.html">
+	                    	<span class="iconfont-supplement icon-qianbao"></span>
+	                    	<font>我的资产</font>
+	                    </a>
+	                </li>
+	            </ul>
+		        <ul class="mui-table-view">
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m2_set.html">
+	                    	<span class="iconfont icon-shezhi"></span>
+	                    	<font>设置</font>
+	                    </a>
+	                </li>
+	                <li class="mui-table-view-cell">
+	                    <a class="mui-navigate-right" href="m-kffw.html">
+	                    	<span class="iconfont-supplement icon-kefu"></span>
+	                    	<font>客服服务</font>
+	                    </a>
+	                </li>
+	            </ul>
+		      </div>
+		    </div>
+		</aside>
+		<div class="mui-off-canvas-backdrop"></div>
+	    <header id="header" class="mui-bar mui-bar-nav header">
+	      	<a id="nav_btn" class="mui-icon iconfont-supplement icon-iconfontcaidan mui-pull-left" href="javascript:void(0);"></a>
+	      	<h1 class="mui-title">
+		      	<div class="mui-segmented-control">
+			          <a class="mui-control-item" href="javascript:void(0);"><span>商城</span></a>
+			          <a class="mui-control-item mui-active" href="javascript:void(0);"><span>拼团</span></a>
+			          <a class="mui-control-item" href="javascript:void(0);"><span>蚁客</span></a>
+			 	</div>
+	      	</h1>
+	    </header>
+		
+		<nav id="nav_tab" class="mui-bar mui-bar-tab bottom_menu1">
+			<a href="index.html" class="mui-tab-item mui-active">
+				<!--<span class="mui-icon iconfont-supplement icon-shouye"></span>-->
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a href="nearby.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-fujin1"></span>-->
+				<span class="mui-tab-label">附近</span>
+			</a>
+			<a href="release.html" class="mui-tab-item">
+				<span class="mui-icon iconfont-supplement icon-icon-test"></span>
+				<!--<span class="mui-tab-label">发布</span>-->
+			</a>
+			<a href="info.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-xiaoxi"></span>-->
+				<span class="mui-tab-label">消息</span>
+				<i style="display:none;">3</i>
+			</a>
+			<a href="member2.html" class="mui-tab-item">
+				<!--<span class="mui-icon iconfont-supplement icon-wode"></span>-->
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-content">
+			<div id="shangcheng">
+				<div id="index_header" class="mui-bar mui-bar-nav mui-bar-transparent home-head" style="background-color: rgba(204, 0, 17,0);">
+					<h1 class="mui-title topbar">
+				    	<a href="search.html" types="0">
+				    		<div class="mui-input-row search_box">
+				    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>输入搜索关键词
+				    		</div>
+				    	</a>
+				    </h1>
+				</div>
+			<div id="slider" class="mui-slider">
+
+			</div>
+			<script id="tpl_slider" type="text/html">
+				<div class="mui-slider-group mui-slider-loop">
+					<%if (data.item_list.length > 1) {%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[data.item_list.length-1].app_url%>" href="javascript:;">
+								<img data-lazyload="<%=data.item_list[data.item_list.length-1].path%>" src="<%=data.item_list[data.item_list.length-1].path%>">
+							</a>
+						</div>
+						<%for (var i = 0, image = data.item_list; i < image.length; i++) {%>
+							<div class="mui-slider-item">
+								<a url="<%=data.item_list[i].app_url%>" href="javascript:;">
+									<img data-lazyload="<%=data.item_list[i].path%>" src="<%=data.item_list[i].path%>">
+								</a>
+							</div>
+						<%}%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[0].app_url%>"  href="javascript:;">
+								<img data-lazyload="<%=data.item_list[0].path%>" src="<%=data.item_list[0].path%>">
+							</a>
+						</div>
+					<%} else {%>
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a url="<%=data.item_list[0].app_url%>"  href="javascript:;">
+								<img data-lazyload="<%=data.item_list[0].path%>" src="<%=data.item_list[0].path%>">
+							</a>
+						</div>	
+					<%}%>
+				</div>
+				<div class="mui-slider-indicator">
+					<%for (var i = 0; i < image.length; i++) {%>
+						<%if (i == 0) {%>
+							<div class="mui-indicator mui-active"></div>
+						<%} else {%>
+							<div class="mui-indicator"></div>
+						<%}%>
+					<%}%>
+				</div>
+			</script>
+			<div class="main_type">
+				<ul class="type_list mui-clearfix">
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="1" title="本地商家" href="store-list.html">
+							<img src="img/index-icon2.png"/>
+							<div class="mui-media-body">本地商家</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="2" title="招商采购" href="store-list.html">
+							<img src="img/index-icon6.png"/>
+							<div class="mui-media-body">招商采购</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a auth_type="3" title="实力电商" href="store-list.html">
+							<img src="img/index-icon3.png"/>
+							<div class="mui-media-body">实力电商</div>
+						</a>
+					</li>
+					
+					<li class="mui-table-view-cell mui-media" style="display:none;">
+						<a title="蚁立直播" href="javascript:void(0);">
+							<img src="img/index-icon1.png"/>
+							<div class="mui-media-body">蚁立直播</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<a title="旅游教育" href="javascript:void(0);">
+							<img src="img/index-icon5.png"/>
+							<div class="mui-media-body">旅游教育</div>
+						</a>
+					</li>
+				</ul>
+				<div id="new_list" class="headlines">
+					
+				</div>
+				<script id="tpl_new_list" type="text/html">
+					<strong>蚁立<span>头条</span>:</strong>
+					<ul class="swiper-wrapper">
+						<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+							<li class="swiper-slide"><a href="m-kffw-view.html" item_id="<%=data[i].id%>"><%=data[i].title%></a></li>
+						<%}%>
+					</ul>
+					<a href="m-kffw-list.html" class="more">更多</a>
+				</script>
+			</div>
+			<div class="day_live" style="display:none;">
+				<div class="live_title">
+					<h4 class="mui-pull-left">
+						<span>今日直播</span>
+					</h4>
+					<a href="javascript:;" class="more mui-pull-right">更多<span class="iconfont icon-jiantouyou"></span></a>
+				</div>
+				<div class="live_list">
+					<ul>
+						<li class="list_item">
+							<a href="javascript:;">
+								<img src="img/live-list.jpg"/>
+								<p>9:00-16:00</p>
+								<p>杭州筑家家居实家居实家居实</p>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="index_booth">
+				<div>
+					
+				</div>
+			</div>
+
+			<script id="tpl_index_booth" type="text/html">
+				<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+					<div class="ad_box">
+						<div class="ad">
+							<div class="ad_title mui-clearfix">
+								<h4 class="mui-pull-left"><%=data[i].menu_name%></h4>
+								<a item_id="<%=data[i].id%>" href="javascript:;" class="more mui-pull-right">更多<span class="iconfont icon-jiantouyou"></span></a>
+							</div>
+							<div class="ad_content">
+								<div class="ad_content_b mui-pull-left">
+									<a url="<%=data[i].app_url%>" href="javascript:;" class="ad_pic">
+										<img src="<%=data[i].left_ad_list[0].path%>"/>
+									</a>
+								</div>
+								<div class="ad_content_s mui-pull-right">
+									<%for (var j = 0, product = data[i].product_list; j < (product.length > 2 ? 2 : product.length); j++) {%>
+										<a href="javascript:void(0);" product_id="<%=product[j].id%>" class="ad_pic">
+											<div class="title">
+												<p class="mui-ellipsis-2"><%=product[j].title%></p>
+												<p class="price">￥<%=product[j].sell_price%></p>
+											</div>
+											<div class="img">
+												<img src="<%=product[j].path_thumb%>">
+											</div>
+										</a>
+									<%}%>
+								</div>
+							</div>
+						</div>
+					</div>
+				<%}%>
+			</script>
+			<div class="like">
+				<h4 class="like_title">
+					<span>猜您喜欢</span>
+				</h4>
+				<div class="like_box">
+					<ul id="guess_like">
+
+					</ul>
+					<script id="tpl_guess_like" type="text/html">
+						<%for (var i = 0, data = data.item_list; i < data.length; i++) { %>
+							<li class="like_item">
+								<a product_id="<%=data[i].id%>" href="javascript:void(0);">
+									<img src="<%=data[i].path_thumb%>" class="img_bg" />
+									<p class="mui-ellipsis-2" style="height:3em;"><%=data[i].title%></p>
+									<!-- <p>双人床 1.8*2.0米</p> -->
+									<em><span>￥</span><%=data[i].sell_price%></em>
+								</a>
+							</li>
+						<%}%>
+					</script>
+				</div>
+			</div>
+			</div>
+			<div id="pintuan" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="to_search">
+				    	<a href="search.html" types="1">
+				    		<div class="search_box">
+				    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>输入搜索关键词
+				    		</div>
+				    	</a>
+					</div>
+					<div class="snatch_treasures">
+						<div class="card_header">
+							<h3>蚁贝夺宝</h3>
+							<div class="time">
+								距结束　<span class="h_box">01</span>:<span class="m_box">01</span> : <span class="s_box">01</span>
+							</div>
+						</div>
+						<ul class="card_body mui-clear">
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+						</ul>
+					</div>
+					<div class="product_list">
+						<div class="product_classly mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+							<div id="category_list" class="mui-scroll">
+								<!--<a class="mui-control-item mui-active" href="javascript:void(0);"><span>厨具</span></a>
+						        <a class="mui-control-item" href="javascript:void(0);"><span>更多<i>▼</i></span></a>-->
+								
+							</div>
+							<script id="tpl_category_list" type="text/html">
+									<a item_id="0" class="mui-control-item mui-active" href="javascript:void(0);"><span>全部</span></a>
+								<%for(var i=0; i<data.item_list.length;i++){%>
+									<a item_id="<%=data.item_list[i].id%>" class="mui-control-item " href="javascript:void(0);"><span><%=data.item_list[i].product_category_name%></span></a>
+					        	<%}%>
+							</script>
+							
+						</div>
+						<div id="status" class="product_nav mui-segmented-control">
+							<a status='a' class="mui-control-item mui-active" href="javascript:void(0);"><span>推荐拼团</span></a>
+					        <a status='b' class="mui-control-item" href="javascript:void(0);"><span>实时拼团</span></a>
+					        <a status='a' class="mui-control-item" href="javascript:void(0);"><span>体验拼团</span></a>
+					        <a status='d' class="mui-control-item" href="javascript:void(0);"><span>意向拼团</span></a>
+					        <a status='e' class="mui-control-item" href="javascript:void(0);"><span>往期拼团</span></a>
+						</div>
+						<div class="list" id="group_purchase">
+							<ul id="group_purchase1" class="list_box">
+								<script id="tpl_group_purchase1" type="text/html">
+								<%for(var i =0;i<data.item_list.length;i+=2){%>
+								<li item_id="<%=data.item_list[i].id%>">
+									<img src="<%=data.item_list[i].path_thumb%>"/>
+									<div class="title"><%=data.item_list[i].title%></div>
+									<div class="info">
+										<div class="store">
+											<img src="<%=data.item_list[i].user_path%>"/>
+											<p><%=data.item_list[i].nickname%></p>
+											<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-shoucang"></span>
+											<span class="number"><%=data.item_list[i].favorite_num%></span>
+										</div>
+									</div>
+								</li>
+								<%}%>
+								</script>
+								
+							</ul>
+							<ul id="group_purchase2" class="list_box">
+								<script id="tpl_group_purchase2" type="text/html">
+								<%for(var i =1;i<data.item_list.length;i+=2){%>
+								<li item_id="<%=data.item_list[i].id%>">
+									<img src="<%=data.item_list[i].path_thumb%>"/>
+									<div class="title"><%=data.item_list[i].title%></div>
+									<div class="info">
+										<div class="store">
+											<img src="<%=data.item_list[i].user_path%>"/>
+											<p><%=data.item_list[i].nickname%></p>
+											<span class="iconfont-supplement icon-shangjiarenzheng"></span>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-shoucang"></span>
+											<span class="number"><%=data.item_list[i].favorite_num%></span>
+										</div>
+									</div>
+								</li>
+								<%}%>
+								</script>
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			<div id="yike" class="yike mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="to_search">
+				    	<a href="search.html" types="2">
+				    		<div class="search_box">
+				    			<span class="iconfont mui-icon icon-sousuokuangsousuo"></span>输入搜索关键词
+				    		</div>
+				    	</a>
+					</div>
+					<div class="snatch_treasures">
+						<div class="card_header">
+							<h3>蚁贝夺宝</h3>
+							<div class="time">
+								距结束　<span class="h_box">01</span>:<span class="m_box">01</span> : <span class="s_box">01</span>
+							</div>
+						</div>
+						<ul class="card_body mui-clear">
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+							<li>
+								<div class="img_box">
+									<img src="img/pictrue1.png"/>
+								</div>
+								<div class="title">优质白蜡木森系双人床</div>
+								<div class="price">88888蚁贝</div>
+							</li>
+						</ul>
+					</div>
+					<div class="button_box">
+						<button>专业蚁客申请</button>
+					</div>
+					<div class="product_list">
+						<div id="yike_nav" class="product_classly mui-segmented-control">
+							<a class="mui-control-item mui-active" href="javascript:void(0);"><span>心得</span></a>
+					        <a class="mui-control-item" href="javascript:void(0);"><span>排行</span></a>
+					   </div>
+						<div class="product_nav mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted yike_product_nav">
+							<div id="topic_category_list" class="mui-scroll">
+							</div>
+						        <!--<a class="mui-control-item" href="javascript:void(0);"><span>更多</span></a>-->
+						</div>
+						<script id="tpl_topic_category_list" type="text/html">
+							<%for(var i=0;i<data.length;i++){%>
+							<a id="<%=data[i].id%>" class="mui-control-item <%if(i==0){%>mui-active<%}%>" href="javascript:void(0);"><span><%=data[i].name%></span></a>
+					        <%}%>
+						</script>
+						<div class="list yike_list">
+							<ul id="biji_list1" class="list_box">
+								
+								<li>
+									<img src=""/>
+									<div class="title">
+										<div class="red">
+											<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+											优质生活
+										</div>
+										这款电器的存在，让我的生活档次提高了许多！
+									</div>
+									<div class="info">
+										<div class="store">
+											<img src="img/circle.png"/>
+											<p>Yooyo</p>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-xin1"></span>
+											<span class="number">12213</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+							
+							<ul id="biji_list2" class="list_box">
+								<li>
+									<img src="img/ad_5.jpg"/>
+									<div class="title">
+										<div class="red">
+											<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+											优质生活
+										</div>
+										这款电器的存在，让我的生活档次提高了许多！
+									</div>
+									<div class="info">
+										<div class="store">
+											<img src="img/circle.png"/>
+											<p>Yooyo</p>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-xin1"></span>
+											<span class="number">12213</span>
+										</div>
+									</div>
+								</li>
+								<li>
+									<img src="img/ad_5.jpg"/>
+									<div class="title">
+										<div class="red">
+											<span class="iconfont-supplement icon-bianjibijishishouxie"></span>
+											优质生活
+										</div>
+										这款电器的存在，让我的生活档次提高了许多！
+									</div>
+									<div class="info">
+										<div class="store">
+											<img src="img/circle.png"/>
+											<p>Yooyo</p>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-xin1"></span>
+											<span class="number">12213</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<script id="tpl_biji_list1" type="text/html">
+								<%for(var i =0;i<data.item_list.length;i+=2){%>
+								<li item_id="<%=data.item_list[i].id%>">
+									<img src="<%=data.item_list[i].path_thumb%>"/>
+									<div class="title">
+										<%if(data.item_list[i].category_info!=''){%>
+										<div style="color:<%=data.item_list[i].category_info.color%>;">
+											<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+											<%=data.item_list[i].category_info.name%>
+										</div>
+										<%}%>
+										<%=data.item_list[i].content%>
+									</div>
+									<div class="info">
+										<div class="store">
+											<img src="<%=data.item_list[i].user_path%>"/>
+											<p><%=data.item_list[i].nickname%></p>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-shoucang"></span>
+											<span class="number"><%=data.item_list[i].favorite_num%></span>
+										</div>
+									</div>
+								</li>
+								<%}%>
+								
+								
+							</script>
+							<script id="tpl_biji_list2" type="text/html">
+								<%for(var i =1;i<data.item_list.length;i+=2){%>
+								<li item_id="<%=data.item_list[i].id%>">
+									<img src="<%=data.item_list[i].path_thumb%>"/>
+									<div class="title">
+										<%if(data.item_list[i].category_info!=''){%>
+										<div style="color:<%=data.item_list[i].category_info.color%>;">
+											<img src="<%=data.item_list[i].category_info.icon_path_thumb%>"/>
+											<%=data.item_list[i].category_info.name%>
+										</div>
+										<%}%>
+										<%=data.item_list[i].content%>
+									</div>
+									<div class="info">
+										<div class="store">
+											<img src="<%=data.item_list[i].user_path%>"/>
+											<p><%=data.item_list[i].nickname%></p>
+										</div>
+										<div class="collection_number">
+											<span class="iconfont-supplement icon-shoucang"></span>
+											<span class="number"><%=data.item_list[i].favorite_num%></span>
+										</div>
+									</div>
+								</li>
+								<%}%>
+								
+							</script>
+						</div>
+						<div class="yike_ranking">
+							<!--<table border="0" cellspacing="0" cellpadding="0">
+								<tr class="tr_header">
+									<th>排名</th>
+									<th>蚁客昵称</th>
+									<th>等级</th>
+									<th>评估次数</th>
+								</tr>
+								<tr>
+									<td><img src="img/paimin1.png"/></td>
+									<td>
+										<img src="img/user.png"/>
+										<span class="name">
+											蚁客专家222
+										</span>
+									</td>
+									<td><span class="iconfont-supplement icon-huiyuandengji"></span></td>
+									<td>4568次</td>
+								</tr>
+								<tr>
+									<td><img src="img/paimin2.png"/></td>
+									<td>
+										<img src="img/user.png"/>
+										<span class="name">
+											蚁客专家222
+										</span>
+									</td>
+									<td><span class="iconfont-supplement icon-huiyuandengji"></span></td>
+									<td>4568次</td>
+								</tr>
+								<tr>
+									<td><img src="img/paimin3.png"/></td>
+									<td>
+										<img src="img/user.png"/>
+										<span class="name">
+											蚁客专家222
+										</span>
+									</td>
+									<td><span class="iconfont-supplement icon-huiyuandengji"></span></td>
+									<td>4568次</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>
+										<img src="img/user.png"/>
+										<span class="name">
+											蚁客专家222
+										</span>
+									</td>
+									<td><span class="iconfont-supplement icon-huiyuandengji"></span></td>
+									<td>4568次</td>
+								</tr>
+							</table>-->
+						</div>
+				</div>
+				
+			</div>
+			</div>
+			<div class="mui-clear"></div>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var style_css = '<style type="text/css">.mui-content{padding-top:'+(44+immersed)+'px !important;}#pintuan,#yike{padding-top:'+(44+immersed)+'px !important;}.left_nav{margin-top:'+immersed+'px;}header{padding-top:'+immersed+'px;height:'+(44+immersed)+'px !important;}#index_header{margin-top: ' + (44+immersed) + 'px !important;height:' + (44 + 0) + 'px;}</style>';
+	document.write(style_css);
+</script>
+<script type="text/javascript" charset="utf-8">
+var latitude,longitude;
+	mui.init({
+		gestureConfig:{
+	   longtap: true
+	  }
+	})
+	mui('.mui-scroll-wrapper').scroll()
+	mui.plusReady(function(){
+		plus.navigator.setStatusBarStyle('dark');
+	});
+	window.onload = function() {
+		$('#pintuan').attr('style','display:block;');
+		$('#shangcheng').attr('style','display:none;');
+		$('#yike').attr('style','display:none;');
+		
+		$('#yike .product_nav').attr('style','display:none;');
+		$('.yike_list').attr('style','display:block;');
+		$('.yike_ranking').attr('style','display:none;');
+		$('.header .mui-control-item').eq(1).addClass('mui-active').siblings().removeClass('mui-active')
+		$('#yike .product_nav .mui-control-item').eq(1).addClass('mui-active').siblings().removeClass('mui-active')
+		data_init();
+	};
+	
+	function data_init() {
+		get_cus_page_list();
+		get_cus_product_list('a', 10);
+		get_index_booths_list();
+		get_index_ad_list(1);
+		get_group_purchase_list('0');
+		get_product_category_list();
+		
+		get_topic_category_list();
+		get_notes_list('0');
+		
+		clearTimeout(stars);
+		
+		get_message_count();
+	}
+	
+	// 展位跳转
+	mui('#index_booth').on('tap', 'a[url]', function() {
+		var id = this.getAttribute('url');
+		var url_zz = /^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+		if(url_zz.test(id)) {
+			go_to_view('site.html', {url: id});
+		} else {
+			if(id && ~id.indexOf('.html')) {
+				if(id.indexOf('?') > 0) {
+					var target = id.split('?')[0];
+					var data = paramToObject(id.split('?')[1]);
+					go_to_view(target, data);
+				} else {
+					go_to_active(id);
+				}
+			}
+		}
+	});
+	// 搜索跳转
+	mui('.to_search').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		var types = this.getAttribute('types');
+		if(id && ~id.indexOf('.html')) {
+			go_to_view(id, {types:types});
+		}
+	});
+	/*左菜单*/
+	document.getElementById('nav_btn').addEventListener('tap',function(){
+		$('.mui-off-canvas-backdrop').addClass('mui-active');
+		$('.mui-off-canvas-left').addClass('mui-active');
+	})
+	document.querySelector('.mui-off-canvas-backdrop').addEventListener('tap',function(){
+		$('.mui-off-canvas-backdrop').removeClass('mui-active');
+		$('.mui-off-canvas-left').removeClass('mui-active');
+	})
+	/*左菜单结束*/
+	
+	mui('#index_booth').on('tap', 'a[item_id]', function() {
+		var item_id = this.getAttribute('item_id');
+		go_to_view('index_product_list.html', {item_id:item_id});
+	});
+	
+	mui('#header').on('tap', 'a.mui-control-item', function() {
+		console.log($(this).index())
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		if ($(this).index()==0) {
+			$('#shangcheng').attr('style','display:block;');
+			$('#pintuan').attr('style','display:none;');
+			$('#yike').attr('style','display:none;');
+		} else if($(this).index()==1){
+			
+			$('#shangcheng').attr('style','display:none;');
+			$('#pintuan').attr('style','display:block;');
+			$('#yike').attr('style','display:none;');
+		}else{
+			
+			$('#shangcheng').attr('style','display:none;');
+			$('#pintuan').attr('style','display:none;');
+			$('#yike').attr('style','display:block;');
+		}
+		
+	});
+	
+	mui('#yike_nav').on('tap', 'a.mui-control-item', function() {
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		if ($(this).index()==0) {
+			$('#yike .product_nav').attr('style','display:none;');
+//			$('.yike_list').attr('style','display:block;');
+//			$('.yike_ranking').attr('style','display:none;');
+			topic_category_id=0
+			page1=1;
+			get_notes_list('0');
+		} else if($(this).index()==1){
+			$('#yike .product_nav').attr('style','display:block;');
+			topic_category_id=$('#topic_category_list a.mui-active').attr('id');
+			page1=1;
+			get_notes_list('0');
+//			$('.yike_list').attr('style','display:none;');
+//			$('.yike_ranking').attr('style','display:block;');
+		}
+		
+	});
+
+
+	// 首页跳转
+	mui('#slider').on('tap', 'a[url]', function() {
+		var id = this.getAttribute('url');
+		var url_zz = /^http[s]?:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+		if(url_zz.test(id)) {
+			go_to_view('site.html', {url: id});
+		} else {
+			if(id && ~id.indexOf('.html')) {
+				if(id.indexOf('?') > 0) {
+					var target = id.split('?')[0];
+					var data = paramToObject(id.split('?')[1]);
+					go_to_view(target, data);
+				} else {
+					go_to_active(id);
+				}
+			}
+		}
+	});
+	
+	function paramToObject($str) {
+		var obj = {};
+		var arr = $str.split('&');
+		mui.each(arr, function(key, value) {
+			obj[value.split('=')[0]] = decodeURIComponent(value.split('=')[1]);
+		});
+		return obj;
+	}
+
+	// 首页广告
+	function get_index_ad_list(id) {
+		if (!is_network(false)) {return;}
+
+		url = base_url + 'napi/get_index_ad_list/' + id;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_slider', res);
+					$('#slider').html(html);
+
+					// 开启轮播
+					var gallery = mui('.mui-slider');
+					gallery.slider({
+						interval: 4000
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 获取首页展位及商品
+	function get_index_booths_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_index_booths_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_index_booth', res);
+					$('#index_booth').html(html);
+
+					mui('.ad_content_s').on('tap', 'a', function() {
+						var product_id = this.getAttribute("product_id");
+						go_to_view("product-view.html", {
+							item_id : product_id
+						});
+					});
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	// 猜您喜欢商品详情
+	mui('#guess_like').on('tap', 'a', function() {
+		var product_id = this.getAttribute("product_id");
+		go_to_view("product-view.html", {
+			item_id : product_id
+		});
+	});
+	// 猜您喜欢
+	function get_cus_product_list(type, num) {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_cus_product_list/' + type + '/' + num;
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_guess_like', res);
+					$('#guess_like').html(html);
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	// 新闻轮播
+	function get_cus_page_list() {
+		if (!is_network(false)) {return;}
+
+		var url = base_url + 'napi/get_cus_page_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_new_list', res);
+					$('#new_list').html(html);
+					onload2();
+					
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+
+	function onload2(){
+		var swiperPromotion = new Swiper('.headlines', {
+			direction: 'vertical',
+			loop: true,
+			autoplay: 3000,
+			autoplayDisableOnInteraction: false,
+			observer:true,
+ 			observeParents:true,
+		});
+	}
+	mui('.main_type').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=="store-list.html") {
+				var auth_type=this.getAttribute('auth_type');
+				var title=this.getAttribute('title');
+				if (auth_type==2) {
+					if(localStorage.getItem('global_store_id')!=0 && localStorage.getItem('global_store_display')==1){
+							go_to_view(id,{auth_type:auth_type,title:title,latitude:latitude,longitude:longitude})
+					}else{
+						mui.alert('招商采购频道，经认证的入驻商家方可进入');
+					}
+				}else{
+					go_to_view(id,{auth_type:auth_type,title:title,latitude:latitude,longitude:longitude})
+				}
+			} else{
+				go_to_active(id)
+			}
+		}else{
+			mui.toast('建设中...')
+		}
+	});
+	mui('#new_list').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			if (id=='m-kffw-view.html') {
+				var item_id=this.getAttribute('item_id');
+				go_to_view(id,{item_id:item_id})
+			} else if (id=='m-kffw-list.html') {
+				var item_id=127;
+				go_to_view(id,{item_id:item_id,header_title:'蚁立招聘'})
+			} else{
+				go_to_active(id)
+			}
+		}else{
+			mui.toast('建设中...')
+		}
+	});
+	mui('#index_header').on('tap','a',function(){
+		var id = this.getAttribute('href');
+		go_to_view(id,{flag:'product'})
+	});
+	
+	// 获取定位信息
+//	 mui.plusReady(function() {
+//	 function get_geolocation() {
+//	 	plus.geolocation.getCurrentPosition(function(position){
+////	 			console.log(JSON.stringify(position));
+//              latitude = position.coords.latitude; 
+//              longitude = position.coords.longitude;
+//           }, function(e) {
+//               mui.alert("请开启定位功能再尝试");
+//           }, {provider: 'baidu'});
+//	 })
+	 
+	mui('#pintuan').on('tap', 'li', function() {
+		var product_id = this.getAttribute("item_id");
+		go_to_view("groups_view.html", {
+			item_id : product_id
+		});
+	});
+	
+	mui('#yike').on('tap', 'li', function() {
+		var item_id = this.getAttribute("item_id");
+		go_to_view("note_detail.html", {
+			item_id : item_id
+		});
+	});
+	
+	
+	
+
+	
+	/*拼团*/
+	var status='a';
+	var category_id_1='';
+	var category_id_2='';
+	var keywords='';
+	var page=1;
+	
+	var list_ids_pt ='';
+	var list_ids_note ='';
+	
+	var self = mui('#pintuan>.mui-scroll').pullToRefresh({
+		down: {
+			callback: function() {
+				down_refresh(this);
+			}
+		},
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		get_group_purchase_list('up');
+	}
+	function down_refresh(obj) {
+		page=1;
+		get_group_purchase_list('down');
+	}
+	var self2 = mui('#yike>.mui-scroll').pullToRefresh({
+		down: {
+			callback: function() {
+				down_refresh2(this);
+			}
+		},
+		up : {
+			callback : function() {
+				up_refresh2(this);
+			}
+		}
+	});
+	function up_refresh2(obj) {
+		get_notes_list('up');
+	}
+	function down_refresh2(obj) {
+		page1=1;
+		get_notes_list('down');
+	}
+	
+	mui('#category_list').on('tap', 'a.mui-control-item', function() {
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		category_id_1=this.getAttribute('item_id');
+		page=1;
+		get_group_purchase_list('0');
+		
+	});
+	mui('#status').on('tap', 'a.mui-control-item', function() {
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		status=this.getAttribute('status');
+		page=1;
+		get_group_purchase_list('0');
+		
+	});
+	// 获取分类
+	function get_product_category_list() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_product_category_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+//					console.log(JSON.stringify(res))
+					var html = template('tpl_category_list', res);
+					$('#category_list').html(html);
+					category_id_1=0
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	// 拼团
+	function get_group_purchase_list(type) {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_group_purchase_list/0/0/20/'+page;
+		mui.ajax(url, {
+			data: {
+				status:status,
+				category_id_1:category_id_1,
+				category_id_2:category_id_2,
+				keywords:keywords,
+          		list_ids:''
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html1 = template('tpl_group_purchase1', res);
+					var html2 = template('tpl_group_purchase2', res);
+//					console.log(JSON.stringify(res))
+					if (type == 'down') {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#group_purchase1').html(no_data_html);
+                            $('#group_purchase2').html('');
+                        }else{
+                        	
+							$('#group_purchase1').html(html1);
+							$('#group_purchase2').html(html2);
+                        }
+                        self.endPullDownToRefresh();
+			 		} else if (type == 'up') {
+						var size1 = $("#group_purchase1 li[item_id]").size();
+						var size2= $("#group_purchase2 li[item_id]").size();
+						if ((size2+size1) > 0) {
+							if(size2>size1){
+								$("#group_purchase1 li[item_id]:last").after(html1);
+								$("#group_purchase2 li[item_id]:last").after(html2);
+							}else{
+								$("#group_purchase1 li[item_id]:last").after(html2);
+								$("#group_purchase2 li[item_id]:last").after(html1);
+							}
+						} else {
+							$('#group_purchase1').html(html1);
+							$('#group_purchase2').html(html2);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#group_purchase1').html(no_data_html);
+                            $('#group_purchase2').html('');
+                        }else{
+                        	
+							$('#group_purchase1').html(html1);
+							$('#group_purchase2').html(html2);
+                        }
+					}
+          			list_ids_pt = res.data.list_ids;
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	/*拼团结束*/
+	
+	/*蚁客*/
+	var page1=1;
+	var topic_category_id=0;
+	// 获取分类
+	function get_topic_category_list() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_topic_category_list';
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					console.log(JSON.stringify(res))
+					var html = template('tpl_topic_category_list', res);
+					$('#topic_category_list').html(html);
+					topic_category_id=0
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+	mui('#topic_category_list').on('tap', 'a.mui-control-item', function() {
+		$(this).addClass('mui-active').siblings().removeClass('mui-active');
+		topic_category_id=this.getAttribute('id');
+		page1=1;
+		get_notes_list('0');
+		
+	});
+	// 蚁客
+	function get_notes_list(type) {
+		if (!is_network(false)) {return;}
+		console.log(page1)
+		var url = base_url + 'napi/get_notes_list/0/0/20/'+page1;
+		mui.ajax(url, {
+			data: {
+				topic_category_id:topic_category_id,
+				keywords:keywords,
+          		list_ids:''
+			},
+			dataType: "json",
+			type: "post",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					var html1 = template('tpl_biji_list1', res);
+					var html2 = template('tpl_biji_list2', res);
+					if (type == 'down') {
+						page1=page1+1;
+						if (res.data.is_next_page == 0) {
+							self2.endPullUpToRefresh(true);
+						} else {
+							self2.endPullUpToRefresh(false);
+							self2.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#biji_list1').html(no_data_html);
+                            $('#biji_list2').html('');
+                        }else{
+                        	
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+                        }
+                        
+                        self2.endPullDownToRefresh();
+			 		} else if (type == 'up') {
+						var size1 = $("#biji_list1 li[item_id]").size();
+						var size2= $("#biji_list2 li[item_id]").size();
+						if ((size2+size1) > 0) {
+							if(size2>size1){
+								$("#biji_list1 li[item_id]:last").after(html1);
+								$("#biji_list2 li[item_id]:last").after(html2);
+							}else{
+								$("#biji_list1 li[item_id]:last").after(html2);
+								$("#biji_list2 li[item_id]:last").after(html1);
+							}
+						} else {
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+						}
+						if(res.data.is_next_page!='0') {
+							page1=page1+1;
+							self2.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self2.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page1=page1+1;
+						if (res.data.is_next_page == 0) {
+							self2.endPullUpToRefresh(true);
+						} else {
+							self2.endPullUpToRefresh(false);
+							self2.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#biji_list1').html(no_data_html);
+                            $('#biji_list2').html('');
+                        }else{
+                        	
+							$('#biji_list1').html(html1);
+							$('#biji_list2').html(html2);
+                        }
+					}
+			 		list_ids_note = res.data.list_ids;
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	mui('.button_box').on('tap','button',function(){
+		go_to_active('m2_apply.html')
+	});
+	/*蚁客结束*/
+	
+	
+	
+	var stars='';
+	
+	function get_message_count() {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_message_count?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+					console.log(JSON.stringify(res))
+				if (res.success) {
+					if(res.data.message_count > 0){
+						$('#nav_tab i').html(res.data.message_count);
+						$('#nav_tab i').css('display','block');
+					}else{
+						
+						$('#nav_tab i').css('display','none');
+					}
+				} else {
+					mui.toast(res.message);
+				}
+				stars=setTimeout(function(){
+					get_message_count();
+				},60000)
+			},
+			error: error
+		});
+	}
+	
+	mui('#offCanvasSide').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if(id=='m-order-list.html'){
+			go_to_view(id, {status: 'all'});
+		}else{
+			go_to_active(id);
+		}
+	});
+	
+	/*底部菜单*/
+	mui('#nav_tab').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if(id=='release.html'){
+			go_to_active(id);
+		}else{
+			go_to_active_unani(id);
+		}
+		setTimeout(function(){
+			$('.mui-tab-item[href="index.html"]').addClass('mui-active').siblings().removeClass('mui-active');
+		},200)
+	});
+</script>

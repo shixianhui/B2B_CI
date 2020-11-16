@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/reset.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css"/>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+		    <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+		    <h1 class="mui-title">账户管理</h1>
+		</header>
+		<div class="mui-content no-bg account-management-content">
+			<ul index="1" class="mui-table-view" style="margin-top:0px;">
+		        <li class="mui-table-view-cell portrait">
+		            <a class="mui-navigate-right">
+		                <img id="user_icon" src="img/control_hd.png" alt=""/>
+		                <span id="username"></span>
+		            </a>
+		        </li>
+		    </ul>
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a href="m-smrz.html" class="mui-navigate-right">
+	         			实名认证<p id="card_id" class="mui-pull-right">未认证</p>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="m-zhaq.html" class="mui-navigate-right">
+						账户安全
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="m-address-list.html" class="mui-navigate-right">
+						地址管理
+	                </a>
+	            </li>
+	        </ul>
+		</div>
+	</body>
+</html>
+<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/mui.lazyload.min.js"></script>
+<script type="text/javascript" src="js/mui.lazyload.img.min.js"></script>
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript">
+
+	mui.init({
+		beforeback: function() {
+			//获得列表界面的webview
+			var list = plus.webview.getWebviewById('member.html');
+			//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+			mui.fire(list,'changeHeadImage');
+			//返回true，继续页面关闭逻辑
+			return true;
+		}
+	});
+
+	window.addEventListener('changeNickname', function(mes) {
+		init();
+	});
+	window.addEventListener('page_init', function() {
+		init();
+	});
+	window.addEventListener('authentication', function() {
+		init();
+	});
+	mui('.mui-content').on('tap', 'a', function() {
+		var id = this.getAttribute('href');
+		if (id && ~id.indexOf('.html')) {
+			go_to_active(id);
+		}
+	});
+
+	mui('.mui-content').on('tap', 'ul', function() {
+		var index = this.getAttribute('index');
+		if (index == '1') {
+			go_to_active("m-grxx.html");
+		}
+	});
+
+	window.onload = function() {
+		init();
+	}
+
+	function init() {
+		if (localStorage.getItem('global_sid') && localStorage.getItem('global_sid') != 'undefined') {
+			if (localStorage.getItem("global_path_thumb") && localStorage.getItem("global_path_thumb") != 'undefined') {
+				$('#user_icon').attr('src', localStorage.getItem("global_path_thumb"));
+			} else {
+				$('#user_icon').attr('src', "img/control_hd.png");
+			}
+			$('#username').html(localStorage.getItem("global_nickname")); 
+			if (localStorage.getItem("global_is_id_card_auth")==1) {
+				$('#card_id').text('已认证')
+			} else{
+				$('#card_id').text('未认证')
+			}
+		}else{
+			go_to_active('login.html');
+		}
+	}
+</script>

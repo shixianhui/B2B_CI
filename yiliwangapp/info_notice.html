@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont-supplement.css"/>
+		<link rel="stylesheet" href="css/base.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/default_refresh_style.min.css"/>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav head-bar">
+	        <a class="mui-action-back mui-icon mui-icon-arrowleft mui-pull-left"></a>
+	        <h1 class="mui-title">通知消息</h1>
+	        
+	    </header>
+	    <div class="mui-content info-notice mui-scroll-wrapper">
+	    	<div class="mui-scroll">
+	    		<ul id="content_list">
+	    		</ul>
+	    		<script id="tpl_content_list" type="text/html">
+	    			<%for(var i=0;i<data.item_list.length;i++){%>
+	    				<%if(data.item_list[i].message_type=='eli_guest '){%>
+		    			<li item_id="<%=data.item_list[i].item_id%>" href="group_view.html">
+			    			<span class="mui-icon iconfont-supplement icon-tongzhi mui-pull-left"></span>
+			    			<p><%=data.item_list[i].from_user_nickname%>邀请您评估团预购<br /><%=data.item_list[i].title%></p>
+			    			<p><%=data.item_list[i].add_time_format%></p>
+			    		</li>
+			    		<%}else{%>
+			    		<li>
+			    			<span class="mui-icon iconfont-supplement icon-tongzhi mui-pull-left"></span>
+			    			<p>[订单消息]您有一订单未付款！<br />您有订单为161121113702976的订单未付款哦~~,亲赶紧去支付吧！</p>
+			    			<p><%=data.item_list[i].add_time_format%></p>
+			    		</li>
+			    		<%}%>
+		    		<%}%>
+	    		</script>
+	    	</div>
+	    	
+	    </div>
+	</body>
+</html>
+<script src="js/mui.min.js"></script>
+<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/index.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/a_link.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/immersed.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/template-native.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/mui.pullToRefresh.material.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+	window.onload = function() {
+		data_init();
+	};
+	document.addEventListener('page_init',function() {
+		data_init();
+	});
+	function data_init() {
+		page=1;
+		get_message_list('0');
+	}
+	
+	mui('#content_list').on('tap', 'li', function() {
+		var product_id = this.getAttribute("item_id");
+		var href = this.getAttribute("href");
+		go_to_view(href, {
+			item_id : product_id
+		});
+	});
+	
+	/*拼团*/
+	var page=1;
+	
+	 
+	mui('.mui-scroll-wrapper').scroll();
+	
+	var self = mui('.mui-scroll').pullToRefresh({
+		up : {
+			callback : function() {
+				up_refresh(this);
+			}
+		}
+	});
+	
+	function up_refresh(obj) {
+		get_message_list('up');
+	}
+	
+	// 消息
+	function get_message_list(type) {
+		if (!is_network(false)) {return;}
+		var url = base_url + 'napi/get_message_list/0/0/20/'+page+'?sid=' + localStorage.getItem('global_sid');
+		mui.ajax(url, {
+			data: {},
+			dataType: "json",
+			type: "get",
+			timeout: 10000,
+			success: function(res) {
+				if (res.success) {
+					var html = template('tpl_content_list', res);
+					console.log(JSON.stringify(res))
+					if (type == 'up') {
+						var size = $("#content_list li[item_id]").size();
+						if ((size) > 0) {
+							$("#content_list li[item_id]:last").after(html);
+							
+						} else {
+							$('#content_list').html(html);
+						}
+						if(res.data.is_next_page!='0') {
+							page=page+1;
+							self.endPullUpToRefresh(false);
+						} else {
+//							$('#page').val(page);
+							self.endPullUpToRefresh(true);
+						}
+			 		} else {
+						page=page+1;
+						if (res.data.is_next_page == 0) {
+							self.endPullUpToRefresh(true);
+						} else {
+							self.endPullUpToRefresh(false);
+							self.refresh(true);
+						}
+						if (!res.data.item_list.length) {
+                            var no_data_html = '<div class="parent_no_data" style="min-height:667px;">';
+                            no_data_html += '<div id="no_data" class="no_data">暂无数据，点击刷新</div>';
+                            no_data_html += '</div>';
+                            $('#content_list').html(no_data_html);
+                        }else{
+                        	
+							$('#content_list').html(html);
+                        }
+					}
+				} else {
+					mui.toast(res.message);
+				}
+			},
+			error: error
+		});
+	}
+	
+</script>
